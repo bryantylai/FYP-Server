@@ -12,14 +12,11 @@ namespace ApolloAPI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class BMI
+    public partial class Role
     {
         public System.Guid Id { get; set; }
-        public double Height { get; set; }
-        public double Weight { get; set; }
-        public System.DateTime RecordTime { get; set; }
-        public System.Guid UserId { get; set; }
+        public string Name { get; set; }
     
-        public virtual People_User People_User { get; set; }
+        public virtual Credential Credential { get; set; }
     }
 }

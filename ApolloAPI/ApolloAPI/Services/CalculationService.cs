@@ -11,7 +11,7 @@ namespace ApolloAPI.Services
     {
         internal BMI CalculateBMI(BMI bmi)
         {
-            bmi.Result = bmi.Weight / Math.Pow(bmi.Height, 2);
+            bmi.RecordTime = DateTime.Now;
             return bmi;
         }
     }

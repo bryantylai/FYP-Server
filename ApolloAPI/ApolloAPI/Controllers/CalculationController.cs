@@ -20,7 +20,7 @@ namespace ApolloAPI.Controllers
             this.calculationService = new CalculationService();
         }
 
-        [Route("bmi/get/{height}/{weight}")]
+        [Route("bmi/{height}/{weight}")]
         [HttpGet]
         public BMI CalculateBmi(string height, string weight)
         {
