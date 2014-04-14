@@ -5,11 +5,13 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using ApolloAPI.Authorization;
 using ApolloAPI.Models;
 using ApolloAPI.Services;
 
 namespace ApolloAPI.Controllers
 {
+    [ApolloAuthorizeAttribute]
     [RoutePrefix("api/calculation")]
     public class CalculationController : ApiController
     {

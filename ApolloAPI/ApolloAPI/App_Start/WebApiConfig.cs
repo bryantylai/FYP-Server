@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using ApolloAPI.Authorization;
 
 namespace ApolloAPI
 {
@@ -10,6 +11,7 @@ namespace ApolloAPI
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            //config.Filters.Add(new ForceHttpsAttribute());
 
             // Web API routes
             config.MapHttpAttributeRoutes();
