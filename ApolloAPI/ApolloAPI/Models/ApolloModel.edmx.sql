@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/15/2014 23:31:42
+-- Date Created: 04/16/2014 00:05:27
 -- Generated from EDMX file: C:\Users\Lai\Documents\GitHub\FYP-Server\ApolloAPI\ApolloAPI\Models\ApolloModel.edmx
 -- --------------------------------------------------
 
@@ -19,6 +19,9 @@ GO
 
 IF OBJECT_ID(N'[dbo].[FK_UserBMI]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[BMIs] DROP CONSTRAINT [FK_UserBMI];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PersonCredential]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[People] DROP CONSTRAINT [FK_PersonCredential];
 GO
 IF OBJECT_ID(N'[dbo].[FK_User_inherits_Person]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[People_User] DROP CONSTRAINT [FK_User_inherits_Person];
@@ -64,7 +67,8 @@ CREATE TABLE [dbo].[People] (
     [FirstName] nvarchar(max)  NULL,
     [LastName] nvarchar(max)  NULL,
     [DateOfBirth] datetime  NULL,
-    [Gender] smallint  NULL
+    [Gender] smallint  NULL,
+    [PersonCredential_Person_Id] uniqueidentifier  NOT NULL
 );
 GO
 
@@ -74,7 +78,7 @@ CREATE TABLE [dbo].[BMIs] (
     [Height] float  NOT NULL,
     [Weight] float  NOT NULL,
     [RecordTime] datetime  NOT NULL,
-    [UserId] uniqueidentifier  NOT NULL
+    [User_Id] uniqueidentifier  NOT NULL
 );
 GO
 
@@ -150,10 +154,25 @@ GO
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
 
--- Creating foreign key on [UserId] in table 'BMIs'
+-- Creating foreign key on [PersonCredential_Person_Id] in table 'People'
+ALTER TABLE [dbo].[People]
+ADD CONSTRAINT [FK_PersonCredential]
+    FOREIGN KEY ([PersonCredential_Person_Id])
+    REFERENCES [dbo].[Credentials]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PersonCredential'
+CREATE INDEX [IX_FK_PersonCredential]
+ON [dbo].[People]
+    ([PersonCredential_Person_Id]);
+GO
+
+-- Creating foreign key on [User_Id] in table 'BMIs'
 ALTER TABLE [dbo].[BMIs]
 ADD CONSTRAINT [FK_UserBMI]
-    FOREIGN KEY ([UserId])
+    FOREIGN KEY ([User_Id])
     REFERENCES [dbo].[People_User]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -162,7 +181,7 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserBMI'
 CREATE INDEX [IX_FK_UserBMI]
 ON [dbo].[BMIs]
-    ([UserId]);
+    ([User_Id]);
 GO
 
 -- Creating foreign key on [Id] in table 'People_User'

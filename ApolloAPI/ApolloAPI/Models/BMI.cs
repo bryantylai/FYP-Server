@@ -18,6 +18,7 @@ namespace ApolloAPI.Models
         public double Height { get; set; }
         public double Weight { get; set; }
         public System.DateTime RecordTime { get; set; }
-        public System.Guid UserId { get; set; }
+    
+        public virtual User User { get; set; }
     }
 }

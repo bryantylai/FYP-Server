@@ -33,7 +33,8 @@ namespace ApolloAPI.Repositories
                 Email = email,
                 Username = username,
                 Password = password,
-                Role = Role.User
+                Role = Role.User,
+                Person = user
             };
 
             dbEntities.Credentials.Add(credential);
