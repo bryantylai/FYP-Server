@@ -32,7 +32,7 @@ namespace ApolloAPI.Services
 
         internal bool RegisterUser(RegistrationForm registrationForm)
         {
-            if (!authRepository.CheckForDuplicate(registrationForm.Email, registrationForm.Username, registrationForm.Password))
+            if (!authRepository.CheckForDuplicate(registrationForm.Email, registrationForm.Username))
             {
                 return authRepository.CreateNewUser(registrationForm.Email, registrationForm.Username, registrationForm.Password);
             }

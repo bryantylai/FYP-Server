@@ -14,9 +14,9 @@ namespace ApolloAPI.Repositories
             return dbEntities.Credentials.Any((c) => (c.Username == username && c.Password == password));
         }
 
-        internal bool CheckForDuplicate(string email, string username, string password)
+        internal bool CheckForDuplicate(string email, string username)
         {
-            return dbEntities.Credentials.Any((c) => (c.Email == email || c.Username == username || c.Password == password));
+            return dbEntities.Credentials.Any((c) => (c.Email == email || c.Username == username));
         }
 
         internal bool CreateNewUser(string email, string username, string password)
