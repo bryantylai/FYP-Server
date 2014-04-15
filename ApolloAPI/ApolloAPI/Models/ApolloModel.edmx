@@ -4,283 +4,244 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ApolloDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="BMIs">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Height" Type="float" Nullable="false" />
-          <Property Name="Weight" Type="float" Nullable="false" />
-          <Property Name="RecordTime" Type="datetime" Nullable="false" />
-          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
-        </EntityType>
-        <EntityType Name="People">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="DateOfBirth" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="People_Doctor">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
-        </EntityType>
-        <EntityType Name="People_Trainer">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
-        </EntityType>
-        <EntityType Name="People_User">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_Doctor_inherits_Person">
-          <End Role="People" Type="Self.People" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="People_Doctor" Type="Self.People_Doctor" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="People">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="People_Doctor">
-              <PropertyRef Name="id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Trainer_inherits_Person">
-          <End Role="People" Type="Self.People" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="People_Trainer" Type="Self.People_Trainer" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="People">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="People_Trainer">
-              <PropertyRef Name="id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_inherits_Person">
-          <End Role="People" Type="Self.People" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="People_User" Type="Self.People_User" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="People">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="People_User">
-              <PropertyRef Name="id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserBMI">
-          <End Role="People_User" Type="Self.People_User" Multiplicity="1" />
-          <End Role="BMIs" Type="Self.BMIs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="People_User">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="BMIs">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="ApolloDatabaseModelStoreContainer">
-          <EntitySet Name="BMIs" EntityType="Self.BMIs" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="People" EntityType="Self.People" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="People_Doctor" EntityType="Self.People_Doctor" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="People_Trainer" EntityType="Self.People_Trainer" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="People_User" EntityType="Self.People_User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Doctor_inherits_Person" Association="Self.FK_Doctor_inherits_Person">
-            <End Role="People" EntitySet="People" />
-            <End Role="People_Doctor" EntitySet="People_Doctor" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Trainer_inherits_Person" Association="Self.FK_Trainer_inherits_Person">
-            <End Role="People" EntitySet="People" />
-            <End Role="People_Trainer" EntitySet="People_Trainer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_inherits_Person" Association="Self.FK_User_inherits_Person">
-            <End Role="People" EntitySet="People" />
-            <End Role="People_User" EntitySet="People_User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserBMI" Association="Self.FK_UserBMI">
-            <End Role="People_User" EntitySet="People_User" />
-            <End Role="BMIs" EntitySet="BMIs" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
+    <Schema Namespace="ApolloDatabaseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ApolloDatabaseModelStoreContainer">
+    <EntitySet Name="People" EntityType="ApolloDatabaseModel.Store.People" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BMIs" EntityType="ApolloDatabaseModel.Store.BMIs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Credentials" EntityType="ApolloDatabaseModel.Store.Credentials" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="People_User" EntityType="ApolloDatabaseModel.Store.People_User" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="People_Trainer" EntityType="ApolloDatabaseModel.Store.People_Trainer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="People_Doctor" EntityType="ApolloDatabaseModel.Store.People_Doctor" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="PersonCredential" Association="ApolloDatabaseModel.Store.PersonCredential">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Credential" EntitySet="Credentials" />
+    </AssociationSet>
+    <AssociationSet Name="UserBMI" Association="ApolloDatabaseModel.Store.UserBMI">
+      <End Role="User" EntitySet="People_User" />
+      <End Role="BMI" EntitySet="BMIs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_inherits_Person" Association="ApolloDatabaseModel.Store.FK_User_inherits_Person">
+      <End Role="Person" EntitySet="People" />
+      <End Role="User" EntitySet="People_User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Trainer_inherits_Person" Association="ApolloDatabaseModel.Store.FK_Trainer_inherits_Person">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Trainer" EntitySet="People_Trainer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Doctor_inherits_Person" Association="ApolloDatabaseModel.Store.FK_Doctor_inherits_Person">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Doctor" EntitySet="People_Doctor" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="People">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DisplayName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateOfBirth" Type="datetime" Nullable="false" />
+    <Property Name="Gender" Type="smallint" Nullable="false" />
+    <Property Name="PersonCredential_Person_Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PersonCredential_Person_Username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PersonCredential_Person_Email" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BMIs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Height" Type="float" Nullable="false" />
+    <Property Name="Weight" Type="float" Nullable="false" />
+    <Property Name="RecordTime" Type="datetime" Nullable="false" />
+    <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Credentials">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Username" />
+      <PropertyRef Name="Email" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Role" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="People_User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="People_Trainer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="People_Doctor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <Association Name="PersonCredential">
+    <End Role="Person" Type="ApolloDatabaseModel.Store.People" Multiplicity="*" />
+    <End Role="Credential" Type="ApolloDatabaseModel.Store.Credentials" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Credential">
+        <PropertyRef Name="Id" />
+        <PropertyRef Name="Username" />
+        <PropertyRef Name="Email" />
+      </Principal>
+      <Dependent Role="Person">
+        <PropertyRef Name="PersonCredential_Person_Id" />
+        <PropertyRef Name="PersonCredential_Person_Username" />
+        <PropertyRef Name="PersonCredential_Person_Email" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserBMI">
+    <End Role="User" Type="ApolloDatabaseModel.Store.People_User" Multiplicity="1" />
+    <End Role="BMI" Type="ApolloDatabaseModel.Store.BMIs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BMI">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_inherits_Person">
+    <End Role="Person" Type="ApolloDatabaseModel.Store.People" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="User" Type="ApolloDatabaseModel.Store.People_User" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Trainer_inherits_Person">
+    <End Role="Person" Type="ApolloDatabaseModel.Store.People" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Trainer" Type="ApolloDatabaseModel.Store.People_Trainer" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Trainer">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Doctor_inherits_Person">
+    <End Role="Person" Type="ApolloDatabaseModel.Store.People" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Doctor" Type="ApolloDatabaseModel.Store.People_Doctor" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ApolloDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ApolloDatabaseEntities" annotation:LazyLoadingEnabled="true" >
-          <EntitySet Name="BMIs" EntityType="ApolloDatabaseModel.BMI" />
           <EntitySet Name="People" EntityType="ApolloDatabaseModel.Person" />
-          <EntitySet Name="People_Doctor" EntityType="ApolloDatabaseModel.People_Doctor" />
-          <EntitySet Name="People_Trainer" EntityType="ApolloDatabaseModel.People_Trainer" />
-          <EntitySet Name="People_User" EntityType="ApolloDatabaseModel.People_User" />
-          <AssociationSet Name="FK_UserBMI" Association="ApolloDatabaseModel.FK_UserBMI">
-            <End Role="People_User" EntitySet="People_User" />
-            <End Role="BMI" EntitySet="BMIs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Doctor_inherits_Person" Association="ApolloDatabaseModel.FK_Doctor_inherits_Person">
-            <End Role="Person" EntitySet="People" />
-            <End Role="People_Doctor" EntitySet="People_Doctor" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Trainer_inherits_Person" Association="ApolloDatabaseModel.FK_Trainer_inherits_Person">
-            <End Role="Person" EntitySet="People" />
-            <End Role="People_Trainer" EntitySet="People_Trainer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_inherits_Person" Association="ApolloDatabaseModel.FK_User_inherits_Person">
-            <End Role="Person" EntitySet="People" />
-            <End Role="People_User" EntitySet="People_User" />
-          </AssociationSet>
-          <EntitySet Name="Roles" EntityType="ApolloDatabaseModel.Role" />
+          <EntitySet Name="BMIs" EntityType="ApolloDatabaseModel.BMI" />
           <EntitySet Name="Credentials" EntityType="ApolloDatabaseModel.Credential" />
-          <AssociationSet Name="CredentialRole" Association="ApolloDatabaseModel.CredentialRole">
-            <End Role="Credential" EntitySet="Credentials" />
-            <End Role="Role" EntitySet="Roles" />
-          </AssociationSet>
           <AssociationSet Name="PersonCredential" Association="ApolloDatabaseModel.PersonCredential">
             <End Role="Person" EntitySet="People" />
             <End Role="Credential" EntitySet="Credentials" />
           </AssociationSet>
+          <AssociationSet Name="UserBMI" Association="ApolloDatabaseModel.UserBMI">
+            <End Role="User" EntitySet="People" />
+            <End Role="BMI" EntitySet="BMIs" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DisplayName" Type="String" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" />
+          <Property Name="Gender" Type="ApolloDatabaseModel.Gender" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User" BaseType="ApolloDatabaseModel.Person">
+          <NavigationProperty Name="BMIs" Relationship="ApolloDatabaseModel.UserBMI" FromRole="User" ToRole="BMI" />
+        </EntityType>
+        <EntityType Name="Trainer" BaseType="ApolloDatabaseModel.Person">
+          </EntityType>
+        <EntityType Name="Doctor" BaseType="ApolloDatabaseModel.Person" />
         <EntityType Name="BMI">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Name="Height" Type="Double" Nullable="false" />
           <Property Name="Weight" Type="Double" Nullable="false" />
-          <Property Name="RecordTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RecordTime" Type="DateTime" Nullable="false" />
+          <Property Name="PersonId" Type="Guid" Nullable="false" />
           <Property Name="UserId" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="People_User" Relationship="ApolloDatabaseModel.FK_UserBMI" FromRole="BMI" ToRole="People_User" />
         </EntityType>
-        <EntityType Name="Person">
+        <EntityType Name="Credential">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Username" />
+            <PropertyRef Name="Email" />
           </Key>
-          <Property Name="id" Type="Guid" Nullable="false" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="People_Doctor" Relationship="ApolloDatabaseModel.FK_Doctor_inherits_Person" FromRole="Person" ToRole="People_Doctor" />
-          <NavigationProperty Name="People_Trainer" Relationship="ApolloDatabaseModel.FK_Trainer_inherits_Person" FromRole="Person" ToRole="People_Trainer" />
-          <NavigationProperty Name="People_User" Relationship="ApolloDatabaseModel.FK_User_inherits_Person" FromRole="Person" ToRole="People_User" />
-          <NavigationProperty Name="Credential" Relationship="ApolloDatabaseModel.PersonCredential" FromRole="Person" ToRole="Credential" />
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Username" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="ApolloDatabaseModel.PersonCredential" FromRole="Credential" ToRole="Person" />
+          <Property Name="Role" Type="ApolloDatabaseModel.Role" Nullable="false" />
         </EntityType>
-        <EntityType Name="People_Doctor">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Person" Relationship="ApolloDatabaseModel.FK_Doctor_inherits_Person" FromRole="People_Doctor" ToRole="Person" />
-        </EntityType>
-        <EntityType Name="People_Trainer">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Person" Relationship="ApolloDatabaseModel.FK_Trainer_inherits_Person" FromRole="People_Trainer" ToRole="Person" />
-        </EntityType>
-        <EntityType Name="People_User">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="BMIs" Relationship="ApolloDatabaseModel.FK_UserBMI" FromRole="People_User" ToRole="BMI" />
-          <NavigationProperty Name="Person" Relationship="ApolloDatabaseModel.FK_User_inherits_Person" FromRole="People_User" ToRole="Person" />
-        </EntityType>
-        <Association Name="FK_UserBMI">
-          <End Type="ApolloDatabaseModel.People_User" Role="People_User" Multiplicity="1" />
+        <Association Name="PersonCredential">
+          <End Type="ApolloDatabaseModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="ApolloDatabaseModel.Credential" Role="Credential" Multiplicity="1" />
+        </Association>
+        <EnumType Name="Gender" UnderlyingType="Int16">
+          <Member Name="Male" />
+          <Member Name="Female" />
+          <Member Name="Unspecified" />
+        </EnumType>
+        <EnumType Name="Role" UnderlyingType="Int16">
+          <Member Name="Admin" />
+          <Member Name="Doctor" />
+          <Member Name="Trainer" />
+          <Member Name="User" />
+        </EnumType>
+        <Association Name="UserBMI">
+          <End Type="ApolloDatabaseModel.User" Role="User" Multiplicity="1" />
           <End Type="ApolloDatabaseModel.BMI" Role="BMI" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="People_User">
-              <PropertyRef Name="id" />
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="BMI">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Doctor_inherits_Person">
-          <End Type="ApolloDatabaseModel.Person" Role="Person" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="ApolloDatabaseModel.People_Doctor" Role="People_Doctor" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="People_Doctor">
-              <PropertyRef Name="id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Trainer_inherits_Person">
-          <End Type="ApolloDatabaseModel.Person" Role="Person" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="ApolloDatabaseModel.People_Trainer" Role="People_Trainer" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="People_Trainer">
-              <PropertyRef Name="id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_User_inherits_Person">
-          <End Type="ApolloDatabaseModel.Person" Role="Person" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="ApolloDatabaseModel.People_User" Role="People_User" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="People_User">
-              <PropertyRef Name="id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Name="Name" Type="String" Nullable="false" />
-          <NavigationProperty Name="Credential" Relationship="ApolloDatabaseModel.CredentialRole" FromRole="Role" ToRole="Credential" />
-        </EntityType>
-        <EntityType Name="Credential">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Name="Username" Type="String" Nullable="false" />
-          <Property Name="Password" Type="String" Nullable="false" />
-          <NavigationProperty Name="Role" Relationship="ApolloDatabaseModel.CredentialRole" FromRole="Credential" ToRole="Role" />
-          <NavigationProperty Name="Person" Relationship="ApolloDatabaseModel.PersonCredential" FromRole="Credential" ToRole="Person" />
-        </EntityType>
-        <Association Name="CredentialRole">
-          <End Type="ApolloDatabaseModel.Credential" Role="Credential" Multiplicity="1" />
-          <End Type="ApolloDatabaseModel.Role" Role="Role" Multiplicity="1" />
-        </Association>
-        <Association Name="PersonCredential">
-          <End Type="ApolloDatabaseModel.Person" Role="Person" Multiplicity="1" />
-          <End Type="ApolloDatabaseModel.Credential" Role="Credential" Multiplicity="1" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -288,6 +249,33 @@
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ApolloDatabaseModelStoreContainer" CdmEntityContainer="ApolloDatabaseEntities">
+    <EntitySetMapping Name="People">
+      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Person)">
+        <MappingFragment StoreEntitySet="People">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.User)">
+        <MappingFragment StoreEntitySet="People_User">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Trainer)">
+        <MappingFragment StoreEntitySet="People_Trainer">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Doctor)">
+        <MappingFragment StoreEntitySet="People_Doctor">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="BMIs">
       <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.BMI)">
         <MappingFragment StoreEntitySet="BMIs">
@@ -295,41 +283,32 @@
           <ScalarProperty Name="Height" ColumnName="Height" />
           <ScalarProperty Name="Weight" ColumnName="Weight" />
           <ScalarProperty Name="RecordTime" ColumnName="RecordTime" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="People">
-      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Person)">
-        <MappingFragment StoreEntitySet="People">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+    <EntitySetMapping Name="Credentials">
+      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Credential)">
+        <MappingFragment StoreEntitySet="Credentials">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="People_Doctor">
-      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.People_Doctor)">
-        <MappingFragment StoreEntitySet="People_Doctor">
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="People_Trainer">
-      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.People_Trainer)">
-        <MappingFragment StoreEntitySet="People_Trainer">
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="People_User">
-      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.People_User)">
-        <MappingFragment StoreEntitySet="People_User">
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+    <AssociationSetMapping Name="PersonCredential" TypeName="ApolloDatabaseModel.PersonCredential" StoreEntitySet="People">
+      <EndProperty Name="Credential">
+        <ScalarProperty Name="Id" ColumnName="PersonCredential_Person_Id" />
+        <ScalarProperty Name="Username" ColumnName="PersonCredential_Person_Username" />
+        <ScalarProperty Name="Email" ColumnName="PersonCredential_Person_Email" />
+      </EndProperty>
+      <EndProperty Name="Person">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

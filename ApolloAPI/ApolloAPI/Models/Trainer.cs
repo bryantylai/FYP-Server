@@ -12,10 +12,7 @@ namespace ApolloAPI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class People_Doctor
+    public partial class Trainer : Person
     {
-        public System.Guid id { get; set; }
-    
-        public virtual Person Person { get; set; }
     }
 }

@@ -168,19 +168,22 @@
     <Compile Include="Models\Credential.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\People_Doctor.cs">
+    <Compile Include="Models\Doctor.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\People_Trainer.cs">
-      <DependentUpon>ApolloModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\People_User.cs">
+    <Compile Include="Models\Gender.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Person.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Role.cs">
+      <DependentUpon>ApolloModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Trainer.cs">
+      <DependentUpon>ApolloModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

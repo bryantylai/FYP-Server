@@ -10,13 +10,12 @@
 namespace ApolloAPI.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Role
+    public enum Role : short
     {
-        public System.Guid Id { get; set; }
-        public string Name { get; set; }
-    
-        public virtual Credential Credential { get; set; }
+        Admin = 0,
+        Doctor = 1,
+        Trainer = 2,
+        User = 3
     }
 }

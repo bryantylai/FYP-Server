@@ -10,15 +10,11 @@
 namespace ApolloAPI.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Person
+    public enum Gender : short
     {
-        public System.Guid Id { get; set; }
-        public string DisplayName { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public System.DateTime DateOfBirth { get; set; }
-        public Gender Gender { get; set; }
+        Male = 0,
+        Female = 1,
+        Unspecified = 2
     }
 }

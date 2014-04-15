@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/14/2014 15:56:41
+-- Date Created: 04/15/2014 16:03:39
 -- Generated from EDMX file: C:\Users\Lai\Documents\GitHub\FYP-Server\ApolloAPI\ApolloAPI\Models\ApolloModel.edmx
 -- --------------------------------------------------
 
@@ -17,42 +17,29 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_UserBMI]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[BMIs] DROP CONSTRAINT [FK_UserBMI];
-GO
-IF OBJECT_ID(N'[dbo].[FK_Doctor_inherits_Person]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[People_Doctor] DROP CONSTRAINT [FK_Doctor_inherits_Person];
-GO
-IF OBJECT_ID(N'[dbo].[FK_Trainer_inherits_Person]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[People_Trainer] DROP CONSTRAINT [FK_Trainer_inherits_Person];
-GO
-IF OBJECT_ID(N'[dbo].[FK_User_inherits_Person]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[People_User] DROP CONSTRAINT [FK_User_inherits_Person];
-GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[BMIs]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[BMIs];
-GO
-IF OBJECT_ID(N'[dbo].[People]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[People];
-GO
-IF OBJECT_ID(N'[dbo].[People_Doctor]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[People_Doctor];
-GO
-IF OBJECT_ID(N'[dbo].[People_Trainer]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[People_Trainer];
-GO
-IF OBJECT_ID(N'[dbo].[People_User]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[People_User];
-GO
 
 -- --------------------------------------------------
 -- Creating all tables
 -- --------------------------------------------------
+
+-- Creating table 'People'
+CREATE TABLE [dbo].[People] (
+    [Id] uniqueidentifier  NOT NULL,
+    [DisplayName] nvarchar(max)  NOT NULL,
+    [FirstName] nvarchar(max)  NOT NULL,
+    [LastName] nvarchar(max)  NOT NULL,
+    [DateOfBirth] datetime  NOT NULL,
+    [Gender] smallint  NOT NULL,
+    [PersonCredential_Person_Id] uniqueidentifier  NOT NULL,
+    [PersonCredential_Person_Username] nvarchar(max)  NOT NULL,
+    [PersonCredential_Person_Email] nvarchar(max)  NOT NULL
+);
+GO
 
 -- Creating table 'BMIs'
 CREATE TABLE [dbo].[BMIs] (
@@ -60,34 +47,36 @@ CREATE TABLE [dbo].[BMIs] (
     [Height] float  NOT NULL,
     [Weight] float  NOT NULL,
     [RecordTime] datetime  NOT NULL,
+    [PersonId] uniqueidentifier  NOT NULL,
     [UserId] uniqueidentifier  NOT NULL
 );
 GO
 
--- Creating table 'People'
-CREATE TABLE [dbo].[People] (
-    [id] uniqueidentifier  NOT NULL,
-    [FirstName] nvarchar(max)  NOT NULL,
-    [LastName] nvarchar(max)  NOT NULL,
-    [DateOfBirth] datetime  NOT NULL
-);
-GO
-
--- Creating table 'People_Doctor'
-CREATE TABLE [dbo].[People_Doctor] (
-    [id] uniqueidentifier  NOT NULL
-);
-GO
-
--- Creating table 'People_Trainer'
-CREATE TABLE [dbo].[People_Trainer] (
-    [id] uniqueidentifier  NOT NULL
+-- Creating table 'Credentials'
+CREATE TABLE [dbo].[Credentials] (
+    [Id] uniqueidentifier  NOT NULL,
+    [Username] nvarchar(max)  NOT NULL,
+    [Email] nvarchar(max)  NOT NULL,
+    [Password] nvarchar(max)  NOT NULL,
+    [Role] smallint  NOT NULL
 );
 GO
 
 -- Creating table 'People_User'
 CREATE TABLE [dbo].[People_User] (
-    [id] uniqueidentifier  NOT NULL
+    [Id] uniqueidentifier  NOT NULL
+);
+GO
+
+-- Creating table 'People_Trainer'
+CREATE TABLE [dbo].[People_Trainer] (
+    [Id] uniqueidentifier  NOT NULL
+);
+GO
+
+-- Creating table 'People_Doctor'
+CREATE TABLE [dbo].[People_Doctor] (
+    [Id] uniqueidentifier  NOT NULL
 );
 GO
 
@@ -95,46 +84,67 @@ GO
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
 
+-- Creating primary key on [Id] in table 'People'
+ALTER TABLE [dbo].[People]
+ADD CONSTRAINT [PK_People]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- Creating primary key on [Id] in table 'BMIs'
 ALTER TABLE [dbo].[BMIs]
 ADD CONSTRAINT [PK_BMIs]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [id] in table 'People'
-ALTER TABLE [dbo].[People]
-ADD CONSTRAINT [PK_People]
-    PRIMARY KEY CLUSTERED ([id] ASC);
+-- Creating primary key on [Id], [Username], [Email] in table 'Credentials'
+ALTER TABLE [dbo].[Credentials]
+ADD CONSTRAINT [PK_Credentials]
+    PRIMARY KEY CLUSTERED ([Id], [Username], [Email] ASC);
 GO
 
--- Creating primary key on [id] in table 'People_Doctor'
-ALTER TABLE [dbo].[People_Doctor]
-ADD CONSTRAINT [PK_People_Doctor]
-    PRIMARY KEY CLUSTERED ([id] ASC);
-GO
-
--- Creating primary key on [id] in table 'People_Trainer'
-ALTER TABLE [dbo].[People_Trainer]
-ADD CONSTRAINT [PK_People_Trainer]
-    PRIMARY KEY CLUSTERED ([id] ASC);
-GO
-
--- Creating primary key on [id] in table 'People_User'
+-- Creating primary key on [Id] in table 'People_User'
 ALTER TABLE [dbo].[People_User]
 ADD CONSTRAINT [PK_People_User]
-    PRIMARY KEY CLUSTERED ([id] ASC);
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'People_Trainer'
+ALTER TABLE [dbo].[People_Trainer]
+ADD CONSTRAINT [PK_People_Trainer]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'People_Doctor'
+ALTER TABLE [dbo].[People_Doctor]
+ADD CONSTRAINT [PK_People_Doctor]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
 
+-- Creating foreign key on [PersonCredential_Person_Id], [PersonCredential_Person_Username], [PersonCredential_Person_Email] in table 'People'
+ALTER TABLE [dbo].[People]
+ADD CONSTRAINT [FK_PersonCredential]
+    FOREIGN KEY ([PersonCredential_Person_Id], [PersonCredential_Person_Username], [PersonCredential_Person_Email])
+    REFERENCES [dbo].[Credentials]
+        ([Id], [Username], [Email])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PersonCredential'
+CREATE INDEX [IX_FK_PersonCredential]
+ON [dbo].[People]
+    ([PersonCredential_Person_Id], [PersonCredential_Person_Username], [PersonCredential_Person_Email]);
+GO
+
 -- Creating foreign key on [UserId] in table 'BMIs'
 ALTER TABLE [dbo].[BMIs]
 ADD CONSTRAINT [FK_UserBMI]
     FOREIGN KEY ([UserId])
     REFERENCES [dbo].[People_User]
-        ([id])
+        ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
@@ -144,30 +154,30 @@ ON [dbo].[BMIs]
     ([UserId]);
 GO
 
--- Creating foreign key on [id] in table 'People_Doctor'
-ALTER TABLE [dbo].[People_Doctor]
-ADD CONSTRAINT [FK_Doctor_inherits_Person]
-    FOREIGN KEY ([id])
-    REFERENCES [dbo].[People]
-        ([id])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [id] in table 'People_Trainer'
-ALTER TABLE [dbo].[People_Trainer]
-ADD CONSTRAINT [FK_Trainer_inherits_Person]
-    FOREIGN KEY ([id])
-    REFERENCES [dbo].[People]
-        ([id])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [id] in table 'People_User'
+-- Creating foreign key on [Id] in table 'People_User'
 ALTER TABLE [dbo].[People_User]
 ADD CONSTRAINT [FK_User_inherits_Person]
-    FOREIGN KEY ([id])
+    FOREIGN KEY ([Id])
     REFERENCES [dbo].[People]
-        ([id])
+        ([Id])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Id] in table 'People_Trainer'
+ALTER TABLE [dbo].[People_Trainer]
+ADD CONSTRAINT [FK_Trainer_inherits_Person]
+    FOREIGN KEY ([Id])
+    REFERENCES [dbo].[People]
+        ([Id])
+    ON DELETE CASCADE ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Id] in table 'People_Doctor'
+ALTER TABLE [dbo].[People_Doctor]
+ADD CONSTRAINT [FK_Doctor_inherits_Person]
+    FOREIGN KEY ([Id])
+    REFERENCES [dbo].[People]
+        ([Id])
     ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 

@@ -25,12 +25,8 @@ namespace ApolloAPI.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<BMI> BMIs { get; set; }
         public DbSet<Person> People { get; set; }
-        public DbSet<People_Doctor> People_Doctor { get; set; }
-        public DbSet<People_Trainer> People_Trainer { get; set; }
-        public DbSet<People_User> People_User { get; set; }
-        public DbSet<Role> Roles { get; set; }
+        public DbSet<BMI> BMIs { get; set; }
         public DbSet<Credential> Credentials { get; set; }
     }
 }

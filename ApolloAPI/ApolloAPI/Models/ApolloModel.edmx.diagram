@@ -5,19 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="405b2c8a6cbe424d8eef691e593f4677" Name="Diagram1" DisplayType="true" ShowGrid="true" ZoomLevel="97" >
-        <EntityTypeShape EntityType="ApolloDatabaseModel.BMI" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="ApolloDatabaseModel.Person" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="ApolloDatabaseModel.People_Doctor" Width="1.5" PointX="3" PointY="3.375" IsExpanded="false" />
-        <EntityTypeShape EntityType="ApolloDatabaseModel.People_Trainer" Width="1.5" PointX="3" PointY="1" IsExpanded="false" />
-        <EntityTypeShape EntityType="ApolloDatabaseModel.People_User" Width="1.5" PointX="3" PointY="4.5" IsExpanded="false" />
-        <AssociationConnector Association="ApolloDatabaseModel.FK_UserBMI" />
-        <AssociationConnector Association="ApolloDatabaseModel.FK_Doctor_inherits_Person" />
-        <AssociationConnector Association="ApolloDatabaseModel.FK_Trainer_inherits_Person" />
-        <AssociationConnector Association="ApolloDatabaseModel.FK_User_inherits_Person" />
-        <EntityTypeShape EntityType="ApolloDatabaseModel.Role" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="false" />
-        <EntityTypeShape EntityType="ApolloDatabaseModel.Credential" Width="1.5" PointX="3" PointY="2.125" IsExpanded="false" />
-        <AssociationConnector Association="ApolloDatabaseModel.CredentialRole" />
+        <EntityTypeShape EntityType="ApolloDatabaseModel.Person" Width="1.5" PointX="24" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApolloDatabaseModel.User" Width="1.5" PointX="26.625" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApolloDatabaseModel.Trainer" Width="1.5" PointX="22.875" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApolloDatabaseModel.Doctor" Width="1.5" PointX="29.125" PointY="3.625" IsExpanded="true" />
+        <InheritanceConnector EntityType="ApolloDatabaseModel.Doctor" />
+        <InheritanceConnector EntityType="ApolloDatabaseModel.Trainer" />
+        <InheritanceConnector EntityType="ApolloDatabaseModel.User" />
+        <EntityTypeShape EntityType="ApolloDatabaseModel.BMI" Width="1.5" PointX="26.625" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApolloDatabaseModel.Credential" Width="1.5" PointX="21.375" PointY="5.875" IsExpanded="true" />
         <AssociationConnector Association="ApolloDatabaseModel.PersonCredential" />
+        <AssociationConnector Association="ApolloDatabaseModel.UserBMI" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
