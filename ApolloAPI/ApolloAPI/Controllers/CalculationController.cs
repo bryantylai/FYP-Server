@@ -11,6 +11,7 @@ using ApolloAPI.Services;
 
 namespace ApolloAPI.Controllers
 {
+    [ForceHttps()]
     [ApolloAuthorizeAttribute]
     [RoutePrefix("api/calculation")]
     public class CalculationController : ApiController

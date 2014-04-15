@@ -16,7 +16,7 @@ namespace ApolloAPI.Authorization
 {
     public class ApolloAuthorizeAttribute : AuthorizationFilterAttribute
     {
-        public override void OnAuthorization(System.Web.Http.Controllers.HttpActionContext actionContext)
+        public override void OnAuthorization(HttpActionContext actionContext)
         {
             //Case that user is authenticated using forms authentication
             //so no need to check header for basic authentication.
@@ -38,7 +38,7 @@ namespace ApolloAPI.Authorization
                     
                     //You can use Websecurity or asp.net memebrship provider to login, for
                     //for he sake of keeping example simple, we used out own login functionality
-                    if (AuthRepository.Login(userName, password))
+                    if (AuthRepository.CheckLoginCredentials(userName, password))
                     {
                         var currentPrincipal = new GenericPrincipal(new GenericIdentity(userName), null);
                         Thread.CurrentPrincipal = currentPrincipal;
@@ -91,8 +91,8 @@ namespace ApolloAPI.Authorization
         {
             actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
 
-            //actionContext.Response.Headers.Add("WWW-Authenticate",
-            //"Basic Scheme='Basic' location='http://localhost:4167/api/auth/login'");
+            actionContext.Response.Headers.Add("WWW-Authenticate",
+            "Basic Scheme='Basic' location='http://localhost:4167/api/auth/login'");
 
         }
     }

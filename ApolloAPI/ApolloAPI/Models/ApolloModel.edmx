@@ -200,14 +200,11 @@
           <Property Name="Height" Type="Double" Nullable="false" />
           <Property Name="Weight" Type="Double" Nullable="false" />
           <Property Name="RecordTime" Type="DateTime" Nullable="false" />
-          <Property Name="PersonId" Type="Guid" Nullable="false" />
           <Property Name="UserId" Type="Guid" Nullable="false" />
         </EntityType>
         <EntityType Name="Credential">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="Username" />
-            <PropertyRef Name="Email" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Name="Username" Type="String" Nullable="false" />
@@ -283,8 +280,6 @@
           <ScalarProperty Name="Height" ColumnName="Height" />
           <ScalarProperty Name="Weight" ColumnName="Weight" />
           <ScalarProperty Name="RecordTime" ColumnName="RecordTime" />
-          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
