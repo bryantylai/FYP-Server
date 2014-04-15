@@ -21,6 +21,12 @@ namespace ApolloAPI.Repositories
 
         internal bool CreateNewUser(string email, string username, string password)
         {
+            User user = new User()
+            {
+                Id = Guid.NewGuid()
+            };
+            dbEntities.People.Add(user);
+
             Credential credential = new Credential()
             {
                 Id = Guid.NewGuid(),

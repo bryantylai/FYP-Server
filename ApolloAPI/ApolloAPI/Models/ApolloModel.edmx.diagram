@@ -5,15 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="405b2c8a6cbe424d8eef691e593f4677" Name="Diagram1" DisplayType="true" ShowGrid="true" ZoomLevel="97" >
-        <EntityTypeShape EntityType="ApolloDatabaseModel.Person" Width="1.5" PointX="24" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApolloDatabaseModel.User" Width="1.5" PointX="26.625" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApolloDatabaseModel.Trainer" Width="1.5" PointX="22.875" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApolloDatabaseModel.Doctor" Width="1.5" PointX="29.125" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApolloDatabaseModel.Person" Width="1.5" PointX="6.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApolloDatabaseModel.User" Width="1.5" PointX="6.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApolloDatabaseModel.Trainer" Width="1.5" PointX="3.125" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApolloDatabaseModel.Doctor" Width="1.5" PointX="9.375" PointY="3.625" IsExpanded="true" />
         <InheritanceConnector EntityType="ApolloDatabaseModel.Doctor" />
         <InheritanceConnector EntityType="ApolloDatabaseModel.Trainer" />
         <InheritanceConnector EntityType="ApolloDatabaseModel.User" />
-        <EntityTypeShape EntityType="ApolloDatabaseModel.BMI" Width="1.5" PointX="26.625" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ApolloDatabaseModel.Credential" Width="1.5" PointX="21.375" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApolloDatabaseModel.BMI" Width="1.5" PointX="6.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ApolloDatabaseModel.Credential" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
         <AssociationConnector Association="ApolloDatabaseModel.UserBMI" />
       </Diagram>
     </edmx:Diagrams>

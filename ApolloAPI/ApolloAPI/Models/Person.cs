@@ -18,7 +18,7 @@ namespace ApolloAPI.Models
         public string DisplayName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public System.DateTime DateOfBirth { get; set; }
-        public Gender Gender { get; set; }
+        public Nullable<System.DateTime> DateOfBirth { get; set; }
+        public Nullable<Gender> Gender { get; set; }
     }
 }

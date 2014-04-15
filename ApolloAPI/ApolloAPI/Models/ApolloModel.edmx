@@ -33,12 +33,12 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="DisplayName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DateOfBirth" Type="datetime" Nullable="false" />
-    <Property Name="Gender" Type="smallint" Nullable="false" />
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DisplayName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="DateOfBirth" Type="datetime" Nullable="true" />
+    <Property Name="Gender" Type="smallint" Nullable="true" />
   </EntityType>
   <EntityType Name="BMIs">
     <Key>
@@ -149,12 +149,12 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DisplayName" Type="String" Nullable="false" />
-          <Property Name="FirstName" Type="String" Nullable="false" />
-          <Property Name="LastName" Type="String" Nullable="false" />
-          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" />
-          <Property Name="Gender" Type="ApolloDatabaseModel.Gender" Nullable="false" />
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="DisplayName" Type="String" Nullable="true" />
+          <Property Name="FirstName" Type="String" Nullable="true" />
+          <Property Name="LastName" Type="String" Nullable="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="true" />
+          <Property Name="Gender" Type="ApolloDatabaseModel.Gender" Nullable="true" />
         </EntityType>
         <EntityType Name="User" BaseType="ApolloDatabaseModel.Person">
           <NavigationProperty Name="BMIs" Relationship="ApolloDatabaseModel.UserBMI" FromRole="User" ToRole="BMI" />
