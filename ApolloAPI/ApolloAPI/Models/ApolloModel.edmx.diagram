@@ -14,7 +14,6 @@
         <InheritanceConnector EntityType="ApolloDatabaseModel.User" />
         <EntityTypeShape EntityType="ApolloDatabaseModel.BMI" Width="1.5" PointX="26.625" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ApolloDatabaseModel.Credential" Width="1.5" PointX="21.375" PointY="5.875" IsExpanded="true" />
-        <AssociationConnector Association="ApolloDatabaseModel.PersonCredential" />
         <AssociationConnector Association="ApolloDatabaseModel.UserBMI" />
       </Diagram>
     </edmx:Diagrams>

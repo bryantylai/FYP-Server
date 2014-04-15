@@ -1,31 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using ApolloAPI.Models;
 
 namespace ApolloAPI.Repositories
 {
-    public class AuthRepository
+    public class AuthRepository : AbstractRepository
     {
-
-        internal static bool CheckForDuplicate(string email, string username, string password)
+        internal bool CheckLoginCredentials(string username, string password)
         {
-            ApolloDatabaseEntities dbContext = new ApolloDatabaseEntities();
-
-            var query = dbContext.Credentials.Any((c) => (c.Email == email || c.Username == username || c.Password == password));
-
-            return query;
+            return dbEntities.Credentials.Any((c) => (c.Username == username && c.Password == password));
         }
 
-        internal static bool CreateNewUser(string email, string username, string password)
+        internal bool CheckForDuplicate(string email, string username, string password)
         {
-            throw new NotImplementedException();
+            return dbEntities.Credentials.Any((c) => (c.Email == email || c.Username == username || c.Password == password));
         }
 
-        internal static bool CheckLoginCredentials(string username, string password)
+        internal bool CreateNewUser(string email, string username, string password)
         {
-            return true;
+            Credential credential = new Credential()
+            {
+                Id = Guid.NewGuid(),
+                Email = email,
+                Username = username,
+                Password = password,
+                Role = Role.User
+            };
+
+            dbEntities.Credentials.Add(credential);
+
+            return (dbEntities.SaveChanges() != 0);
+        }
+
+        /// <summary>
+        /// testing method
+        /// </summary>
+        /// <returns></returns>
+        internal IEnumerable<Credential> GetAllCredentials()
+        {
+            return dbEntities.Credentials.ToList();
         }
     }
 }

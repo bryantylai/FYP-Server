@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/15/2014 16:03:39
+-- Date Created: 04/15/2014 22:04:51
 -- Generated from EDMX file: C:\Users\Lai\Documents\GitHub\FYP-Server\ApolloAPI\ApolloAPI\Models\ApolloModel.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,41 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_UserBMI]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[BMIs] DROP CONSTRAINT [FK_UserBMI];
+GO
+IF OBJECT_ID(N'[dbo].[FK_User_inherits_Person]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[People_User] DROP CONSTRAINT [FK_User_inherits_Person];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Trainer_inherits_Person]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[People_Trainer] DROP CONSTRAINT [FK_Trainer_inherits_Person];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Doctor_inherits_Person]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[People_Doctor] DROP CONSTRAINT [FK_Doctor_inherits_Person];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[People]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[People];
+GO
+IF OBJECT_ID(N'[dbo].[BMIs]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[BMIs];
+GO
+IF OBJECT_ID(N'[dbo].[Credentials]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Credentials];
+GO
+IF OBJECT_ID(N'[dbo].[People_User]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[People_User];
+GO
+IF OBJECT_ID(N'[dbo].[People_Trainer]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[People_Trainer];
+GO
+IF OBJECT_ID(N'[dbo].[People_Doctor]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[People_Doctor];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -34,10 +64,7 @@ CREATE TABLE [dbo].[People] (
     [FirstName] nvarchar(max)  NOT NULL,
     [LastName] nvarchar(max)  NOT NULL,
     [DateOfBirth] datetime  NOT NULL,
-    [Gender] smallint  NOT NULL,
-    [PersonCredential_Person_Id] uniqueidentifier  NOT NULL,
-    [PersonCredential_Person_Username] nvarchar(max)  NOT NULL,
-    [PersonCredential_Person_Email] nvarchar(max)  NOT NULL
+    [Gender] smallint  NOT NULL
 );
 GO
 
@@ -47,7 +74,6 @@ CREATE TABLE [dbo].[BMIs] (
     [Height] float  NOT NULL,
     [Weight] float  NOT NULL,
     [RecordTime] datetime  NOT NULL,
-    [PersonId] uniqueidentifier  NOT NULL,
     [UserId] uniqueidentifier  NOT NULL
 );
 GO
@@ -96,10 +122,10 @@ ADD CONSTRAINT [PK_BMIs]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id], [Username], [Email] in table 'Credentials'
+-- Creating primary key on [Id] in table 'Credentials'
 ALTER TABLE [dbo].[Credentials]
 ADD CONSTRAINT [PK_Credentials]
-    PRIMARY KEY CLUSTERED ([Id], [Username], [Email] ASC);
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
 -- Creating primary key on [Id] in table 'People_User'
@@ -123,21 +149,6 @@ GO
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
-
--- Creating foreign key on [PersonCredential_Person_Id], [PersonCredential_Person_Username], [PersonCredential_Person_Email] in table 'People'
-ALTER TABLE [dbo].[People]
-ADD CONSTRAINT [FK_PersonCredential]
-    FOREIGN KEY ([PersonCredential_Person_Id], [PersonCredential_Person_Username], [PersonCredential_Person_Email])
-    REFERENCES [dbo].[Credentials]
-        ([Id], [Username], [Email])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_PersonCredential'
-CREATE INDEX [IX_FK_PersonCredential]
-ON [dbo].[People]
-    ([PersonCredential_Person_Id], [PersonCredential_Person_Username], [PersonCredential_Person_Email]);
-GO
 
 -- Creating foreign key on [UserId] in table 'BMIs'
 ALTER TABLE [dbo].[BMIs]

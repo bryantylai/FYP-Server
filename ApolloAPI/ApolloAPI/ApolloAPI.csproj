@@ -188,6 +188,7 @@
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AbstractRepository.cs" />
     <Compile Include="Repositories\AuthRepository.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\CalculationService.cs" />

@@ -11,8 +11,8 @@ using ApolloAPI.Services;
 
 namespace ApolloAPI.Controllers
 {
-    [ForceHttps()]
-    [ApolloAuthorizeAttribute]
+    //[ForceHttps()]
+    //[ApolloAuthorizeAttribute]
     [RoutePrefix("api/auth")]
     public class AuthController : ApiController
     {
@@ -28,9 +28,28 @@ namespace ApolloAPI.Controllers
         /// </summary>
         [Route("login")]
         [HttpGet]
-        public Person Login()
+        public HttpResponseMessage Login()
         {
-            return new Person();
+            RegistrationForm regForm = new RegistrationForm()
+            {
+                Email = "a@a.com",
+                Username = "abc",
+                Password = "abc"
+            };
+
+            authService.RegisterUser(regForm);
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        /// <summary>
+        /// Testing method
+        /// </summary>
+        [Route("get-cred")]
+        [HttpGet]
+        public IEnumerable<Credential> GetCredentials()
+        {
+            return authService.GetAllCredentials();
         }
 
         [Route("register")]
