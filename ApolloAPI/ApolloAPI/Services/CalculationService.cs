@@ -39,9 +39,7 @@ namespace ApolloAPI.Services
                     UserId = bmiForm.UserId
                 };
 
-                user.BMIs.Add(bmi);
-
-                return calculationRepository.RecordBMI(user, bmi);
+                return calculationRepository.RecordBMI(bmi);
             }
 
             return false;

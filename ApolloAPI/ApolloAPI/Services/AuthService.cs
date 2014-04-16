@@ -62,7 +62,7 @@ namespace ApolloAPI.Services
                     Password = registrationForm.Password,
                     Role = Role.User,
                     CreatedAt = DateTime.UtcNow,
-                    Person = user
+                    PersonId = user.Id
                 };
 
                 return authRepository.CreateNewUser(user, credential);

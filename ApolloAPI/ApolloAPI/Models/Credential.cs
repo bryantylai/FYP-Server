@@ -20,7 +20,6 @@ namespace ApolloAPI.Models
         public string Password { get; set; }
         public Role Role { get; set; }
         public System.DateTime CreatedAt { get; set; }
-    
-        public virtual Person Person { get; set; }
+        public System.Guid PersonId { get; set; }
     }
 }

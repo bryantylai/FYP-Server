@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/16/2014 17:32:46
+-- Date Created: 04/16/2014 23:09:30
 -- Generated from EDMX file: C:\Users\Lai\Documents\GitHub\FYP-Server\ApolloAPI\ApolloAPI\Models\ApolloModel.edmx
 -- --------------------------------------------------
 
@@ -67,8 +67,7 @@ CREATE TABLE [dbo].[People] (
     [FirstName] nvarchar(max)  NULL,
     [LastName] nvarchar(max)  NULL,
     [DateOfBirth] datetime  NULL,
-    [Gender] smallint  NULL,
-    [PersonCredential_Person_Id] uniqueidentifier  NOT NULL
+    [Gender] smallint  NULL
 );
 GO
 
@@ -89,7 +88,8 @@ CREATE TABLE [dbo].[Credentials] (
     [Email] nvarchar(max)  NOT NULL,
     [Password] nvarchar(max)  NOT NULL,
     [Role] smallint  NOT NULL,
-    [CreatedAt] datetime  NOT NULL
+    [CreatedAt] datetime  NOT NULL,
+    [PersonId] uniqueidentifier  NOT NULL
 );
 GO
 
@@ -127,10 +127,10 @@ ADD CONSTRAINT [PK_BMIs]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Credentials'
+-- Creating primary key on [Id], [PersonId] in table 'Credentials'
 ALTER TABLE [dbo].[Credentials]
 ADD CONSTRAINT [PK_Credentials]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
+    PRIMARY KEY CLUSTERED ([Id], [PersonId] ASC);
 GO
 
 -- Creating primary key on [Id] in table 'People_User'
@@ -154,21 +154,6 @@ GO
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
-
--- Creating foreign key on [PersonCredential_Person_Id] in table 'People'
-ALTER TABLE [dbo].[People]
-ADD CONSTRAINT [FK_PersonCredential]
-    FOREIGN KEY ([PersonCredential_Person_Id])
-    REFERENCES [dbo].[Credentials]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_PersonCredential'
-CREATE INDEX [IX_FK_PersonCredential]
-ON [dbo].[People]
-    ([PersonCredential_Person_Id]);
-GO
 
 -- Creating foreign key on [UserId] in table 'BMIs'
 ALTER TABLE [dbo].[BMIs]
