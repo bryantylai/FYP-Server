@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using ApolloAPI.Data;
+using ApolloAPI.Models;
 using ApolloAPI.Repositories;
 
 namespace ApolloAPI.Services
@@ -48,7 +49,23 @@ namespace ApolloAPI.Services
         {
             if (!authRepository.CheckForDuplicate(registrationForm.Email, registrationForm.Username))
             {
-                return authRepository.CreateNewUser(registrationForm.Email, registrationForm.Username, registrationForm.Password);
+                User user = new User()
+                {
+                    Id = Guid.NewGuid()
+                };
+
+                Credential credential = new Credential()
+                {
+                    Id = Guid.NewGuid(),
+                    Email = registrationForm.Email,
+                    Username = registrationForm.Username,
+                    Password = registrationForm.Password,
+                    Role = Role.User,
+                    CreatedAt = DateTime.UtcNow,
+                    Person = user
+                };
+
+                return authRepository.CreateNewUser(user, credential);
             }
 
             return false;

@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using ApolloAPI.Authorization;
+using ApolloAPI.Data.Calculation;
 using ApolloAPI.Models;
 using ApolloAPI.Services;
 
@@ -27,15 +28,14 @@ namespace ApolloAPI.Controllers
         [HttpGet]
         public BMI CalculateBmi(string height, string weight)
         {
-            BMI bmi = new BMI() { Height = Convert.ToDouble(height) / 100, Weight = Convert.ToDouble(weight) };
-            return this.calculationService.CalculateBMI(bmi);
+            return new BMI() { Height = Convert.ToDouble(height) / 100, Weight = Convert.ToDouble(weight) };
         }
 
         [Route("bmi")]
         [HttpPost]
-        public BMI CalculateBmi([FromBody] BMI bmi)
+        public HttpResponseMessage CalculateBmi([FromBody] BMIForm bmiForm)
         {
-            return this.calculationService.CalculateBMI(bmi);
+            return calculationService.CalculateBMI(bmiForm) ? new HttpResponseMessage(HttpStatusCode.OK) : new HttpResponseMessage(HttpStatusCode.BadRequest);
         }
     }
 }
