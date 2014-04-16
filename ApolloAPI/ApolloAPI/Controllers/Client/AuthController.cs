@@ -24,17 +24,20 @@ namespace ApolloAPI.Controllers
         }
 
         /// <summary>
-        /// Testing method
+        /// Testing method for registration
         /// </summary>
-        [Route("login")]
-        [HttpGet]
-        public HttpResponseMessage Login()
+        /// <param name="username">Username</param>
+        /// <param name="password">Password</param>
+        /// <returns>HttpResponseMessage</returns>
+        [Route("register/{username}/{password}")]
+        [HttpGet]        
+        public HttpResponseMessage Register(string username, string password)
         {
             RegistrationForm regForm = new RegistrationForm()
             {
-                Email = "a@a.com",
-                Username = "abc",
-                Password = "abc"
+                Email = username + "@a.com",
+                Username = username,
+                Password = password
             };
 
             authService.RegisterUser(regForm);
@@ -56,20 +59,24 @@ namespace ApolloAPI.Controllers
         [HttpPost]
         public HttpResponseMessage Register([FromBody] RegistrationForm registrationForm)
         {
-            if (authService.ValidateForm(registrationForm))
+            if (authService.ValidateForm(registrationForm) && authService.RegisterUser(registrationForm))
             {
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
 
-            authService.RegisterUser(registrationForm);
             return new HttpResponseMessage(HttpStatusCode.BadRequest);
         }
 
         [Route("login")]
         [HttpPost]
-        public void Login([FromBody] LoginForm loginForm)
+        public HttpResponseMessage Login([FromBody] LoginForm loginForm)
         {
+            if (authService.ValidateForm(loginForm) && authService.LoginUser(loginForm))
+            {
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
 
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
         }
     }
 }

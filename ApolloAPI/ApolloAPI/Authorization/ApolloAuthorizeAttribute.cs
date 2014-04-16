@@ -38,7 +38,7 @@ namespace ApolloAPI.Authorization
                     
                     //You can use Websecurity or asp.net memebrship provider to login, for
                     //for he sake of keeping example simple, we used out own login functionality
-                    if (new AuthRepository().CheckLoginCredentials(userName, password))
+                    if (new AuthRepository().CheckLoginCredentials(userName, userName, password))
                     {
                         var currentPrincipal = new GenericPrincipal(new GenericIdentity(userName), null);
                         Thread.CurrentPrincipal = currentPrincipal;

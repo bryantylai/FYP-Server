@@ -9,9 +9,9 @@ namespace ApolloAPI.Repositories
 {
     public class AuthRepository : AbstractRepository
     {
-        internal bool CheckLoginCredentials(string username, string password)
+        internal bool CheckLoginCredentials(string email, string username, string password)
         {
-            return dbEntities.Credentials.Any((c) => (c.Username == username && c.Password == password));
+            return dbEntities.Credentials.Any((c) => ((c.Email == email || c.Username == username) && c.Password == password));
         }
 
         internal bool CheckForDuplicate(string email, string username)

@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -140,10 +141,12 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Authorization\ApolloAuthorizeAttribute.cs" />
     <Compile Include="Authorization\ForceHttpsAttribute.cs" />
-    <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\CalculationController.cs" />
+    <Compile Include="Controllers\Client\AuthController.cs" />
+    <Compile Include="Controllers\Client\CalculationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Data\Utility\AmazonS3Keys.cs" />
     <Compile Include="Data\Form.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -233,7 +236,7 @@
     </Content>
     <None Include="Properties\PublishProfiles\apollo-api - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\apollo-api - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\apollo-api.pubxml" />
+    <None Include="Properties\PublishProfiles\apollo-ws.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

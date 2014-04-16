@@ -16,6 +16,15 @@ namespace ApolloAPI.Services
             authRepository = new AuthRepository();
         }
 
+        /// <summary>
+        /// testing method
+        /// </summary>
+        /// <returns></returns>
+        internal IEnumerable<Models.Credential> GetAllCredentials()
+        {
+            return authRepository.GetAllCredentials();
+        }
+
         internal bool ValidateForm(RegistrationForm registrationForm)
         {
             string[] keys = { registrationForm.Email, registrationForm.Username, registrationForm.Password };
@@ -30,6 +39,11 @@ namespace ApolloAPI.Services
             return true;
         }
 
+        internal bool ValidateForm(LoginForm loginForm)
+        {
+            return (!String.IsNullOrWhiteSpace(loginForm.Email) || !String.IsNullOrWhiteSpace(loginForm.Username)) && !String.IsNullOrWhiteSpace(loginForm.Password);
+        }
+
         internal bool RegisterUser(RegistrationForm registrationForm)
         {
             if (!authRepository.CheckForDuplicate(registrationForm.Email, registrationForm.Username))
@@ -40,13 +54,9 @@ namespace ApolloAPI.Services
             return false;
         }
 
-        /// <summary>
-        /// testing method
-        /// </summary>
-        /// <returns></returns>
-        internal IEnumerable<Models.Credential> GetAllCredentials()
+        internal bool LoginUser(LoginForm loginForm)
         {
-            return authRepository.GetAllCredentials();
+            return authRepository.CheckLoginCredentials(loginForm.Email, loginForm.Username, loginForm.Password);
         }
     }
 }
