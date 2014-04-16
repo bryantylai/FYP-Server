@@ -24,11 +24,18 @@ namespace ApolloAPI.Controllers
             this.calculationService = new CalculationService();
         }
 
-        [Route("bmi/{height}/{weight}")]
+        [Route("bmi/{height}/{weight}/{userId}")]
         [HttpGet]
-        public BMI CalculateBmi(string height, string weight)
+        public HttpResponseMessage CalculateBmi(string height, string weight, string userId)
         {
-            return new BMI() { Height = Convert.ToDouble(height) / 100, Weight = Convert.ToDouble(weight) };
+            BMIForm bmiForm = new BMIForm()
+            {
+                Height = height,
+                Weight = weight,
+                UserId = Guid.Parse(userId)
+            };
+
+            return calculationService.CalculateBMI(bmiForm) ? new HttpResponseMessage(HttpStatusCode.OK) : new HttpResponseMessage(HttpStatusCode.BadRequest);
         }
 
         [Route("bmi")]

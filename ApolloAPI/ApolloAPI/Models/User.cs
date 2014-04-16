@@ -14,5 +14,12 @@ namespace ApolloAPI.Models
     
     public partial class User : Person
     {
+        public User()
+        {
+            this.BMIs = new HashSet<BMI>();
+        }
+    
+    
+        public virtual ICollection<BMI> BMIs { get; set; }
     }
 }

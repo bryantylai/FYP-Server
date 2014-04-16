@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/16/2014 12:18:14
+-- Date Created: 04/16/2014 17:32:46
 -- Generated from EDMX file: C:\Users\Lai\Documents\GitHub\FYP-Server\ApolloAPI\ApolloAPI\Models\ApolloModel.edmx
 -- --------------------------------------------------
 
@@ -78,7 +78,7 @@ CREATE TABLE [dbo].[BMIs] (
     [Height] float  NOT NULL,
     [Weight] float  NOT NULL,
     [RecordTime] datetime  NOT NULL,
-    [User_Id] uniqueidentifier  NOT NULL
+    [UserId] uniqueidentifier  NOT NULL
 );
 GO
 
@@ -170,10 +170,10 @@ ON [dbo].[People]
     ([PersonCredential_Person_Id]);
 GO
 
--- Creating foreign key on [User_Id] in table 'BMIs'
+-- Creating foreign key on [UserId] in table 'BMIs'
 ALTER TABLE [dbo].[BMIs]
 ADD CONSTRAINT [FK_UserBMI]
-    FOREIGN KEY ([User_Id])
+    FOREIGN KEY ([UserId])
     REFERENCES [dbo].[People_User]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -182,7 +182,7 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserBMI'
 CREATE INDEX [IX_FK_UserBMI]
 ON [dbo].[BMIs]
-    ([User_Id]);
+    ([UserId]);
 GO
 
 -- Creating foreign key on [Id] in table 'People_User'

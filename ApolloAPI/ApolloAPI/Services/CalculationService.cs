@@ -36,10 +36,12 @@ namespace ApolloAPI.Services
                     Weight = Convert.ToDouble(bmiForm.Weight),
                     Height = Convert.ToDouble(bmiForm.Height),
                     RecordTime = DateTime.UtcNow,
-                    User = userRepository.GetUserByUserId(bmiForm.UserId)
+                    UserId = bmiForm.UserId
                 };
 
-                return calculationRepository.RecordBMI(bmi);
+                user.BMIs.Add(bmi);
+
+                return calculationRepository.RecordBMI(user, bmi);
             }
 
             return false;

@@ -8,7 +8,7 @@ namespace ApolloAPI.Repositories
 {
     public class CalculationRepository : AbstractRepository
     {
-        internal bool RecordBMI(BMI bmi)
+        internal bool RecordBMI(User user, BMI bmi)
         {
             dbEntities.BMIs.Add(bmi);
             return (dbEntities.SaveChanges() != 0);

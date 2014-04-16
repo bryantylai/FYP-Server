@@ -53,7 +53,7 @@
     <Property Name="Height" Type="float" Nullable="false" />
     <Property Name="Weight" Type="float" Nullable="false" />
     <Property Name="RecordTime" Type="datetime" Nullable="false" />
-    <Property Name="User_Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <EntityType Name="Credentials">
     <Key>
@@ -104,7 +104,7 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="BMI">
-        <PropertyRef Name="User_Id" />
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -159,8 +159,8 @@
           <EntitySet Name="BMIs" EntityType="ApolloDatabaseModel.BMI" />
           <EntitySet Name="Credentials" EntityType="ApolloDatabaseModel.Credential" />
           <AssociationSet Name="PersonCredential" Association="ApolloDatabaseModel.PersonCredential">
-            <End Role="Person" EntitySet="People" />
-            <End Role="Credential" EntitySet="Credentials" />
+            <End EntitySet="People" Role="Person" />
+            <End EntitySet="Credentials" Role="Credential" />
           </AssociationSet>
           <AssociationSet Name="UserBMI" Association="ApolloDatabaseModel.UserBMI">
             <End Role="User" EntitySet="People" />
@@ -179,6 +179,7 @@
           <Property Name="Gender" Type="ApolloDatabaseModel.Gender" Nullable="true" />
         </EntityType>
         <EntityType Name="User" BaseType="ApolloDatabaseModel.Person">
+          <NavigationProperty Name="BMIs" Relationship="ApolloDatabaseModel.UserBMI" FromRole="User" ToRole="BMI" />
         </EntityType>
         <EntityType Name="Trainer" BaseType="ApolloDatabaseModel.Person">
           </EntityType>
@@ -191,7 +192,7 @@
           <Property Name="Height" Type="Double" Nullable="false" />
           <Property Name="Weight" Type="Double" Nullable="false" />
           <Property Name="RecordTime" Type="DateTime" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="ApolloDatabaseModel.UserBMI" FromRole="BMI" ToRole="User" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
         </EntityType>
         <EntityType Name="Credential">
           <Key>
@@ -217,12 +218,20 @@
           <Member Name="User" />
         </EnumType>
         <Association Name="PersonCredential">
-          <End Type="ApolloDatabaseModel.Person" Role="Person" Multiplicity="1" />
-          <End Type="ApolloDatabaseModel.Credential" Role="Credential" Multiplicity="1" />
+          <End Type="ApolloDatabaseModel.Person" Multiplicity="1" Role="Person" />
+          <End Type="ApolloDatabaseModel.Credential" Multiplicity="1" Role="Credential" />
         </Association>
         <Association Name="UserBMI">
           <End Type="ApolloDatabaseModel.User" Role="User" Multiplicity="1" />
           <End Type="ApolloDatabaseModel.BMI" Role="BMI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BMI">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -264,6 +273,7 @@
           <ScalarProperty Name="Height" ColumnName="Height" />
           <ScalarProperty Name="Weight" ColumnName="Weight" />
           <ScalarProperty Name="RecordTime" ColumnName="RecordTime" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -284,14 +294,6 @@
         <ScalarProperty Name="Id" ColumnName="PersonCredential_Person_Id" />
       </EndProperty>
       <EndProperty Name="Person">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="UserBMI" TypeName="ApolloDatabaseModel.UserBMI" StoreEntitySet="BMIs">
-      <EndProperty Name="User">
-        <ScalarProperty Name="Id" ColumnName="User_Id" />
-      </EndProperty>
-      <EndProperty Name="BMI">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
