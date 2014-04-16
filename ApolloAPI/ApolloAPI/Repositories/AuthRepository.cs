@@ -34,6 +34,7 @@ namespace ApolloAPI.Repositories
                 Username = username,
                 Password = password,
                 Role = Role.User,
+                CreatedAt = DateTime.UtcNow,
                 Person = user
             };
 

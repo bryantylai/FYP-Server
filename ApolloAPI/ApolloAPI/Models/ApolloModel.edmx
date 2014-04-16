@@ -64,6 +64,7 @@
     <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Role" Type="smallint" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="People_User">
     <Key>
@@ -202,6 +203,7 @@
           <Property Name="Password" Type="String" Nullable="false" />
           <Property Name="Role" Type="ApolloDatabaseModel.Role" Nullable="false" />
           <NavigationProperty Name="Person" Relationship="ApolloDatabaseModel.PersonCredential" FromRole="Credential" ToRole="Person" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" />
         </EntityType>
         <EnumType Name="Gender" UnderlyingType="Int16">
           <Member Name="Male" />
@@ -273,6 +275,7 @@
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

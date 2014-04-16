@@ -46,7 +46,7 @@ namespace ApolloAPI.Controllers
         }
 
         /// <summary>
-        /// Testing method
+        /// Testing method for getting all credentials
         /// </summary>
         [Route("get-cred")]
         [HttpGet]

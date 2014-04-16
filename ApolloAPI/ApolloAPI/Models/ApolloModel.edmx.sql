@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/16/2014 00:05:27
+-- Date Created: 04/16/2014 12:18:14
 -- Generated from EDMX file: C:\Users\Lai\Documents\GitHub\FYP-Server\ApolloAPI\ApolloAPI\Models\ApolloModel.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,11 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_UserBMI]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[BMIs] DROP CONSTRAINT [FK_UserBMI];
-GO
 IF OBJECT_ID(N'[dbo].[FK_PersonCredential]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[People] DROP CONSTRAINT [FK_PersonCredential];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserBMI]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[BMIs] DROP CONSTRAINT [FK_UserBMI];
 GO
 IF OBJECT_ID(N'[dbo].[FK_User_inherits_Person]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[People_User] DROP CONSTRAINT [FK_User_inherits_Person];
@@ -88,7 +88,8 @@ CREATE TABLE [dbo].[Credentials] (
     [Username] nvarchar(max)  NOT NULL,
     [Email] nvarchar(max)  NOT NULL,
     [Password] nvarchar(max)  NOT NULL,
-    [Role] smallint  NOT NULL
+    [Role] smallint  NOT NULL,
+    [CreatedAt] datetime  NOT NULL
 );
 GO
 
