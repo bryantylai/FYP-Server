@@ -39,7 +39,7 @@
     <Property Name="LastName" Type="nvarchar(max)" Nullable="true" />
     <Property Name="DateOfBirth" Type="datetime" Nullable="true" />
     <Property Name="Gender" Type="smallint" Nullable="true" />
-    <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="BMIs">
     <Key>
@@ -159,7 +159,7 @@
           <Property Name="LastName" Type="String" Nullable="true" />
           <Property Name="DateOfBirth" Type="DateTime" Nullable="true" />
           <Property Name="Gender" Type="ApolloDatabaseModel.Gender" Nullable="true" />
-          <Property Name="Phone" Type="String" Nullable="false" />
+          <Property Name="Phone" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="User" BaseType="ApolloDatabaseModel.Person">
         </EntityType>

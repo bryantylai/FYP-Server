@@ -55,12 +55,14 @@ namespace ApolloAPI.Services
                     Phone = registrationForm.Phone
                 };
 
+                
+
                 Credential credential = new Credential()
                 {
                     Id = Guid.NewGuid(),
                     Email = registrationForm.Email,
                     Username = registrationForm.Username,
-                    Password = registrationForm.Password,
+                    Password = BCrypt.Net.BCrypt.HashPassword(registrationForm.Password),
                     Role = Role.User,
                     CreatedAt = DateTime.UtcNow,
                     PersonId = user.Id

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/17/2014 16:31:50
+-- Date Created: 04/17/2014 18:45:31
 -- Generated from EDMX file: C:\Users\Lai\Documents\GitHub\FYP-Server\ApolloAPI\ApolloAPI\Models\ApolloModel.edmx
 -- --------------------------------------------------
 
@@ -65,7 +65,7 @@ CREATE TABLE [dbo].[People] (
     [LastName] nvarchar(max)  NULL,
     [DateOfBirth] datetime  NULL,
     [Gender] smallint  NULL,
-    [Phone] nvarchar(max)  NOT NULL
+    [Phone] nvarchar(max)  NULL
 );
 GO
 

@@ -28,21 +28,48 @@ namespace ApolloAPI.Controllers
         /// </summary>
         /// <param name="username">Username</param>
         /// <param name="password">Password</param>
-        /// <returns>HttpResponseMessage</returns>
+        /// <returns></returns>
         [Route("register/{username}/{password}")]
         [HttpGet]
         public ServerMessage Register(string username, string password)
         {
-            RegistrationForm regForm = new RegistrationForm()
+            RegistrationForm registrationForm = new RegistrationForm()
             {
                 Email = username + "@a.com",
                 Username = username,
                 Password = password
             };
 
-            authService.RegisterUser(regForm);
+            if (authService.ValidateForm(registrationForm) && authService.RegisterUser(registrationForm))
+            {
+                return new ServerMessage() { IsError = false };
+            }
 
-            return new ServerMessage() { IsError = false };
+            return new ServerMessage() { IsError = true, Message = "Unable to sign up" };
+        }
+
+        /// <summary>
+        /// Testing method for registration
+        /// </summary>
+        /// <param name="username">Username</param>
+        /// <param name="password">Password</param>
+        /// <returns></returns>
+        [Route("login/{username}/{password}")]
+        [HttpGet]
+        public ServerMessage Login(string username, string password)
+        {
+            LoginForm loginForm = new LoginForm()
+            {
+                Username = username,
+                Password = password
+            };
+
+            if (authService.ValidateForm(loginForm) && authService.LoginUser(loginForm))
+            {
+                return new ServerMessage() { IsError = false };
+            }
+
+            return new ServerMessage() { IsError = true, Message = "Unable to sign in" };
         }
 
         /// <summary>
