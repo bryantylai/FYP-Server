@@ -39,6 +39,7 @@
     <Property Name="LastName" Type="nvarchar(max)" Nullable="true" />
     <Property Name="DateOfBirth" Type="datetime" Nullable="true" />
     <Property Name="Gender" Type="smallint" Nullable="true" />
+    <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="BMIs">
     <Key>
@@ -158,6 +159,7 @@
           <Property Name="LastName" Type="String" Nullable="true" />
           <Property Name="DateOfBirth" Type="DateTime" Nullable="true" />
           <Property Name="Gender" Type="ApolloDatabaseModel.Gender" Nullable="true" />
+          <Property Name="Phone" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="User" BaseType="ApolloDatabaseModel.Person">
         </EntityType>
@@ -225,6 +227,7 @@
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
           <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.User)">

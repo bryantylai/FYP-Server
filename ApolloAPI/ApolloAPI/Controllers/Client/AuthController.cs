@@ -30,8 +30,8 @@ namespace ApolloAPI.Controllers
         /// <param name="password">Password</param>
         /// <returns>HttpResponseMessage</returns>
         [Route("register/{username}/{password}")]
-        [HttpGet]        
-        public HttpResponseMessage Register(string username, string password)
+        [HttpGet]
+        public ServerMessage Register(string username, string password)
         {
             RegistrationForm regForm = new RegistrationForm()
             {
@@ -42,7 +42,7 @@ namespace ApolloAPI.Controllers
 
             authService.RegisterUser(regForm);
 
-            return new HttpResponseMessage(HttpStatusCode.OK);
+            return new ServerMessage() { IsError = false };
         }
 
         /// <summary>
@@ -57,26 +57,26 @@ namespace ApolloAPI.Controllers
 
         [Route("register")]
         [HttpPost]
-        public HttpResponseMessage Register([FromBody] RegistrationForm registrationForm)
+        public ServerMessage Register([FromBody] RegistrationForm registrationForm)
         {
             if (authService.ValidateForm(registrationForm) && authService.RegisterUser(registrationForm))
             {
-                return new HttpResponseMessage(HttpStatusCode.OK);
+                return new ServerMessage() { IsError = false };
             }
 
-            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            return new ServerMessage() { IsError = true, Message = "Unable to sign up" };
         }
 
         [Route("login")]
         [HttpPost]
-        public HttpResponseMessage Login([FromBody] LoginForm loginForm)
+        public ServerMessage Login([FromBody] LoginForm loginForm)
         {
             if (authService.ValidateForm(loginForm) && authService.LoginUser(loginForm))
             {
-                return new HttpResponseMessage(HttpStatusCode.OK);
+                return new ServerMessage() { IsError = false };
             }
 
-            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            return new ServerMessage() { IsError = true, Message = "Unable to sign in" };
         }
     }
 }

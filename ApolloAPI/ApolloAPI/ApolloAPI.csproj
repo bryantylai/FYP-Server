@@ -147,6 +147,7 @@
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Data\Calculation\BMIForm.cs" />
+    <Compile Include="Data\ServerMessage.cs" />
     <Compile Include="Data\Utility\AmazonS3Keys.cs" />
     <Compile Include="Data\Form.cs" />
     <Compile Include="Global.asax.cs">

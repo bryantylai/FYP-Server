@@ -51,7 +51,8 @@ namespace ApolloAPI.Services
             {
                 User user = new User()
                 {
-                    Id = Guid.NewGuid()
+                    Id = Guid.NewGuid(),
+                    Phone = registrationForm.Phone
                 };
 
                 Credential credential = new Credential()
