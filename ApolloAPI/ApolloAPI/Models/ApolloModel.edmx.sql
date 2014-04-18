@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/18/2014 22:07:48
+-- Date Created: 04/18/2014 22:16:37
 -- Generated from EDMX file: C:\Users\Lai\Documents\GitHub\FYP-Server\ApolloAPI\ApolloAPI\Models\ApolloModel.edmx
 -- --------------------------------------------------
 
@@ -20,11 +20,11 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_UserBMI]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[BMIs] DROP CONSTRAINT [FK_UserBMI];
 GO
-IF OBJECT_ID(N'[dbo].[FK_DoctorAppoinment]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Appointments] DROP CONSTRAINT [FK_DoctorAppoinment];
+IF OBJECT_ID(N'[dbo].[FK_DoctorAppointment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Appointments] DROP CONSTRAINT [FK_DoctorAppointment];
 GO
-IF OBJECT_ID(N'[dbo].[FK_UserAppoinment]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Appointments] DROP CONSTRAINT [FK_UserAppoinment];
+IF OBJECT_ID(N'[dbo].[FK_UserAppointment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Appointments] DROP CONSTRAINT [FK_UserAppointment];
 GO
 IF OBJECT_ID(N'[dbo].[FK_DiscussionComment]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_DiscussionComment];
@@ -239,30 +239,30 @@ GO
 
 -- Creating foreign key on [DoctorId] in table 'Appointments'
 ALTER TABLE [dbo].[Appointments]
-ADD CONSTRAINT [FK_DoctorAppoinment]
+ADD CONSTRAINT [FK_DoctorAppointment]
     FOREIGN KEY ([DoctorId])
     REFERENCES [dbo].[People_Doctor]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_DoctorAppoinment'
-CREATE INDEX [IX_FK_DoctorAppoinment]
+-- Creating non-clustered index for FOREIGN KEY 'FK_DoctorAppointment'
+CREATE INDEX [IX_FK_DoctorAppointment]
 ON [dbo].[Appointments]
     ([DoctorId]);
 GO
 
 -- Creating foreign key on [UserId] in table 'Appointments'
 ALTER TABLE [dbo].[Appointments]
-ADD CONSTRAINT [FK_UserAppoinment]
+ADD CONSTRAINT [FK_UserAppointment]
     FOREIGN KEY ([UserId])
     REFERENCES [dbo].[People_User]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_UserAppoinment'
-CREATE INDEX [IX_FK_UserAppoinment]
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserAppointment'
+CREATE INDEX [IX_FK_UserAppointment]
 ON [dbo].[Appointments]
     ([UserId]);
 GO

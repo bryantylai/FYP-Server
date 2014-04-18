@@ -19,13 +19,13 @@
       <End Role="User" EntitySet="People_User" />
       <End Role="BMI" EntitySet="BMIs" />
     </AssociationSet>
-    <AssociationSet Name="DoctorAppoinment" Association="ApolloDatabaseModel.Store.DoctorAppoinment">
+    <AssociationSet Name="DoctorAppointment" Association="ApolloDatabaseModel.Store.DoctorAppointment">
       <End Role="Doctor" EntitySet="People_Doctor" />
-      <End Role="Appoinment" EntitySet="Appointments" />
+      <End Role="Appointment" EntitySet="Appointments" />
     </AssociationSet>
-    <AssociationSet Name="UserAppoinment" Association="ApolloDatabaseModel.Store.UserAppoinment">
+    <AssociationSet Name="UserAppointment" Association="ApolloDatabaseModel.Store.UserAppointment">
       <End Role="User" EntitySet="People_User" />
-      <End Role="Appoinment" EntitySet="Appointments" />
+      <End Role="Appointment" EntitySet="Appointments" />
     </AssociationSet>
     <AssociationSet Name="DiscussionComment" Association="ApolloDatabaseModel.Store.DiscussionComment">
       <End Role="Discussion" EntitySet="Discussions" />
@@ -144,26 +144,26 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="DoctorAppoinment">
+  <Association Name="DoctorAppointment">
     <End Role="Doctor" Type="ApolloDatabaseModel.Store.People_Doctor" Multiplicity="1" />
-    <End Role="Appoinment" Type="ApolloDatabaseModel.Store.Appointments" Multiplicity="*" />
+    <End Role="Appointment" Type="ApolloDatabaseModel.Store.Appointments" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Doctor">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Appoinment">
+      <Dependent Role="Appointment">
         <PropertyRef Name="DoctorId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="UserAppoinment">
+  <Association Name="UserAppointment">
     <End Role="User" Type="ApolloDatabaseModel.Store.People_User" Multiplicity="1" />
-    <End Role="Appoinment" Type="ApolloDatabaseModel.Store.Appointments" Multiplicity="*" />
+    <End Role="Appointment" Type="ApolloDatabaseModel.Store.Appointments" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Appoinment">
+      <Dependent Role="Appointment">
         <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
@@ -259,13 +259,13 @@
             <End Role="BMI" EntitySet="BMIs" />
           </AssociationSet>
           <EntitySet Name="Appointments" EntityType="ApolloDatabaseModel.Appointment" />
-          <AssociationSet Name="DoctorAppoinment" Association="ApolloDatabaseModel.DoctorAppoinment">
+          <AssociationSet Name="DoctorAppointment" Association="ApolloDatabaseModel.DoctorAppointment">
             <End Role="Doctor" EntitySet="People" />
-            <End Role="Appoinment" EntitySet="Appointments" />
+            <End Role="Appointment" EntitySet="Appointments" />
           </AssociationSet>
-          <AssociationSet Name="UserAppoinment" Association="ApolloDatabaseModel.UserAppoinment">
+          <AssociationSet Name="UserAppointment" Association="ApolloDatabaseModel.UserAppointment">
             <End Role="User" EntitySet="People" />
-            <End Role="Appoinment" EntitySet="Appointments" />
+            <End Role="Appointment" EntitySet="Appointments" />
           </AssociationSet>
           <EntitySet Name="Discussions" EntityType="ApolloDatabaseModel.Discussion" />
           <EntitySet Name="Comments" EntityType="ApolloDatabaseModel.Comment" />
@@ -354,26 +354,26 @@
           <Property Name="UserId" Type="Guid" Nullable="false" />
           <Property Name="AppointmentTime" Type="DateTime" Nullable="false" />
         </EntityType>
-        <Association Name="DoctorAppoinment">
+        <Association Name="DoctorAppointment">
           <End Type="ApolloDatabaseModel.Doctor" Role="Doctor" Multiplicity="1" />
-          <End Type="ApolloDatabaseModel.Appointment" Role="Appoinment" Multiplicity="*" />
+          <End Type="ApolloDatabaseModel.Appointment" Role="Appointment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Doctor">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Appoinment">
+            <Dependent Role="Appointment">
               <PropertyRef Name="DoctorId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="UserAppoinment">
+        <Association Name="UserAppointment">
           <End Type="ApolloDatabaseModel.User" Role="User" Multiplicity="1" />
-          <End Type="ApolloDatabaseModel.Appointment" Role="Appoinment" Multiplicity="*" />
+          <End Type="ApolloDatabaseModel.Appointment" Role="Appointment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Appoinment">
+            <Dependent Role="Appointment">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>

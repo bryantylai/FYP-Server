@@ -16,8 +16,8 @@
         <EntityTypeShape EntityType="ApolloDatabaseModel.Credential" Width="1.5" PointX="16.375" PointY="5" IsExpanded="true" />
         <AssociationConnector Association="ApolloDatabaseModel.UserBMI" />
         <EntityTypeShape EntityType="ApolloDatabaseModel.Appointment" Width="1.5" PointX="27.75" PointY="7.875" />
-        <AssociationConnector Association="ApolloDatabaseModel.DoctorAppoinment" />
-        <AssociationConnector Association="ApolloDatabaseModel.UserAppoinment" />
+        <AssociationConnector Association="ApolloDatabaseModel.DoctorAppointment" />
+        <AssociationConnector Association="ApolloDatabaseModel.UserAppointment" />
         <EntityTypeShape EntityType="ApolloDatabaseModel.Discussion" Width="1.5" PointX="22.375" PointY="6.625" />
         <EntityTypeShape EntityType="ApolloDatabaseModel.Comment" Width="1.5" PointX="24.625" PointY="5.625" />
         <AssociationConnector Association="ApolloDatabaseModel.DiscussionComment" />
