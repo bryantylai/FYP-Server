@@ -10,7 +10,7 @@ namespace ApolloAPI.Data
         public BMIResult(Guid id, double height, double weight, DateTime recordTime)
         {
             this.Id = id;
-            this.Result = weight / Math.Pow(height, 2);
+            this.Result = Math.Round(weight / Math.Pow(height, 2), 2);
             this.RecordTime = recordTime;
         }
 
