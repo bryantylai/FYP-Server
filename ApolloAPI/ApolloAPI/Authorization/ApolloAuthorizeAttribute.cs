@@ -35,27 +35,18 @@ namespace ApolloAPI.Authorization
                     var credArray = GetCredentials(authHeader);
                     var userName = credArray[0];
                     var password = credArray[1];
-                    
+
+                    AuthRepository authRepository = new AuthRepository();
+
                     //You can use Websecurity or asp.net memebrship provider to login, for
                     //for he sake of keeping example simple, we used out own login functionality
-                    if (new AuthRepository().CheckLoginCredentials(userName, userName, password))
+                    if (authRepository.CheckLoginCredentials(userName, userName, password))
                     {
-                        var currentPrincipal = new GenericPrincipal(new GenericIdentity(userName), null);
+                        var currentPrincipal = new GenericPrincipal(new GenericIdentity(userName), authRepository.GetUserRole(userName));
                         Thread.CurrentPrincipal = currentPrincipal;
+                        HttpContext.Current.User = currentPrincipal;
                         return;
                     }
-
-                    //if (IsResourceOwner(userName, actionContext))
-                    //{
-                    //    //You can use Websecurity or asp.net memebrship provider to login, for
-                    //    //for he sake of keeping example simple, we used out own login functionality
-                    //    if (AuthRepository.Login(userName, password))
-                    //    {
-                    //        var currentPrincipal = new GenericPrincipal(new GenericIdentity(userName), null);
-                    //        Thread.CurrentPrincipal = currentPrincipal;
-                    //        return;
-                    //    }
-                    //}
                 }
             }
 

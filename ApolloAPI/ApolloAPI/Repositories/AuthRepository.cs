@@ -9,10 +9,17 @@ namespace ApolloAPI.Repositories
 {
     public class AuthRepository : AbstractRepository
     {
+        internal Guid GetUserIdByUsername(string username)
+        {
+            Credential credential = dbEntities.Credentials.Where((c) => c.Username == username).First();
+            return credential.PersonId;
+        }
+
         internal bool CheckLoginCredentials(string email, string username, string password)
         {
-            Credential credential = dbEntities.Credentials.Single((c) => (c.Email == email || c.Username == username)) as Credential;
-            return BCrypt.Net.BCrypt.Verify(password, credential.Password);
+            IEnumerable<Credential> credentials = dbEntities.Credentials.Where((c) => (c.Email == email || c.Username == username));
+            if (credentials.Count() != 1) return false;
+            return BCrypt.Net.BCrypt.Verify(password, credentials.First().Password);
         }
 
         internal bool CheckForDuplicate(string email, string username)
@@ -24,7 +31,7 @@ namespace ApolloAPI.Repositories
         {
             dbEntities.People.Add(user);
             dbEntities.Credentials.Add(credential);
-            return (dbEntities.SaveChanges() != 0);
+            return dbEntities.SaveChanges() == 2;
         }
 
         /// <summary>
@@ -34,6 +41,24 @@ namespace ApolloAPI.Repositories
         internal IEnumerable<Credential> GetAllCredentials()
         {
             return dbEntities.Credentials.ToList();
+        }
+
+        internal string[] GetUserRole(string userName)
+        {
+            Credential credential = dbEntities.Credentials.Where((c) => c.Username == userName).First();
+            switch (credential.Role)
+            {
+                case Role.Admin:
+                    return new string[] { "Admin" };
+                case Role.Doctor:
+                    return new string[] { "Doctor" };
+                case Role.Trainer:
+                    return new string[] { "Trainer" };
+                case Role.User:
+                    return new string[] { "User" };
+            }
+
+            return null;
         }
     }
 }

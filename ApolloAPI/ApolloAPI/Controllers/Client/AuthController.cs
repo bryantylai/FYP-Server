@@ -12,7 +12,6 @@ using ApolloAPI.Services;
 namespace ApolloAPI.Controllers
 {
     //[ForceHttps()]
-    //[ApolloAuthorizeAttribute]
     [RoutePrefix("api/auth")]
     public class AuthController : ApiController
     {
@@ -22,6 +21,8 @@ namespace ApolloAPI.Controllers
         {
             this.authService = new AuthService();
         }
+
+        #region Testing Methods
 
         /// <summary>
         /// Testing method for registration
@@ -81,6 +82,8 @@ namespace ApolloAPI.Controllers
         {
             return authService.GetAllCredentials();
         }
+
+        #endregion
 
         [Route("register")]
         [HttpPost]

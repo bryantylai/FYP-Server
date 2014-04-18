@@ -9,24 +9,47 @@
     <EntitySet Name="People" EntityType="ApolloDatabaseModel.Store.People" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="BMIs" EntityType="ApolloDatabaseModel.Store.BMIs" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Credentials" EntityType="ApolloDatabaseModel.Store.Credentials" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Appointments" EntityType="ApolloDatabaseModel.Store.Appointments" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Discussions" EntityType="ApolloDatabaseModel.Store.Discussions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Comments" EntityType="ApolloDatabaseModel.Store.Comments" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="People_User" EntityType="ApolloDatabaseModel.Store.People_User" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="People_Trainer" EntityType="ApolloDatabaseModel.Store.People_Trainer" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="People_Doctor" EntityType="ApolloDatabaseModel.Store.People_Doctor" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="People_Trainer" EntityType="ApolloDatabaseModel.Store.People_Trainer" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="UserBMI" Association="ApolloDatabaseModel.Store.UserBMI">
       <End Role="User" EntitySet="People_User" />
       <End Role="BMI" EntitySet="BMIs" />
+    </AssociationSet>
+    <AssociationSet Name="DoctorAppoinment" Association="ApolloDatabaseModel.Store.DoctorAppoinment">
+      <End Role="Doctor" EntitySet="People_Doctor" />
+      <End Role="Appoinment" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="UserAppoinment" Association="ApolloDatabaseModel.Store.UserAppoinment">
+      <End Role="User" EntitySet="People_User" />
+      <End Role="Appoinment" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="DiscussionComment" Association="ApolloDatabaseModel.Store.DiscussionComment">
+      <End Role="Discussion" EntitySet="Discussions" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="UserDiscussion" Association="ApolloDatabaseModel.Store.UserDiscussion">
+      <End Role="User" EntitySet="People_User" />
+      <End Role="Discussion" EntitySet="Discussions" />
+    </AssociationSet>
+    <AssociationSet Name="PersonComment" Association="ApolloDatabaseModel.Store.PersonComment">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Comment" EntitySet="Comments" />
     </AssociationSet>
     <AssociationSet Name="FK_User_inherits_Person" Association="ApolloDatabaseModel.Store.FK_User_inherits_Person">
       <End Role="Person" EntitySet="People" />
       <End Role="User" EntitySet="People_User" />
     </AssociationSet>
-    <AssociationSet Name="FK_Trainer_inherits_Person" Association="ApolloDatabaseModel.Store.FK_Trainer_inherits_Person">
-      <End Role="Person" EntitySet="People" />
-      <End Role="Trainer" EntitySet="People_Trainer" />
-    </AssociationSet>
     <AssociationSet Name="FK_Doctor_inherits_Person" Association="ApolloDatabaseModel.Store.FK_Doctor_inherits_Person">
       <End Role="Person" EntitySet="People" />
       <End Role="Doctor" EntitySet="People_Doctor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Trainer_inherits_Person" Association="ApolloDatabaseModel.Store.FK_Trainer_inherits_Person">
+      <End Role="Person" EntitySet="People" />
+      <End Role="Trainer" EntitySet="People_Trainer" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="People">
@@ -64,19 +87,46 @@
     <Property Name="CreatedAt" Type="datetime" Nullable="false" />
     <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
+  <EntityType Name="Appointments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DoctorId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="AppointmentTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Discussions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Comments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DiscussionId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CommentTime" Type="datetime" Nullable="false" />
+    <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
   <EntityType Name="People_User">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
-  <EntityType Name="People_Trainer">
+  <EntityType Name="People_Doctor">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
-  <EntityType Name="People_Doctor">
+  <EntityType Name="People_Trainer">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -94,6 +144,66 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="DoctorAppoinment">
+    <End Role="Doctor" Type="ApolloDatabaseModel.Store.People_Doctor" Multiplicity="1" />
+    <End Role="Appoinment" Type="ApolloDatabaseModel.Store.Appointments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appoinment">
+        <PropertyRef Name="DoctorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserAppoinment">
+    <End Role="User" Type="ApolloDatabaseModel.Store.People_User" Multiplicity="1" />
+    <End Role="Appoinment" Type="ApolloDatabaseModel.Store.Appointments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Appoinment">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DiscussionComment">
+    <End Role="Discussion" Type="ApolloDatabaseModel.Store.Discussions" Multiplicity="1" />
+    <End Role="Comment" Type="ApolloDatabaseModel.Store.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Discussion">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="DiscussionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserDiscussion">
+    <End Role="User" Type="ApolloDatabaseModel.Store.People_User" Multiplicity="1" />
+    <End Role="Discussion" Type="ApolloDatabaseModel.Store.Discussions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Discussion">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PersonComment">
+    <End Role="Person" Type="ApolloDatabaseModel.Store.People" Multiplicity="1" />
+    <End Role="Comment" Type="ApolloDatabaseModel.Store.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_User_inherits_Person">
     <End Role="Person" Type="ApolloDatabaseModel.Store.People" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -104,20 +214,6 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="User">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Trainer_inherits_Person">
-    <End Role="Person" Type="ApolloDatabaseModel.Store.People" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Trainer" Type="ApolloDatabaseModel.Store.People_Trainer" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Person">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Trainer">
         <PropertyRef Name="Id" />
       </Dependent>
     </ReferentialConstraint>
@@ -136,6 +232,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Trainer_inherits_Person">
+    <End Role="Person" Type="ApolloDatabaseModel.Store.People" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Trainer" Type="ApolloDatabaseModel.Store.People_Trainer" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Trainer">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -147,6 +257,29 @@
           <AssociationSet Name="UserBMI" Association="ApolloDatabaseModel.UserBMI">
             <End Role="User" EntitySet="People" />
             <End Role="BMI" EntitySet="BMIs" />
+          </AssociationSet>
+          <EntitySet Name="Appointments" EntityType="ApolloDatabaseModel.Appointment" />
+          <AssociationSet Name="DoctorAppoinment" Association="ApolloDatabaseModel.DoctorAppoinment">
+            <End Role="Doctor" EntitySet="People" />
+            <End Role="Appoinment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="UserAppoinment" Association="ApolloDatabaseModel.UserAppoinment">
+            <End Role="User" EntitySet="People" />
+            <End Role="Appoinment" EntitySet="Appointments" />
+          </AssociationSet>
+          <EntitySet Name="Discussions" EntityType="ApolloDatabaseModel.Discussion" />
+          <EntitySet Name="Comments" EntityType="ApolloDatabaseModel.Comment" />
+          <AssociationSet Name="DiscussionComment" Association="ApolloDatabaseModel.DiscussionComment">
+            <End Role="Discussion" EntitySet="Discussions" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="UserDiscussion" Association="ApolloDatabaseModel.UserDiscussion">
+            <End Role="User" EntitySet="People" />
+            <End Role="Discussion" EntitySet="Discussions" />
+          </AssociationSet>
+          <AssociationSet Name="PersonComment" Association="ApolloDatabaseModel.PersonComment">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Comment" EntitySet="Comments" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Person">
@@ -212,6 +345,93 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="DoctorId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="AppointmentTime" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <Association Name="DoctorAppoinment">
+          <End Type="ApolloDatabaseModel.Doctor" Role="Doctor" Multiplicity="1" />
+          <End Type="ApolloDatabaseModel.Appointment" Role="Appoinment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appoinment">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserAppoinment">
+          <End Type="ApolloDatabaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="ApolloDatabaseModel.Appointment" Role="Appoinment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appoinment">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Discussion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="DiscussionId" Type="Guid" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="false" />
+          <Property Name="CommentTime" Type="DateTime" Nullable="false" />
+          <Property Name="PersonId" Type="Guid" Nullable="false" />
+        </EntityType>
+        <Association Name="DiscussionComment">
+          <End Type="ApolloDatabaseModel.Discussion" Role="Discussion" Multiplicity="1" />
+          <End Type="ApolloDatabaseModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discussion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="DiscussionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserDiscussion">
+          <End Type="ApolloDatabaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="ApolloDatabaseModel.Discussion" Role="Discussion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Discussion">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PersonComment">
+          <End Type="ApolloDatabaseModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="ApolloDatabaseModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -235,13 +455,13 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
-      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Trainer)">
-        <MappingFragment StoreEntitySet="People_Trainer">
+      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Doctor)">
+        <MappingFragment StoreEntitySet="People_Doctor">
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
-      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Doctor)">
-        <MappingFragment StoreEntitySet="People_Doctor">
+      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Trainer)">
+        <MappingFragment StoreEntitySet="People_Trainer">
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -267,6 +487,36 @@
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Role" ColumnName="Role" />
           <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Appointments">
+      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Appointment)">
+        <MappingFragment StoreEntitySet="Appointments">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="AppointmentTime" ColumnName="AppointmentTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Discussions">
+      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Discussion)">
+        <MappingFragment StoreEntitySet="Discussions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Comment)">
+        <MappingFragment StoreEntitySet="Comments">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DiscussionId" ColumnName="DiscussionId" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="CommentTime" ColumnName="CommentTime" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

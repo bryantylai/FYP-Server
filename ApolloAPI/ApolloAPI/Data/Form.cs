@@ -5,13 +5,9 @@ using System.Web;
 
 namespace ApolloAPI.Data
 {
-    public abstract class Form
+    public abstract class AuthForm
     {
         public string Email { get; set; }
-    }
-
-    public abstract class AuthForm : Form
-    {
         public string Username { get; set; }
         public string Password { get; set; }
     }
@@ -25,7 +21,10 @@ namespace ApolloAPI.Data
         public string Phone { get; set; }
     }
 
-    public class ResetForm : Form
+    public class AppointmentForm
     {
+        public Guid DoctorId { get; set; }
+        public string Reason { get; set; }
+        public DateTime AppointmentTime { get; set; }
     }
 }

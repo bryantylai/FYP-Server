@@ -144,11 +144,14 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Authorization\ApolloAuthorizeAttribute.cs" />
     <Compile Include="Authorization\ForceHttpsAttribute.cs" />
+    <Compile Include="Controllers\AbstractController.cs" />
     <Compile Include="Controllers\Client\AuthController.cs" />
     <Compile Include="Controllers\Client\CalculationController.cs" />
+    <Compile Include="Controllers\Client\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Data\BMIResult.cs" />
     <Compile Include="Data\Calculation\BMIForm.cs" />
     <Compile Include="Data\ServerMessage.cs" />
     <Compile Include="Data\Utility\AmazonS3Keys.cs" />
@@ -171,10 +174,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ApolloModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Appointment.cs">
+      <DependentUpon>ApolloModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\BMI.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Comment.cs">
+      <DependentUpon>ApolloModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Credential.cs">
+      <DependentUpon>ApolloModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Discussion.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Doctor.cs">
@@ -199,9 +211,11 @@
     <Compile Include="Repositories\AbstractRepository.cs" />
     <Compile Include="Repositories\AuthRepository.cs" />
     <Compile Include="Repositories\CalculationRepository.cs" />
+    <Compile Include="Repositories\DoctorRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\CalculationService.cs" />
+    <Compile Include="Services\DoctorService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

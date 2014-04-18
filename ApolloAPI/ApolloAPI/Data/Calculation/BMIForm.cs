@@ -9,6 +9,5 @@ namespace ApolloAPI.Data.Calculation
     {
         public string Height { get; set; }
         public string Weight { get; set; }
-        public Guid UserId { get; set; }
     }
 }

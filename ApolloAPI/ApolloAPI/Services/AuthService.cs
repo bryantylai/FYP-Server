@@ -45,6 +45,11 @@ namespace ApolloAPI.Services
             return (!String.IsNullOrWhiteSpace(loginForm.Email) || !String.IsNullOrWhiteSpace(loginForm.Username)) && !String.IsNullOrWhiteSpace(loginForm.Password);
         }
 
+        internal Guid GetUserIdByUsername(string username)
+        {
+            return authRepository.GetUserIdByUsername(username);
+        }
+
         internal bool RegisterUser(RegistrationForm registrationForm)
         {
             if (!authRepository.CheckForDuplicate(registrationForm.Email, registrationForm.Username))
@@ -54,9 +59,7 @@ namespace ApolloAPI.Services
                     Id = Guid.NewGuid(),
                     Phone = registrationForm.Phone
                 };
-
                 
-
                 Credential credential = new Credential()
                 {
                     Id = Guid.NewGuid(),
