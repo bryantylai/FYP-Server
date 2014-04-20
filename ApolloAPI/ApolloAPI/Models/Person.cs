@@ -15,7 +15,6 @@ namespace ApolloAPI.Models
     public partial class Person
     {
         public System.Guid Id { get; set; }
-        public string DisplayName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Nullable<System.DateTime> DateOfBirth { get; set; }

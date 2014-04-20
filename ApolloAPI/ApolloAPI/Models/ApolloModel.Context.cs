@@ -26,13 +26,9 @@ namespace ApolloAPI.Models
         }
     
         public DbSet<Person> People { get; set; }
-        public DbSet<BMI> BMIs { get; set; }
         public DbSet<Credential> Credentials { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Discussion> Discussions { get; set; }
-        public DbSet<Comment> Comments { get; set; }
-        public DbSet<Post> Posts { get; set; }
-        public DbSet<Like> Likes { get; set; }
         public DbSet<Reply> Replies { get; set; }
     }
 }
