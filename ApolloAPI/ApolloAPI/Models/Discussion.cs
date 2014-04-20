@@ -17,5 +17,7 @@ namespace ApolloAPI.Models
         public System.Guid Id { get; set; }
         public System.Guid UserId { get; set; }
         public System.DateTime CreatedAt { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
     }
 }

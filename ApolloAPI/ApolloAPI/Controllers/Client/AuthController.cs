@@ -11,7 +11,6 @@ using ApolloAPI.Services;
 
 namespace ApolloAPI.Controllers
 {
-    //[ForceHttps()]
     [RoutePrefix("api/auth")]
     public class AuthController : ApiController
     {

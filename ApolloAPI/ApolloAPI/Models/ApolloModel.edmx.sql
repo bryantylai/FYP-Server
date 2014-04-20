@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/18/2014 22:16:37
+-- Date Created: 04/20/2014 16:20:54
 -- Generated from EDMX file: C:\Users\Lai\Documents\GitHub\FYP-Server\ApolloAPI\ApolloAPI\Models\ApolloModel.edmx
 -- --------------------------------------------------
 
@@ -26,14 +26,32 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_UserAppointment]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Appointments] DROP CONSTRAINT [FK_UserAppointment];
 GO
-IF OBJECT_ID(N'[dbo].[FK_DiscussionComment]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_DiscussionComment];
-GO
 IF OBJECT_ID(N'[dbo].[FK_UserDiscussion]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Discussions] DROP CONSTRAINT [FK_UserDiscussion];
 GO
-IF OBJECT_ID(N'[dbo].[FK_PersonComment]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_PersonComment];
+IF OBJECT_ID(N'[dbo].[FK_UserPost]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Posts] DROP CONSTRAINT [FK_UserPost];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserLike]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Likes] DROP CONSTRAINT [FK_UserLike];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PostLike]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Likes] DROP CONSTRAINT [FK_PostLike];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DiscussionReply]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Replies] DROP CONSTRAINT [FK_DiscussionReply];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PostComment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_PostComment];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserComment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_UserComment];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PersonReply]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Replies] DROP CONSTRAINT [FK_PersonReply];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PersonCredential]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Credentials] DROP CONSTRAINT [FK_PersonCredential];
 GO
 IF OBJECT_ID(N'[dbo].[FK_User_inherits_Person]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[People_User] DROP CONSTRAINT [FK_User_inherits_Person];
@@ -67,6 +85,15 @@ GO
 IF OBJECT_ID(N'[dbo].[Comments]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Comments];
 GO
+IF OBJECT_ID(N'[dbo].[Posts]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Posts];
+GO
+IF OBJECT_ID(N'[dbo].[Likes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Likes];
+GO
+IF OBJECT_ID(N'[dbo].[Replies]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Replies];
+GO
 IF OBJECT_ID(N'[dbo].[People_User]', 'U') IS NOT NULL
     DROP TABLE [dbo].[People_User];
 GO
@@ -89,7 +116,8 @@ CREATE TABLE [dbo].[People] (
     [LastName] nvarchar(max)  NULL,
     [DateOfBirth] datetime  NULL,
     [Gender] smallint  NULL,
-    [Phone] nvarchar(max)  NULL
+    [Phone] nvarchar(max)  NULL,
+    [ProfileImage] nvarchar(max)  NULL
 );
 GO
 
@@ -128,16 +156,47 @@ GO
 CREATE TABLE [dbo].[Discussions] (
     [Id] uniqueidentifier  NOT NULL,
     [UserId] uniqueidentifier  NOT NULL,
-    [CreatedAt] datetime  NOT NULL
+    [CreatedAt] datetime  NOT NULL,
+    [Title] nvarchar(max)  NOT NULL,
+    [Content] nvarchar(max)  NOT NULL
 );
 GO
 
 -- Creating table 'Comments'
 CREATE TABLE [dbo].[Comments] (
     [Id] uniqueidentifier  NOT NULL,
-    [DiscussionId] uniqueidentifier  NOT NULL,
     [Content] nvarchar(max)  NOT NULL,
-    [CommentTime] datetime  NOT NULL,
+    [CommentedAt] datetime  NOT NULL,
+    [PostId] uniqueidentifier  NOT NULL,
+    [UserId] uniqueidentifier  NOT NULL
+);
+GO
+
+-- Creating table 'Posts'
+CREATE TABLE [dbo].[Posts] (
+    [Id] uniqueidentifier  NOT NULL,
+    [PostedAt] datetime  NOT NULL,
+    [Title] nvarchar(max)  NOT NULL,
+    [Content] nvarchar(max)  NOT NULL,
+    [UserId] uniqueidentifier  NOT NULL
+);
+GO
+
+-- Creating table 'Likes'
+CREATE TABLE [dbo].[Likes] (
+    [Id] uniqueidentifier  NOT NULL,
+    [LikedAt] datetime  NOT NULL,
+    [UserId] uniqueidentifier  NOT NULL,
+    [PostId] uniqueidentifier  NOT NULL
+);
+GO
+
+-- Creating table 'Replies'
+CREATE TABLE [dbo].[Replies] (
+    [Id] uniqueidentifier  NOT NULL,
+    [Content] nvarchar(max)  NOT NULL,
+    [RepliedAt] datetime  NOT NULL,
+    [DiscussionId] uniqueidentifier  NOT NULL,
     [PersonId] uniqueidentifier  NOT NULL
 );
 GO
@@ -176,10 +235,10 @@ ADD CONSTRAINT [PK_BMIs]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id], [PersonId] in table 'Credentials'
+-- Creating primary key on [Id] in table 'Credentials'
 ALTER TABLE [dbo].[Credentials]
 ADD CONSTRAINT [PK_Credentials]
-    PRIMARY KEY CLUSTERED ([Id], [PersonId] ASC);
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
 -- Creating primary key on [Id] in table 'Appointments'
@@ -197,6 +256,24 @@ GO
 -- Creating primary key on [Id] in table 'Comments'
 ALTER TABLE [dbo].[Comments]
 ADD CONSTRAINT [PK_Comments]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Posts'
+ALTER TABLE [dbo].[Posts]
+ADD CONSTRAINT [PK_Posts]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Likes'
+ALTER TABLE [dbo].[Likes]
+ADD CONSTRAINT [PK_Likes]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Replies'
+ALTER TABLE [dbo].[Replies]
+ADD CONSTRAINT [PK_Replies]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -267,21 +344,6 @@ ON [dbo].[Appointments]
     ([UserId]);
 GO
 
--- Creating foreign key on [DiscussionId] in table 'Comments'
-ALTER TABLE [dbo].[Comments]
-ADD CONSTRAINT [FK_DiscussionComment]
-    FOREIGN KEY ([DiscussionId])
-    REFERENCES [dbo].[Discussions]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_DiscussionComment'
-CREATE INDEX [IX_FK_DiscussionComment]
-ON [dbo].[Comments]
-    ([DiscussionId]);
-GO
-
 -- Creating foreign key on [UserId] in table 'Discussions'
 ALTER TABLE [dbo].[Discussions]
 ADD CONSTRAINT [FK_UserDiscussion]
@@ -297,18 +359,123 @@ ON [dbo].[Discussions]
     ([UserId]);
 GO
 
--- Creating foreign key on [PersonId] in table 'Comments'
+-- Creating foreign key on [UserId] in table 'Posts'
+ALTER TABLE [dbo].[Posts]
+ADD CONSTRAINT [FK_UserPost]
+    FOREIGN KEY ([UserId])
+    REFERENCES [dbo].[People_User]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserPost'
+CREATE INDEX [IX_FK_UserPost]
+ON [dbo].[Posts]
+    ([UserId]);
+GO
+
+-- Creating foreign key on [UserId] in table 'Likes'
+ALTER TABLE [dbo].[Likes]
+ADD CONSTRAINT [FK_UserLike]
+    FOREIGN KEY ([UserId])
+    REFERENCES [dbo].[People_User]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserLike'
+CREATE INDEX [IX_FK_UserLike]
+ON [dbo].[Likes]
+    ([UserId]);
+GO
+
+-- Creating foreign key on [PostId] in table 'Likes'
+ALTER TABLE [dbo].[Likes]
+ADD CONSTRAINT [FK_PostLike]
+    FOREIGN KEY ([PostId])
+    REFERENCES [dbo].[Posts]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PostLike'
+CREATE INDEX [IX_FK_PostLike]
+ON [dbo].[Likes]
+    ([PostId]);
+GO
+
+-- Creating foreign key on [DiscussionId] in table 'Replies'
+ALTER TABLE [dbo].[Replies]
+ADD CONSTRAINT [FK_DiscussionReply]
+    FOREIGN KEY ([DiscussionId])
+    REFERENCES [dbo].[Discussions]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_DiscussionReply'
+CREATE INDEX [IX_FK_DiscussionReply]
+ON [dbo].[Replies]
+    ([DiscussionId]);
+GO
+
+-- Creating foreign key on [PostId] in table 'Comments'
 ALTER TABLE [dbo].[Comments]
-ADD CONSTRAINT [FK_PersonComment]
+ADD CONSTRAINT [FK_PostComment]
+    FOREIGN KEY ([PostId])
+    REFERENCES [dbo].[Posts]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PostComment'
+CREATE INDEX [IX_FK_PostComment]
+ON [dbo].[Comments]
+    ([PostId]);
+GO
+
+-- Creating foreign key on [UserId] in table 'Comments'
+ALTER TABLE [dbo].[Comments]
+ADD CONSTRAINT [FK_UserComment]
+    FOREIGN KEY ([UserId])
+    REFERENCES [dbo].[People_User]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserComment'
+CREATE INDEX [IX_FK_UserComment]
+ON [dbo].[Comments]
+    ([UserId]);
+GO
+
+-- Creating foreign key on [PersonId] in table 'Replies'
+ALTER TABLE [dbo].[Replies]
+ADD CONSTRAINT [FK_PersonReply]
     FOREIGN KEY ([PersonId])
     REFERENCES [dbo].[People]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_PersonComment'
-CREATE INDEX [IX_FK_PersonComment]
-ON [dbo].[Comments]
+-- Creating non-clustered index for FOREIGN KEY 'FK_PersonReply'
+CREATE INDEX [IX_FK_PersonReply]
+ON [dbo].[Replies]
+    ([PersonId]);
+GO
+
+-- Creating foreign key on [PersonId] in table 'Credentials'
+ALTER TABLE [dbo].[Credentials]
+ADD CONSTRAINT [FK_PersonCredential]
+    FOREIGN KEY ([PersonId])
+    REFERENCES [dbo].[People]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PersonCredential'
+CREATE INDEX [IX_FK_PersonCredential]
+ON [dbo].[Credentials]
     ([PersonId]);
 GO
 

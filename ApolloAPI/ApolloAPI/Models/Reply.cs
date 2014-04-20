@@ -12,12 +12,12 @@ namespace ApolloAPI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Comment
+    public partial class Reply
     {
         public System.Guid Id { get; set; }
         public string Content { get; set; }
-        public System.DateTime CommentedAt { get; set; }
-        public System.Guid PostId { get; set; }
-        public System.Guid UserId { get; set; }
+        public System.DateTime RepliedAt { get; set; }
+        public System.Guid DiscussionId { get; set; }
+        public System.Guid PersonId { get; set; }
     }
 }

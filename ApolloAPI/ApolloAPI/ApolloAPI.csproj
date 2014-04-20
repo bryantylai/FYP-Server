@@ -195,7 +195,16 @@
     <Compile Include="Models\Gender.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Like.cs">
+      <DependentUpon>ApolloModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Person.cs">
+      <DependentUpon>ApolloModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Post.cs">
+      <DependentUpon>ApolloModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Reply.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Role.cs">

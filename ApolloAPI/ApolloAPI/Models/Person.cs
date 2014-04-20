@@ -21,5 +21,6 @@ namespace ApolloAPI.Models
         public Nullable<System.DateTime> DateOfBirth { get; set; }
         public Nullable<Gender> Gender { get; set; }
         public string Phone { get; set; }
+        public string ProfileImage { get; set; }
     }
 }

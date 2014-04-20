@@ -11,7 +11,6 @@ using ApolloAPI.Services;
 
 namespace ApolloAPI.Controllers.Client
 {
-    //[ForceHttps()]
     [ApolloAuthorizeAttribute]
     [RoutePrefix("api/doctor")]
     public class DoctorController : AbstractController
