@@ -147,6 +147,7 @@
     <Compile Include="Controllers\AbstractController.cs" />
     <Compile Include="Controllers\Client\AuthController.cs" />
     <Compile Include="Controllers\Client\DoctorController.cs" />
+    <Compile Include="Controllers\Client\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
