@@ -26,23 +26,6 @@ namespace ApolloAPI.Controllers.Client
 
         #region Testing Methods
 
-        /// <summary>
-        /// Testing method
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        [Route("appointment/fetch-all/test")]
-        [HttpGet]
-        public IEnumerable<Appointment> GetListOfAppointments()
-        {
-            username = this.RequestContext.Principal.Identity.Name;
-            isUser = this.RequestContext.Principal.IsInRole("User");
-
-            if (isUser) { return doctorService.ListOfAppointments(authService.GetUserIdByUsername(username)); }
-
-            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
-        }
-
         #endregion
 
         [Route("fetch-all")]

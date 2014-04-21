@@ -17,15 +17,6 @@ namespace ApolloAPI.Services
             authRepository = new AuthRepository();
         }
 
-        /// <summary>
-        /// testing method
-        /// </summary>
-        /// <returns></returns>
-        internal IEnumerable<Models.Credential> GetAllCredentials()
-        {
-            return authRepository.GetAllCredentials();
-        }
-
         internal bool ValidateForm(RegistrationForm registrationForm)
         {
             string[] keys = { registrationForm.Email, registrationForm.Username, registrationForm.Password };

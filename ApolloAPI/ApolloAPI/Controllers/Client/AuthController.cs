@@ -72,16 +72,6 @@ namespace ApolloAPI.Controllers
             return new ServerMessage() { IsError = true, Message = "Unable to sign in" };
         }
 
-        /// <summary>
-        /// Testing method for getting all credentials
-        /// </summary>
-        [Route("get-cred")]
-        [HttpGet]
-        public IEnumerable<Credential> GetCredentials()
-        {
-            return authService.GetAllCredentials();
-        }
-
         #endregion
 
         [Route("register")]

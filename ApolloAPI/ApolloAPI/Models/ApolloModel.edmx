@@ -302,12 +302,12 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="PersonId" Type="Guid" Nullable="false" />
           <Property Name="Username" Type="String" Nullable="false" />
           <Property Name="Email" Type="String" Nullable="false" />
           <Property Name="Password" Type="String" Nullable="false" />
           <Property Name="Role" Type="ApolloDatabaseModel.Role" Nullable="false" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" />
-          <Property Name="PersonId" Type="Guid" Nullable="false" />
         </EntityType>
         <EnumType Name="Gender" UnderlyingType="Int16">
           <Member Name="Male" />

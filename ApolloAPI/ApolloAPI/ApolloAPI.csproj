@@ -151,6 +151,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Data\Home.cs" />
     <Compile Include="Data\ServerMessage.cs" />
     <Compile Include="Data\Utility\AmazonS3Keys.cs" />
     <Compile Include="Data\Form.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\DoctorService.cs" />
+    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

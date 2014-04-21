@@ -34,15 +34,6 @@ namespace ApolloAPI.Repositories
             return dbEntities.SaveChanges() == 2;
         }
 
-        /// <summary>
-        /// testing method
-        /// </summary>
-        /// <returns></returns>
-        internal IEnumerable<Credential> GetAllCredentials()
-        {
-            return dbEntities.Credentials.ToList();
-        }
-
         internal string[] GetUserRole(string userName)
         {
             Credential credential = dbEntities.Credentials.Where((c) => c.Username == userName).First();
