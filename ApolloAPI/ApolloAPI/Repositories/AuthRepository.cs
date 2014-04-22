@@ -9,7 +9,7 @@ namespace ApolloAPI.Repositories
 {
     public class AuthRepository : AbstractRepository
     {
-        internal Guid GetUserIdByUsername(string username)
+        internal Guid GetPersonIdByUsername(string username)
         {
             Credential credential = dbEntities.Credentials.Where((c) => c.Username == username).First();
             return credential.PersonId;

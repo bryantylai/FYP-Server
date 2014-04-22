@@ -5,7 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using ApolloAPI.Authorization;
-using ApolloAPI.Data;
+using ApolloAPI.Data.Form;
+using ApolloAPI.Data.Item;
+using ApolloAPI.Data.Utility;
 using ApolloAPI.Models;
 using ApolloAPI.Services;
 
@@ -24,10 +26,6 @@ namespace ApolloAPI.Controllers.Client
             doctorService = new DoctorService();
         }
 
-        #region Testing Methods
-
-        #endregion
-
         [Route("fetch-all")]
         [HttpGet]
         public IEnumerable<Doctor> GetListOfDoctors()
@@ -40,19 +38,19 @@ namespace ApolloAPI.Controllers.Client
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }
 
-        [Route("appointment/fetch-all")]
+        [Route("appointment")]
         [HttpGet]
         public IEnumerable<Appointment> GetListOfAppointment()
         {
             username = this.RequestContext.Principal.Identity.Name;
             isUser = this.RequestContext.Principal.IsInRole("User");
 
-            if (isUser) { return doctorService.ListOfAppointments(authService.GetUserIdByUsername(username)); }
+            if (isUser) { return doctorService.ListOfAppointments(authService.GetPersonIdByUsername(username)); }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }
 
-        [Route("appointment/create")]
+        [Route("appointment")]
         [HttpPost]
         public ServerMessage MakeAppointmentWithDoctor([FromBody] AppointmentForm appointmentForm)
         {
@@ -61,12 +59,44 @@ namespace ApolloAPI.Controllers.Client
 
             if (isUser)
             {
-                if (doctorService.ValidateForm(appointmentForm) && doctorService.CreateAppointment(appointmentForm, authService.GetUserIdByUsername(username)))
+                if (doctorService.ValidateForm(appointmentForm) && doctorService.CreateAppointment(appointmentForm, authService.GetPersonIdByUsername(username)))
                 {
                     return new ServerMessage() { IsError = false };
                 }
 
                 return new ServerMessage() { IsError = true, Message = "Unable to make appointment" };
+            }
+
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        }
+
+        [Route("discussion")]
+        [HttpGet]
+        public IEnumerable<DiscussionItem> GetListOfDiscussion()
+        {
+            username = this.RequestContext.Principal.Identity.Name;
+            isUser = this.RequestContext.Principal.IsInRole("User");
+
+            if (isUser) { return doctorService.ListOfDiscussions(authService.GetPersonIdByUsername(username)); }
+
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        }
+
+        [Route("discussion")]
+        [HttpPost]
+        public ServerMessage CreateNewDiscussion([FromBody] DiscussionForm discussionForm)
+        {
+            username = this.RequestContext.Principal.Identity.Name;
+            isUser = this.RequestContext.Principal.IsInRole("User");
+
+            if (isUser)
+            {
+                if (doctorService.ValidateForm(discussionForm) && doctorService.CreateDiscussion(discussionForm, authService.GetPersonIdByUsername(username)))
+                {
+                    return new ServerMessage() { IsError = false };
+                }
+
+                return new ServerMessage() { IsError = true, Message = "Unable to create discussion" };
             }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));

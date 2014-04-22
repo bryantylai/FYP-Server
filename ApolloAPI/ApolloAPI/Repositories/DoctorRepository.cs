@@ -20,14 +20,30 @@ namespace ApolloAPI.Repositories
             return doctors;
         }
 
-        internal IEnumerable<Appointment> ListAllAppointments(Guid guid)
+        internal IEnumerable<Appointment> ListAllAppointments(Guid userId)
         {
-            return dbEntities.Appointments.Where((a) => a.UserId == guid);
+            return dbEntities.Appointments.Where((a) => a.UserId == userId);
+        }
+
+        internal IEnumerable<Discussion> ListAllDiscussions()
+        {
+            return dbEntities.Discussions;
+        }
+
+        internal IEnumerable<Reply> GetDicussionReplies(Guid discussionId)
+        {
+            return dbEntities.Replies.Where((r) => r.DiscussionId == discussionId);
         }
 
         internal bool RecordAppointment(Appointment appointment)
         {
             dbEntities.Appointments.Add(appointment);
+            return dbEntities.SaveChanges() == 1;
+        }
+
+        internal bool RecordDiscussion(Discussion discussion)
+        {
+            dbEntities.Discussions.Add(discussion);
             return dbEntities.SaveChanges() == 1;
         }
     }

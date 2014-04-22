@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ApolloAPI.Data;
+using ApolloAPI.Data.Form;
 using ApolloAPI.Models;
 using ApolloAPI.Repositories;
 
@@ -36,9 +36,9 @@ namespace ApolloAPI.Services
             return (!String.IsNullOrWhiteSpace(loginForm.Email) || !String.IsNullOrWhiteSpace(loginForm.Username)) && !String.IsNullOrWhiteSpace(loginForm.Password);
         }
 
-        internal Guid GetUserIdByUsername(string username)
+        internal Guid GetPersonIdByUsername(string username)
         {
-            return authRepository.GetUserIdByUsername(username);
+            return authRepository.GetPersonIdByUsername(username);
         }
 
         internal bool RegisterUser(RegistrationForm registrationForm)

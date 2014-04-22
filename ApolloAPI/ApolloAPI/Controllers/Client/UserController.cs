@@ -5,19 +5,68 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using ApolloAPI.Authorization;
-using ApolloAPI.Data;
+using ApolloAPI.Data.Form;
+using ApolloAPI.Data.Item;
+using ApolloAPI.Data.Utility;
+using ApolloAPI.Services;
 
 namespace ApolloAPI.Controllers.Client
 {
     [ApolloAuthorizeAttribute]
     [RoutePrefix("api/user")]
-    public class UserController : ApiController
+    public class UserController : AbstractController
     {
+        private UserService userService;
+        private string username;
+        private bool isUser;
+
+        public UserController()
+        {
+            userService = new UserService();
+        }
+
         [Route("home")]
         [HttpGet]
-        public Home GetDataForHome()
+        public HomeItem GetDataForHome()
         {
-            return new Home();
+            username = this.RequestContext.Principal.Identity.Name;
+            isUser = this.RequestContext.Principal.IsInRole("User");
+
+            if (isUser) { return userService.GetHomeData(authService.GetPersonIdByUsername(username)); }
+
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        }
+
+        [Route("profile")]
+        [HttpGet]
+        public ProfileItem GetUserProfile()
+        {
+            username = this.RequestContext.Principal.Identity.Name;
+            isUser = this.RequestContext.Principal.IsInRole("User");
+
+            if (isUser) { return userService.GetProfile(authService.GetPersonIdByUsername(username)); }
+
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        }
+
+        [Route("profile")]
+        [HttpPut]
+        public ServerMessage UpdateUserProfile([FromBody] ProfileForm profileForm)
+        {
+            username = this.RequestContext.Principal.Identity.Name;
+            isUser = this.RequestContext.Principal.IsInRole("User");
+
+            if (isUser)
+            {
+                if (userService.ValidateForm(profileForm) && userService.UpdateProfile(profileForm, authService.GetPersonIdByUsername(username)))
+                {
+                    return new ServerMessage() { IsError = false };
+                }
+
+                return new ServerMessage() { IsError = true, Message = "Unable to update profile" };
+            }
+
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }
     }
 }

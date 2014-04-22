@@ -14,5 +14,10 @@ namespace ApolloAPI.Repositories
         {
             dbEntities = new ApolloDatabaseEntities();
         }
+
+        public bool SaveUpdate()
+        {
+            return dbEntities.SaveChanges() != 0;
+        }
     }
 }
