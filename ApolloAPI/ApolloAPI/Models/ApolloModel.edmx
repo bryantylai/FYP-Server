@@ -11,6 +11,10 @@
     <EntitySet Name="Appointments" EntityType="ApolloDatabaseModel.Store.Appointments" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Discussions" EntityType="ApolloDatabaseModel.Store.Discussions" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Replies" EntityType="ApolloDatabaseModel.Store.Replies" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Posts" EntityType="ApolloDatabaseModel.Store.Posts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Comments" EntityType="ApolloDatabaseModel.Store.Comments" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Avatars" EntityType="ApolloDatabaseModel.Store.Avatars" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Runs" EntityType="ApolloDatabaseModel.Store.Runs" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="People_Doctor" EntityType="ApolloDatabaseModel.Store.People_Doctor" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="People_User" EntityType="ApolloDatabaseModel.Store.People_User" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="People_Trainer" EntityType="ApolloDatabaseModel.Store.People_Trainer" store:Type="Tables" Schema="dbo" />
@@ -37,6 +41,26 @@
     <AssociationSet Name="PersonCredential" Association="ApolloDatabaseModel.Store.PersonCredential">
       <End Role="Person" EntitySet="People" />
       <End Role="Credential" EntitySet="Credentials" />
+    </AssociationSet>
+    <AssociationSet Name="PostComment" Association="ApolloDatabaseModel.Store.PostComment">
+      <End Role="Post" EntitySet="Posts" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="UserPost" Association="ApolloDatabaseModel.Store.UserPost">
+      <End Role="User" EntitySet="People_User" />
+      <End Role="Post" EntitySet="Posts" />
+    </AssociationSet>
+    <AssociationSet Name="UserComment" Association="ApolloDatabaseModel.Store.UserComment">
+      <End Role="User" EntitySet="People_User" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="UserAvatar" Association="ApolloDatabaseModel.Store.UserAvatar">
+      <End Role="User" EntitySet="People_User" />
+      <End Role="Avatar" EntitySet="Avatars" />
+    </AssociationSet>
+    <AssociationSet Name="AvatarRun" Association="ApolloDatabaseModel.Store.AvatarRun">
+      <End Role="Avatar" EntitySet="Avatars" />
+      <End Role="Run" EntitySet="Runs" />
     </AssociationSet>
     <AssociationSet Name="FK_Doctor_inherits_Person" Association="ApolloDatabaseModel.Store.FK_Doctor_inherits_Person">
       <End Role="Person" EntitySet="People" />
@@ -68,12 +92,12 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Role" Type="smallint" Nullable="false" />
     <Property Name="CreatedAt" Type="datetime" Nullable="false" />
-    <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <EntityType Name="Appointments">
     <Key>
@@ -104,6 +128,47 @@
     <Property Name="DiscussionId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
+  <EntityType Name="Posts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PostedAt" Type="datetime" Nullable="false" />
+    <Property Name="Photo" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Comments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PostId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CommentedAt" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Avatars">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Level" Type="int" Nullable="false" />
+    <Property Name="Points" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Runs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RunningTime" Type="datetime" Nullable="false" />
+    <Property Name="Distance" Type="float" Nullable="false" />
+    <Property Name="Point" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AvatarId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
   <EntityType Name="People_Doctor">
     <Key>
       <PropertyRef Name="Id" />
@@ -124,6 +189,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
+    <Property Name="FieldOfExpertise" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <Association Name="DoctorAppointment">
@@ -195,6 +261,66 @@
       </Principal>
       <Dependent Role="Credential">
         <PropertyRef Name="PersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PostComment">
+    <End Role="Post" Type="ApolloDatabaseModel.Store.Posts" Multiplicity="1" />
+    <End Role="Comment" Type="ApolloDatabaseModel.Store.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="PostId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserPost">
+    <End Role="User" Type="ApolloDatabaseModel.Store.People_User" Multiplicity="1" />
+    <End Role="Post" Type="ApolloDatabaseModel.Store.Posts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Post">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserComment">
+    <End Role="User" Type="ApolloDatabaseModel.Store.People_User" Multiplicity="1" />
+    <End Role="Comment" Type="ApolloDatabaseModel.Store.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserAvatar">
+    <End Role="User" Type="ApolloDatabaseModel.Store.People_User" Multiplicity="1" />
+    <End Role="Avatar" Type="ApolloDatabaseModel.Store.Avatars" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Avatar">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AvatarRun">
+    <End Role="Avatar" Type="ApolloDatabaseModel.Store.Avatars" Multiplicity="1" />
+    <End Role="Run" Type="ApolloDatabaseModel.Store.Runs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Avatar">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Run">
+        <PropertyRef Name="AvatarId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -274,6 +400,30 @@
             <End Role="Person" EntitySet="People" />
             <End Role="Credential" EntitySet="Credentials" />
           </AssociationSet>
+          <EntitySet Name="Posts" EntityType="ApolloDatabaseModel.Post" />
+          <EntitySet Name="Comments" EntityType="ApolloDatabaseModel.Comment" />
+          <AssociationSet Name="PostComment" Association="ApolloDatabaseModel.PostComment">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="UserPost" Association="ApolloDatabaseModel.UserPost">
+            <End Role="User" EntitySet="People" />
+            <End Role="Post" EntitySet="Posts" />
+          </AssociationSet>
+          <AssociationSet Name="UserComment" Association="ApolloDatabaseModel.UserComment">
+            <End Role="User" EntitySet="People" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <EntitySet Name="Avatars" EntityType="ApolloDatabaseModel.Avatar" />
+          <AssociationSet Name="UserAvatar" Association="ApolloDatabaseModel.UserAvatar">
+            <End Role="User" EntitySet="People" />
+            <End Role="Avatar" EntitySet="Avatars" />
+          </AssociationSet>
+          <EntitySet Name="Runs" EntityType="ApolloDatabaseModel.Run" />
+          <AssociationSet Name="AvatarRun" Association="ApolloDatabaseModel.AvatarRun">
+            <End Role="Avatar" EntitySet="Avatars" />
+            <End Role="Run" EntitySet="Runs" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Person">
           <Key>
@@ -293,7 +443,8 @@
           <Property Name="Weight" Type="Double" Nullable="true" />
         </EntityType>
         <EntityType Name="Trainer" BaseType="ApolloDatabaseModel.Person">
-          </EntityType>
+          <Property Name="FieldOfExpertise" Type="String" Nullable="false" />
+        </EntityType>
         <EntityType Name="Doctor" BaseType="ApolloDatabaseModel.Person" >
           <Property Name="FieldOfExpertise" Type="String" Nullable="false" />
         </EntityType>
@@ -421,6 +572,107 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="false" />
+          <Property Name="PostedAt" Type="DateTime" Nullable="false" />
+          <Property Name="Photo" Type="String" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="PostId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="false" />
+          <Property Name="CommentedAt" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <Association Name="PostComment">
+          <End Type="ApolloDatabaseModel.Post" Role="Post" Multiplicity="1" />
+          <End Type="ApolloDatabaseModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserPost">
+          <End Type="ApolloDatabaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="ApolloDatabaseModel.Post" Role="Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserComment">
+          <End Type="ApolloDatabaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="ApolloDatabaseModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Avatar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Level" Type="Int32" Nullable="false" />
+          <Property Name="Points" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+        </EntityType>
+        <Association Name="UserAvatar">
+          <End Type="ApolloDatabaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="ApolloDatabaseModel.Avatar" Role="Avatar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Avatar">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Run">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="RunningTime" Type="DateTime" Nullable="false" />
+          <Property Name="Distance" Type="Double" Nullable="false" />
+          <Property Name="Point" Type="String" Nullable="false" />
+          <Property Name="AvatarId" Type="Guid" Nullable="false" />
+        </EntityType>
+        <Association Name="AvatarRun">
+          <End Type="ApolloDatabaseModel.Avatar" Role="Avatar" Multiplicity="1" />
+          <End Type="ApolloDatabaseModel.Run" Role="Run" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Avatar">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Run">
+              <PropertyRef Name="AvatarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -456,6 +708,7 @@
       <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Trainer)">
         <MappingFragment StoreEntitySet="People_Trainer">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FieldOfExpertise" ColumnName="FieldOfExpertise" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -463,12 +716,12 @@
       <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Credential)">
         <MappingFragment StoreEntitySet="Credentials">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Role" ColumnName="Role" />
           <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -501,6 +754,51 @@
           <ScalarProperty Name="RepliedAt" ColumnName="RepliedAt" />
           <ScalarProperty Name="DiscussionId" ColumnName="DiscussionId" />
           <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Posts">
+      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Post)">
+        <MappingFragment StoreEntitySet="Posts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="PostedAt" ColumnName="PostedAt" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Comment)">
+        <MappingFragment StoreEntitySet="Comments">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PostId" ColumnName="PostId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="CommentedAt" ColumnName="CommentedAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Avatars">
+      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Avatar)">
+        <MappingFragment StoreEntitySet="Avatars">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="Points" ColumnName="Points" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Runs">
+      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Run)">
+        <MappingFragment StoreEntitySet="Runs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RunningTime" ColumnName="RunningTime" />
+          <ScalarProperty Name="Distance" ColumnName="Distance" />
+          <ScalarProperty Name="Point" ColumnName="Point" />
+          <ScalarProperty Name="AvatarId" ColumnName="AvatarId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

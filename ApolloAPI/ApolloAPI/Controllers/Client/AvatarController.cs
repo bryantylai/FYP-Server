@@ -13,62 +13,57 @@ using ApolloAPI.Services;
 namespace ApolloAPI.Controllers.Client
 {
     [ApolloAuthorizeAttribute]
-    [RoutePrefix("api/user")]
-    public class UserController : AbstractController
+    [RoutePrefix("api/avatar")]
+    public class AvatarController : AbstractController
     {
-        private UserService userService;
+        private AvatarService avatarService;
         private string username;
         private bool isUser;
 
-        public UserController()
+        public AvatarController()
         {
-            userService = new UserService();
-        }
-
-        [Route("home")]
-        [HttpGet]
-        public HomeItem GetDataForHome()
-        {
-            username = this.RequestContext.Principal.Identity.Name;
-            isUser = this.RequestContext.Principal.IsInRole("User");
-
-            if (isUser) { return userService.GetHomeData(authService.GetPersonIdByUsername(username)); }
-
-            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+            avatarService = new AvatarService();
         }
 
         [Route("profile")]
         [HttpGet]
-        public UserProfileItem GetUserProfile()
+        public AvatarProfileItem GetAvatarProfile()
         {
             username = this.RequestContext.Principal.Identity.Name;
             isUser = this.RequestContext.Principal.IsInRole("User");
 
-            if (isUser) { return userService.GetProfile(authService.GetPersonIdByUsername(username)); }
+            if (isUser) { return avatarService.GetProfile(authService.GetPersonIdByUsername(username)); }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }
 
-        [Route("profile")]
-        [HttpPut]
-        public ServerMessage UpdateUserProfile([FromBody] ProfileForm profileForm)
+        [Route("leaderboard")]
+        [HttpGet]
+        public IEnumerable<LeaderboardItem> GetAvatarLeaderboard()
+        {
+            username = this.RequestContext.Principal.Identity.Name;
+            isUser = this.RequestContext.Principal.IsInRole("User");
+
+            if (isUser) { return avatarService.GetLeaderboard(authService.GetPersonIdByUsername(username)); }
+
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        }
+
+        [Route("run")]
+        [HttpPost]
+        public ServerMessage SubmitRunningForm([FromBody] RunForm runForm)
         {
             username = this.RequestContext.Principal.Identity.Name;
             isUser = this.RequestContext.Principal.IsInRole("User");
 
             if (isUser)
             {
-                if (userService.ValidateForm(profileForm))
+                if (avatarService.ValidateForm(runForm) && avatarService.UpdateRun(runForm, authService.GetPersonIdByUsername(username)))
                 {
-                    if (userService.UpdateProfile(profileForm, authService.GetPersonIdByUsername(username)))
-                    {
-                        return new ServerMessage() { IsError = false };
-                    }
-
-                    return new ServerMessage() { IsError = true, Message = "Unable to update profile" };
+                    return new ServerMessage();
                 }
 
-                return new ServerMessage() { IsError = true, Message = "There is empty fields in the Profile form." };
+                return new ServerMessage() { IsError = true, Message = "Unable to update run" };
             }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));

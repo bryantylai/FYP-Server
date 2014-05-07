@@ -21,12 +21,7 @@ namespace ApolloAPI.Services
         internal bool ValidateForm(ProfileForm profileForm)
         {
             object[] keys = { };
-            foreach (object key in keys)
-            {
-                if (key == null) return false;
-            }
-
-            return true;
+            return keys.Any((k) => k == null) ? false : true;
         }
 
         internal HomeItem GetHomeData(Guid userId)
@@ -59,10 +54,10 @@ namespace ApolloAPI.Services
             };
         }
 
-        internal ProfileItem GetProfile(Guid userId)
+        internal UserProfileItem GetProfile(Guid userId)
         {
             User user = userRepository.GetUserByUserId(userId);
-            return new ProfileItem();
+            return new UserProfileItem();
         }
 
         internal bool UpdateProfile(ProfileForm profileForm, Guid userId)

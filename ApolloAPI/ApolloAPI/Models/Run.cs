@@ -12,8 +12,12 @@ namespace ApolloAPI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Trainer : Person
+    public partial class Run
     {
-        public string FieldOfExpertise { get; set; }
+        public System.Guid Id { get; set; }
+        public System.DateTime RunningTime { get; set; }
+        public double Distance { get; set; }
+        public string Point { get; set; }
+        public System.Guid AvatarId { get; set; }
     }
 }

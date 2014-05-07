@@ -11,4 +11,9 @@ namespace ApolloAPI.Data.Form
         public string Reason { get; set; }
         public DateTime AppointmentTime { get; set; }
     }
+
+    public class RescheduleAppointmentForm : AppointmentForm
+    {
+        public Guid AppointmentId { get; set; }
+    }
 }

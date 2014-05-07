@@ -30,5 +30,9 @@ namespace ApolloAPI.Models
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Discussion> Discussions { get; set; }
         public DbSet<Reply> Replies { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Avatar> Avatars { get; set; }
+        public DbSet<Run> Runs { get; set; }
     }
 }

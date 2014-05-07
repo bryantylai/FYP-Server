@@ -59,12 +59,42 @@ namespace ApolloAPI.Controllers.Client
 
             if (isUser)
             {
-                if (doctorService.ValidateForm(appointmentForm) && doctorService.CreateAppointment(appointmentForm, authService.GetPersonIdByUsername(username)))
+                if (doctorService.ValidateForm(appointmentForm))
                 {
-                    return new ServerMessage() { IsError = false };
+                    if (doctorService.CreateAppointment(appointmentForm, authService.GetPersonIdByUsername(username)))
+                    {
+                        return new ServerMessage() { IsError = false };
+                    }
+
+                    return new ServerMessage() { IsError = true, Message = "Unable to make appointment" };
                 }
 
-                return new ServerMessage() { IsError = true, Message = "Unable to make appointment" };
+                return new ServerMessage() { IsError = true, Message = "There is empty fields in the Appointment form." };
+            }
+
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        }
+
+        [Route("appointment")]
+        [HttpPut]
+        public ServerMessage RescheduleAppointmentWithDoctor([FromBody] RescheduleAppointmentForm rescheduleAppointmentForm)
+        {
+            username = this.RequestContext.Principal.Identity.Name;
+            isUser = this.RequestContext.Principal.IsInRole("User");
+
+            if (isUser)
+            {
+                if (doctorService.ValidateForm(rescheduleAppointmentForm))
+                {
+                    if (doctorService.RescheduleAppointment(rescheduleAppointmentForm, authService.GetPersonIdByUsername(username)))
+                    {
+                        return new ServerMessage() { IsError = false };
+                    }
+
+                    return new ServerMessage() { IsError = true, Message = "Unable to reschedule appointment" };
+                }
+
+                return new ServerMessage() { IsError = true, Message = "There is empty fields in the Appointment form." };
             }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
@@ -91,12 +121,17 @@ namespace ApolloAPI.Controllers.Client
 
             if (isUser)
             {
-                if (doctorService.ValidateForm(discussionForm) && doctorService.CreateDiscussion(discussionForm, authService.GetPersonIdByUsername(username)))
+                if (doctorService.ValidateForm(discussionForm))
                 {
-                    return new ServerMessage() { IsError = false };
+                    if (doctorService.CreateDiscussion(discussionForm, authService.GetPersonIdByUsername(username)))
+                    {
+                        return new ServerMessage() { IsError = false };
+                    }
+
+                    return new ServerMessage() { IsError = true, Message = "Unable to create discussion" };
                 }
 
-                return new ServerMessage() { IsError = true, Message = "Unable to create discussion" };
+                return new ServerMessage() { IsError = true, Message = "There is empty fields in the Discussion form." };
             }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));

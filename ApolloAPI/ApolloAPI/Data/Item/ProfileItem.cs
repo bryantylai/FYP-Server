@@ -5,7 +5,15 @@ using System.Web;
 
 namespace ApolloAPI.Data.Item
 {
-    public class ProfileItem
+    public abstract class ProfileItem
+    {
+    }
+
+    public class UserProfileItem : ProfileItem
+    {
+    }
+
+    public class AvatarProfileItem : ProfileItem
     {
     }
 }

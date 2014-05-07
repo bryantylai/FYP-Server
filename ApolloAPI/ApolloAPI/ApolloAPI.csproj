@@ -146,6 +146,7 @@
     <Compile Include="Authorization\ForceHttpsAttribute.cs" />
     <Compile Include="Controllers\AbstractController.cs" />
     <Compile Include="Controllers\Client\AuthController.cs" />
+    <Compile Include="Controllers\Client\AvatarController.cs" />
     <Compile Include="Controllers\Client\DoctorController.cs" />
     <Compile Include="Controllers\Client\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Data\Form\LoginForm.cs" />
     <Compile Include="Data\Form\RegistrationForm.cs" />
+    <Compile Include="Data\Form\RunForm.cs" />
     <Compile Include="Data\Item\AppointmentItem.cs" />
     <Compile Include="Data\Item\DiscussionItem.cs" />
     <Compile Include="Data\Item\HomeItem.cs" />
@@ -185,6 +187,12 @@
     <Compile Include="Models\Appointment.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Avatar.cs">
+      <DependentUpon>ApolloModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Comment.cs">
+      <DependentUpon>ApolloModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Credential.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
@@ -200,10 +208,16 @@
     <Compile Include="Models\Person.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Post.cs">
+      <DependentUpon>ApolloModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Reply.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Role.cs">
+      <DependentUpon>ApolloModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Run.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Trainer.cs">
@@ -215,9 +229,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AbstractRepository.cs" />
     <Compile Include="Repositories\AuthRepository.cs" />
+    <Compile Include="Repositories\AvatarRepository.cs" />
     <Compile Include="Repositories\DoctorRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\AuthService.cs" />
+    <Compile Include="Services\AvatarService.cs" />
     <Compile Include="Services\DoctorService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>

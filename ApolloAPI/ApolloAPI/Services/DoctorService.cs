@@ -56,23 +56,19 @@ namespace ApolloAPI.Services
         internal bool ValidateForm(AppointmentForm appointmentForm)
         {
             object[] keys = { appointmentForm.DoctorId, appointmentForm.AppointmentTime };
-            foreach (object key in keys)
-            {
-                if (key == null) return false;
-            }
+            return keys.Any((k) => k == null) ? false : true;
+        }
 
-            return true;
+        internal bool ValidateForm(RescheduleAppointmentForm rescheduleAppointmentForm)
+        {
+            object[] keys = { rescheduleAppointmentForm.AppointmentId, rescheduleAppointmentForm.DoctorId, rescheduleAppointmentForm.AppointmentTime };
+            return keys.Any((k) => k == null) ? false : true;
         }
 
         internal bool ValidateForm(DiscussionForm discussionForm)
         {
             object[] keys = { discussionForm.Title, discussionForm.Content };
-            foreach (object key in keys)
-            {
-                if (key == null) return false;
-            }
-
-            return true;
+            return keys.Any((k) => k == null) ? false : true;
         }
 
         internal bool CreateAppointment(AppointmentForm appointmentForm, Guid userId)
@@ -100,6 +96,11 @@ namespace ApolloAPI.Services
             };
 
             return doctorRepository.RecordDiscussion(discussion);
+        }
+
+        internal bool RescheduleAppointment(RescheduleAppointmentForm rescheduleAppointmentForm, Guid userId)
+        {
+            return false;
         }
     }
 }

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/22/2014 23:36:48
+-- Date Created: 05/07/2014 23:44:31
 -- Generated from EDMX file: C:\Users\Lai\Documents\GitHub\FYP-Server\ApolloAPI\ApolloAPI\Models\ApolloModel.edmx
 -- --------------------------------------------------
 
@@ -35,6 +35,15 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_PersonCredential]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Credentials] DROP CONSTRAINT [FK_PersonCredential];
 GO
+IF OBJECT_ID(N'[dbo].[FK_PostComment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_PostComment];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserPost]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Posts] DROP CONSTRAINT [FK_UserPost];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserComment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_UserComment];
+GO
 IF OBJECT_ID(N'[dbo].[FK_Doctor_inherits_Person]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[People_Doctor] DROP CONSTRAINT [FK_Doctor_inherits_Person];
 GO
@@ -63,6 +72,12 @@ IF OBJECT_ID(N'[dbo].[Discussions]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Replies]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Replies];
+GO
+IF OBJECT_ID(N'[dbo].[Posts]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Posts];
+GO
+IF OBJECT_ID(N'[dbo].[Comments]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Comments];
 GO
 IF OBJECT_ID(N'[dbo].[People_Doctor]', 'U') IS NOT NULL
     DROP TABLE [dbo].[People_Doctor];
@@ -131,6 +146,47 @@ CREATE TABLE [dbo].[Replies] (
 );
 GO
 
+-- Creating table 'Posts'
+CREATE TABLE [dbo].[Posts] (
+    [Id] uniqueidentifier  NOT NULL,
+    [UserId] uniqueidentifier  NOT NULL,
+    [Title] nvarchar(max)  NOT NULL,
+    [Content] nvarchar(max)  NOT NULL,
+    [PostedAt] datetime  NOT NULL,
+    [Photo] nvarchar(max)  NULL
+);
+GO
+
+-- Creating table 'Comments'
+CREATE TABLE [dbo].[Comments] (
+    [Id] uniqueidentifier  NOT NULL,
+    [PostId] uniqueidentifier  NOT NULL,
+    [UserId] uniqueidentifier  NOT NULL,
+    [Content] nvarchar(max)  NOT NULL,
+    [CommentedAt] datetime  NOT NULL
+);
+GO
+
+-- Creating table 'Avatars'
+CREATE TABLE [dbo].[Avatars] (
+    [Id] uniqueidentifier  NOT NULL,
+    [Name] nvarchar(max)  NOT NULL,
+    [Level] int  NOT NULL,
+    [Points] int  NOT NULL,
+    [UserId] uniqueidentifier  NOT NULL
+);
+GO
+
+-- Creating table 'Runs'
+CREATE TABLE [dbo].[Runs] (
+    [Id] uniqueidentifier  NOT NULL,
+    [RunningTime] datetime  NOT NULL,
+    [Distance] float  NOT NULL,
+    [Point] nvarchar(max)  NOT NULL,
+    [AvatarId] uniqueidentifier  NOT NULL
+);
+GO
+
 -- Creating table 'People_Doctor'
 CREATE TABLE [dbo].[People_Doctor] (
     [FieldOfExpertise] nvarchar(max)  NOT NULL,
@@ -149,6 +205,7 @@ GO
 
 -- Creating table 'People_Trainer'
 CREATE TABLE [dbo].[People_Trainer] (
+    [FieldOfExpertise] nvarchar(max)  NOT NULL,
     [Id] uniqueidentifier  NOT NULL
 );
 GO
@@ -184,6 +241,30 @@ GO
 -- Creating primary key on [Id] in table 'Replies'
 ALTER TABLE [dbo].[Replies]
 ADD CONSTRAINT [PK_Replies]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Posts'
+ALTER TABLE [dbo].[Posts]
+ADD CONSTRAINT [PK_Posts]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Comments'
+ALTER TABLE [dbo].[Comments]
+ADD CONSTRAINT [PK_Comments]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Avatars'
+ALTER TABLE [dbo].[Avatars]
+ADD CONSTRAINT [PK_Avatars]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Runs'
+ALTER TABLE [dbo].[Runs]
+ADD CONSTRAINT [PK_Runs]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -297,6 +378,81 @@ GO
 CREATE INDEX [IX_FK_PersonCredential]
 ON [dbo].[Credentials]
     ([PersonId]);
+GO
+
+-- Creating foreign key on [PostId] in table 'Comments'
+ALTER TABLE [dbo].[Comments]
+ADD CONSTRAINT [FK_PostComment]
+    FOREIGN KEY ([PostId])
+    REFERENCES [dbo].[Posts]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PostComment'
+CREATE INDEX [IX_FK_PostComment]
+ON [dbo].[Comments]
+    ([PostId]);
+GO
+
+-- Creating foreign key on [UserId] in table 'Posts'
+ALTER TABLE [dbo].[Posts]
+ADD CONSTRAINT [FK_UserPost]
+    FOREIGN KEY ([UserId])
+    REFERENCES [dbo].[People_User]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserPost'
+CREATE INDEX [IX_FK_UserPost]
+ON [dbo].[Posts]
+    ([UserId]);
+GO
+
+-- Creating foreign key on [UserId] in table 'Comments'
+ALTER TABLE [dbo].[Comments]
+ADD CONSTRAINT [FK_UserComment]
+    FOREIGN KEY ([UserId])
+    REFERENCES [dbo].[People_User]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserComment'
+CREATE INDEX [IX_FK_UserComment]
+ON [dbo].[Comments]
+    ([UserId]);
+GO
+
+-- Creating foreign key on [UserId] in table 'Avatars'
+ALTER TABLE [dbo].[Avatars]
+ADD CONSTRAINT [FK_UserAvatar]
+    FOREIGN KEY ([UserId])
+    REFERENCES [dbo].[People_User]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserAvatar'
+CREATE INDEX [IX_FK_UserAvatar]
+ON [dbo].[Avatars]
+    ([UserId]);
+GO
+
+-- Creating foreign key on [AvatarId] in table 'Runs'
+ALTER TABLE [dbo].[Runs]
+ADD CONSTRAINT [FK_AvatarRun]
+    FOREIGN KEY ([AvatarId])
+    REFERENCES [dbo].[Avatars]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_AvatarRun'
+CREATE INDEX [IX_FK_AvatarRun]
+ON [dbo].[Runs]
+    ([AvatarId]);
 GO
 
 -- Creating foreign key on [Id] in table 'People_Doctor'

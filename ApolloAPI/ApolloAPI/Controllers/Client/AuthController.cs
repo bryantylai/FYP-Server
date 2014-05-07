@@ -22,28 +22,74 @@ namespace ApolloAPI.Controllers
             this.authService = new AuthService();
         }
 
+        //[Route("register/{username}/{password}")]
+        //[HttpGet]
+        //public ServerMessage Register(string username, string password)
+        //{
+        //    RegistrationForm registrationForm = new RegistrationForm()
+        //    {
+        //        Email = username + "@yahoo.com",
+        //        Username = username,
+        //        Password = password
+        //    };
+
+        //    if (authService.ValidateForm(registrationForm))
+        //    {
+        //        if (!authService.CheckForDuplicate(registrationForm))
+        //        {
+        //            if (authService.RegisterUser(registrationForm))
+        //            {
+        //                return new ServerMessage() { IsError = false };
+        //            }
+
+        //            return new ServerMessage() { IsError = true, Message = "An unknown error has occured." };
+        //        }
+
+        //        return new ServerMessage() { IsError = true, Message = "The existing username or email already exists." };
+        //    }
+
+        //    return new ServerMessage() { IsError = true, Message = "There is empty fields in the Registration form." };
+        //}
+
         [Route("register")]
         [HttpPost]
         public ServerMessage Register([FromBody] RegistrationForm registrationForm)
         {
-            if (authService.ValidateForm(registrationForm) && authService.RegisterUser(registrationForm))
+            if (authService.ValidateForm(registrationForm))
             {
-                return new ServerMessage() { IsError = false };
+                if (!authService.CheckForDuplicate(registrationForm))
+                {
+                    if (authService.RegisterUser(registrationForm))
+                    {
+                        return new ServerMessage() { IsError = false };
+                    }
+
+                    return new ServerMessage() { IsError = true, Message = "An unknown error has occured." };
+                }
+
+                return new ServerMessage() { IsError = true, Message = "The existing username or email already exists." };
             }
 
-            return new ServerMessage() { IsError = true, Message = "Unable to sign up" };
+            return new ServerMessage() { IsError = true, Message = "There is empty fields in the Registration form." };
         }
 
         [Route("login")]
         [HttpPost]
         public ServerMessage Login([FromBody] LoginForm loginForm)
         {
-            if (authService.ValidateForm(loginForm) && authService.LoginUser(loginForm))
+            if (authService.ValidateForm(loginForm))
             {
-                return new ServerMessage() { IsError = false };
+                if (authService.LoginUser(loginForm))
+                {
+                    return new ServerMessage() { IsError = false };
+                }
+                else
+                {
+                    return new ServerMessage() { IsError = true, Message = "Useranme or Password entered is incorrect" };
+                }
             }
 
-            return new ServerMessage() { IsError = true, Message = "Unable to sign in" };
+            return new ServerMessage() { IsError = true, Message = "There is empty fields in the Login form." };
         }
     }
 }
