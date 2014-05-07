@@ -15,6 +15,9 @@
     <EntitySet Name="Comments" EntityType="ApolloDatabaseModel.Store.Comments" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Avatars" EntityType="ApolloDatabaseModel.Store.Avatars" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Runs" EntityType="ApolloDatabaseModel.Store.Runs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Scoresheets" EntityType="ApolloDatabaseModel.Store.Scoresheets" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GameSystems" EntityType="ApolloDatabaseModel.Store.GameSystems" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Gyms" EntityType="ApolloDatabaseModel.Store.Gyms" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="People_Doctor" EntityType="ApolloDatabaseModel.Store.People_Doctor" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="People_User" EntityType="ApolloDatabaseModel.Store.People_User" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="People_Trainer" EntityType="ApolloDatabaseModel.Store.People_Trainer" store:Type="Tables" Schema="dbo" />
@@ -61,6 +64,10 @@
     <AssociationSet Name="AvatarRun" Association="ApolloDatabaseModel.Store.AvatarRun">
       <End Role="Avatar" EntitySet="Avatars" />
       <End Role="Run" EntitySet="Runs" />
+    </AssociationSet>
+    <AssociationSet Name="GymTrainer" Association="ApolloDatabaseModel.Store.GymTrainer">
+      <End Role="Gym" EntitySet="Gyms" />
+      <End Role="Trainer" EntitySet="People_Trainer" />
     </AssociationSet>
     <AssociationSet Name="FK_Doctor_inherits_Person" Association="ApolloDatabaseModel.Store.FK_Doctor_inherits_Person">
       <End Role="Person" EntitySet="People" />
@@ -169,6 +176,30 @@
     <Property Name="Point" Type="int" Nullable="false" />
     <Property Name="AvatarId" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
+  <EntityType Name="Scoresheets">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TotalDistance" Type="float" Nullable="false" />
+    <Property Name="Points" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GameSystems">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Level" Type="int" Nullable="false" />
+    <Property Name="Points" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Gyms">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Location" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
   <EntityType Name="People_Doctor">
     <Key>
       <PropertyRef Name="Id" />
@@ -190,6 +221,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="FieldOfExpertise" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="GymId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <Association Name="DoctorAppointment">
@@ -321,6 +353,18 @@
       </Principal>
       <Dependent Role="Run">
         <PropertyRef Name="AvatarId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GymTrainer">
+    <End Role="Gym" Type="ApolloDatabaseModel.Store.Gyms" Multiplicity="1" />
+    <End Role="Trainer" Type="ApolloDatabaseModel.Store.People_Trainer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gym">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Trainer">
+        <PropertyRef Name="GymId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -753,6 +797,7 @@
         <MappingFragment StoreEntitySet="People_Trainer">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="FieldOfExpertise" ColumnName="FieldOfExpertise" />
+          <ScalarProperty Name="GymId" ColumnName="GymId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -843,6 +888,33 @@
           <ScalarProperty Name="Distance" ColumnName="Distance" />
           <ScalarProperty Name="Point" ColumnName="Point" />
           <ScalarProperty Name="AvatarId" ColumnName="AvatarId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Scoresheets">
+      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Scoresheet)">
+        <MappingFragment StoreEntitySet="Scoresheets">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TotalDistance" ColumnName="TotalDistance" />
+          <ScalarProperty Name="Points" ColumnName="Points" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GameSystems">
+      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.GameSystem)">
+        <MappingFragment StoreEntitySet="GameSystems">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="Points" ColumnName="Points" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Gyms">
+      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Gym)">
+        <MappingFragment StoreEntitySet="Gyms">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -20,12 +20,17 @@ namespace ApolloAPI.Services
         {
             if (!pointRepository.IsGameSystemInitialized())
             {
+                HashSet<GameSystem> gameSystems = new HashSet<GameSystem>();
+
                 GameSystem gameSystem = new GameSystem()
                 {
                     Id = Guid.NewGuid(),
-                    a
+                    Level = 1,
+                    Points = 0
                 };
-                pointRepository.InitializeGameSystem();
+                gameSystems.Add(gameSystem);
+
+                pointRepository.InitializeGameSystem(gameSystems);
             }
 
             if (!pointRepository.IsScoresheetInitialized())
