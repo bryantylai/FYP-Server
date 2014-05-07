@@ -22,35 +22,6 @@ namespace ApolloAPI.Controllers
             this.authService = new AuthService();
         }
 
-        //[Route("register/{username}/{password}")]
-        //[HttpGet]
-        //public ServerMessage Register(string username, string password)
-        //{
-        //    RegistrationForm registrationForm = new RegistrationForm()
-        //    {
-        //        Email = username + "@yahoo.com",
-        //        Username = username,
-        //        Password = password
-        //    };
-
-        //    if (authService.ValidateForm(registrationForm))
-        //    {
-        //        if (!authService.CheckForDuplicate(registrationForm))
-        //        {
-        //            if (authService.RegisterUser(registrationForm))
-        //            {
-        //                return new ServerMessage() { IsError = false };
-        //            }
-
-        //            return new ServerMessage() { IsError = true, Message = "An unknown error has occured." };
-        //        }
-
-        //        return new ServerMessage() { IsError = true, Message = "The existing username or email already exists." };
-        //    }
-
-        //    return new ServerMessage() { IsError = true, Message = "There is empty fields in the Registration form." };
-        //}
-
         [Route("register")]
         [HttpPost]
         public ServerMessage Register([FromBody] RegistrationForm registrationForm)

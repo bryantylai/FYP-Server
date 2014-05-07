@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/07/2014 23:44:31
+-- Date Created: 05/08/2014 01:14:38
 -- Generated from EDMX file: C:\Users\Lai\Documents\GitHub\FYP-Server\ApolloAPI\ApolloAPI\Models\ApolloModel.edmx
 -- --------------------------------------------------
 
@@ -44,6 +44,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_UserComment]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Comments] DROP CONSTRAINT [FK_UserComment];
 GO
+IF OBJECT_ID(N'[dbo].[FK_UserAvatar]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Avatars] DROP CONSTRAINT [FK_UserAvatar];
+GO
+IF OBJECT_ID(N'[dbo].[FK_AvatarRun]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Runs] DROP CONSTRAINT [FK_AvatarRun];
+GO
 IF OBJECT_ID(N'[dbo].[FK_Doctor_inherits_Person]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[People_Doctor] DROP CONSTRAINT [FK_Doctor_inherits_Person];
 GO
@@ -78,6 +84,12 @@ IF OBJECT_ID(N'[dbo].[Posts]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Comments]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Comments];
+GO
+IF OBJECT_ID(N'[dbo].[Avatars]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Avatars];
+GO
+IF OBJECT_ID(N'[dbo].[Runs]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Runs];
 GO
 IF OBJECT_ID(N'[dbo].[People_Doctor]', 'U') IS NOT NULL
     DROP TABLE [dbo].[People_Doctor];
@@ -180,9 +192,9 @@ GO
 -- Creating table 'Runs'
 CREATE TABLE [dbo].[Runs] (
     [Id] uniqueidentifier  NOT NULL,
-    [RunningTime] datetime  NOT NULL,
+    [RunningTime] time  NOT NULL,
     [Distance] float  NOT NULL,
-    [Point] nvarchar(max)  NOT NULL,
+    [Point] int  NOT NULL,
     [AvatarId] uniqueidentifier  NOT NULL
 );
 GO

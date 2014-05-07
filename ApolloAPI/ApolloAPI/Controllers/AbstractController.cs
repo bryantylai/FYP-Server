@@ -11,14 +11,10 @@ namespace ApolloAPI.Controllers
     public abstract class AbstractController : ApiController
     {
         protected AuthService authService;
-        //protected string username;
-        //protected bool isUser;
 
         public AbstractController()
         {
             authService = new AuthService();
-            //username = this.RequestContext.Principal.Identity.Name;
-            //isUser = this.RequestContext.Principal.IsInRole("User");
         }
     }
 }

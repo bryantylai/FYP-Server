@@ -121,7 +121,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\Admin\" />
+    <Folder Include="Controllers\Doctor\" />
+    <Folder Include="Controllers\Trainer\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="Authorization\ApolloAuthorizeAttribute.cs" />
     <Compile Include="Authorization\ForceHttpsAttribute.cs" />
     <Compile Include="Controllers\AbstractController.cs" />
+    <Compile Include="Controllers\Admin\SystemController.cs" />
     <Compile Include="Controllers\Client\AuthController.cs" />
     <Compile Include="Controllers\Client\AvatarController.cs" />
     <Compile Include="Controllers\Client\DoctorController.cs" />
@@ -202,7 +204,13 @@
     <Compile Include="Models\Doctor.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GameSystem.cs">
+      <DependentUpon>ApolloModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Gender.cs">
+      <DependentUpon>ApolloModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Gym.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Person.cs">
@@ -220,6 +228,9 @@
     <Compile Include="Models\Run.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Scoresheet.cs">
+      <DependentUpon>ApolloModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Trainer.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
@@ -231,10 +242,13 @@
     <Compile Include="Repositories\AuthRepository.cs" />
     <Compile Include="Repositories\AvatarRepository.cs" />
     <Compile Include="Repositories\DoctorRepository.cs" />
+    <Compile Include="Repositories\PointRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\AvatarService.cs" />
     <Compile Include="Services\DoctorService.cs" />
+    <Compile Include="Services\PointService.cs" />
+    <Compile Include="Services\SystemService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>

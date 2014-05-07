@@ -15,5 +15,6 @@ namespace ApolloAPI.Models
     public partial class Trainer : Person
     {
         public string FieldOfExpertise { get; set; }
+        public System.Guid GymId { get; set; }
     }
 }

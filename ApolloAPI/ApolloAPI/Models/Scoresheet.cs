@@ -12,12 +12,10 @@ namespace ApolloAPI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Run
+    public partial class Scoresheet
     {
         public System.Guid Id { get; set; }
-        public System.TimeSpan RunningTime { get; set; }
-        public double Distance { get; set; }
-        public int Point { get; set; }
-        public System.Guid AvatarId { get; set; }
+        public double TotalDistance { get; set; }
+        public int Points { get; set; }
     }
 }

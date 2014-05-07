@@ -39,7 +39,19 @@ namespace ApolloAPI.Services
         internal bool UpdateRun(RunForm runForm, Guid userId)
         {
             Avatar avatar = avatarRepository.GetAvatarFromUserId(userId);
-            throw new NotImplementedException();
+            TimeSpan timeDiff = runForm.EndTime - runForm.StartTime;
+            int point = PointService.Calculate(timeDiff, runForm.Distance);
+
+            Run run = new Run()
+            {
+                Id = Guid.NewGuid(),
+                AvatarId = avatar.Id,
+                Distance = runForm.Distance,
+                RunningTime = timeDiff,
+                Point = point
+            };
+
+            return true;
         }
     }
 }

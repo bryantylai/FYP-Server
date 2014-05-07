@@ -31,6 +31,10 @@
         <AssociationConnector Association="ApolloDatabaseModel.UserAvatar" />
         <EntityTypeShape EntityType="ApolloDatabaseModel.Run" Width="1.5" PointX="78.125" PointY="7.375" />
         <AssociationConnector Association="ApolloDatabaseModel.AvatarRun" />
+        <EntityTypeShape EntityType="ApolloDatabaseModel.Scoresheet" Width="1.5" PointX="72.875" PointY="8.875" />
+        <EntityTypeShape EntityType="ApolloDatabaseModel.GameSystem" Width="1.5" PointX="70.875" PointY="8.875" />
+        <EntityTypeShape EntityType="ApolloDatabaseModel.Gym" Width="1.5" PointX="70.875" PointY="5.875" />
+        <AssociationConnector Association="ApolloDatabaseModel.GymTrainer" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

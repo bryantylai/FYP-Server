@@ -164,9 +164,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="RunningTime" Type="datetime" Nullable="false" />
+    <Property Name="RunningTime" Type="time" Nullable="false" />
     <Property Name="Distance" Type="float" Nullable="false" />
-    <Property Name="Point" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Point" Type="int" Nullable="false" />
     <Property Name="AvatarId" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <EntityType Name="People_Doctor">
@@ -424,6 +424,13 @@
             <End Role="Avatar" EntitySet="Avatars" />
             <End Role="Run" EntitySet="Runs" />
           </AssociationSet>
+          <EntitySet Name="Scoresheets" EntityType="ApolloDatabaseModel.Scoresheet" />
+          <EntitySet Name="GameSystems" EntityType="ApolloDatabaseModel.GameSystem" />
+          <EntitySet Name="Gyms" EntityType="ApolloDatabaseModel.Gym" />
+          <AssociationSet Name="GymTrainer" Association="ApolloDatabaseModel.GymTrainer">
+            <End Role="Gym" EntitySet="Gyms" />
+            <End Role="Trainer" EntitySet="People" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Person">
           <Key>
@@ -444,6 +451,7 @@
         </EntityType>
         <EntityType Name="Trainer" BaseType="ApolloDatabaseModel.Person">
           <Property Name="FieldOfExpertise" Type="String" Nullable="false" />
+          <Property Name="GymId" Type="Guid" Nullable="false" />
         </EntityType>
         <EntityType Name="Doctor" BaseType="ApolloDatabaseModel.Person" >
           <Property Name="FieldOfExpertise" Type="String" Nullable="false" />
@@ -656,9 +664,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Name="RunningTime" Type="DateTime" Nullable="false" />
+          <Property Name="RunningTime" Type="Time" Nullable="false" />
           <Property Name="Distance" Type="Double" Nullable="false" />
-          <Property Name="Point" Type="String" Nullable="false" />
+          <Property Name="Point" Type="Int32" Nullable="false" />
           <Property Name="AvatarId" Type="Guid" Nullable="false" />
         </EntityType>
         <Association Name="AvatarRun">
@@ -670,6 +678,42 @@
             </Principal>
             <Dependent Role="Run">
               <PropertyRef Name="AvatarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Scoresheet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="TotalDistance" Type="Double" Nullable="false" />
+          <Property Name="Points" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GameSystem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Level" Type="Int32" Nullable="false" />
+          <Property Name="Points" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gym">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Location" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="GymTrainer">
+          <End Type="ApolloDatabaseModel.Gym" Role="Gym" Multiplicity="1" />
+          <End Type="ApolloDatabaseModel.Trainer" Role="Trainer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gym">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trainer">
+              <PropertyRef Name="GymId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
