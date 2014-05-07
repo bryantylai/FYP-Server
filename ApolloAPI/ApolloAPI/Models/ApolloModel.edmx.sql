@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/08/2014 01:14:38
+-- Date Created: 05/08/2014 02:22:56
 -- Generated from EDMX file: C:\Users\Lai\Documents\GitHub\FYP-Server\ApolloAPI\ApolloAPI\Models\ApolloModel.edmx
 -- --------------------------------------------------
 
@@ -199,6 +199,30 @@ CREATE TABLE [dbo].[Runs] (
 );
 GO
 
+-- Creating table 'Scoresheets'
+CREATE TABLE [dbo].[Scoresheets] (
+    [Id] uniqueidentifier  NOT NULL,
+    [TotalDistance] float  NOT NULL,
+    [Points] int  NOT NULL
+);
+GO
+
+-- Creating table 'GameSystems'
+CREATE TABLE [dbo].[GameSystems] (
+    [Id] uniqueidentifier  NOT NULL,
+    [Level] int  NOT NULL,
+    [Points] int  NOT NULL
+);
+GO
+
+-- Creating table 'Gyms'
+CREATE TABLE [dbo].[Gyms] (
+    [Id] uniqueidentifier  NOT NULL,
+    [Name] nvarchar(max)  NOT NULL,
+    [Location] nvarchar(max)  NOT NULL
+);
+GO
+
 -- Creating table 'People_Doctor'
 CREATE TABLE [dbo].[People_Doctor] (
     [FieldOfExpertise] nvarchar(max)  NOT NULL,
@@ -218,6 +242,7 @@ GO
 -- Creating table 'People_Trainer'
 CREATE TABLE [dbo].[People_Trainer] (
     [FieldOfExpertise] nvarchar(max)  NOT NULL,
+    [GymId] uniqueidentifier  NOT NULL,
     [Id] uniqueidentifier  NOT NULL
 );
 GO
@@ -277,6 +302,24 @@ GO
 -- Creating primary key on [Id] in table 'Runs'
 ALTER TABLE [dbo].[Runs]
 ADD CONSTRAINT [PK_Runs]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Scoresheets'
+ALTER TABLE [dbo].[Scoresheets]
+ADD CONSTRAINT [PK_Scoresheets]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'GameSystems'
+ALTER TABLE [dbo].[GameSystems]
+ADD CONSTRAINT [PK_GameSystems]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Gyms'
+ALTER TABLE [dbo].[Gyms]
+ADD CONSTRAINT [PK_Gyms]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -465,6 +508,21 @@ GO
 CREATE INDEX [IX_FK_AvatarRun]
 ON [dbo].[Runs]
     ([AvatarId]);
+GO
+
+-- Creating foreign key on [GymId] in table 'People_Trainer'
+ALTER TABLE [dbo].[People_Trainer]
+ADD CONSTRAINT [FK_GymTrainer]
+    FOREIGN KEY ([GymId])
+    REFERENCES [dbo].[Gyms]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_GymTrainer'
+CREATE INDEX [IX_FK_GymTrainer]
+ON [dbo].[People_Trainer]
+    ([GymId]);
 GO
 
 -- Creating foreign key on [Id] in table 'People_Doctor'
