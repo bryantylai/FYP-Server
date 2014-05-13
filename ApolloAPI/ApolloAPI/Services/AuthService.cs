@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
-using ApolloAPI.Data.Form;
 using ApolloAPI.Models;
 using ApolloAPI.Repositories;
 
@@ -18,18 +17,18 @@ namespace ApolloAPI.Services
             authRepository = new AuthRepository();
         }
 
-        internal bool ValidateForm(RegistrationForm registrationForm)
+        internal bool ValidateForm(ApolloAPI.Data.Client.Form.RegistrationForm registrationForm)
         {
             string[] keys = { registrationForm.Email, registrationForm.Username, registrationForm.Password };
             return keys.Any((k) => String.IsNullOrWhiteSpace(k)) ? false : true;
         }
 
-        internal bool ValidateForm(LoginForm loginForm)
+        internal bool ValidateForm(ApolloAPI.Data.Client.Form.LoginForm loginForm)
         {
             return (!String.IsNullOrWhiteSpace(loginForm.Email) || !String.IsNullOrWhiteSpace(loginForm.Username)) && !String.IsNullOrWhiteSpace(loginForm.Password);
         }
 
-        internal bool CheckForDuplicate(RegistrationForm registrationForm)
+        internal bool CheckForDuplicate(ApolloAPI.Data.Client.Form.RegistrationForm registrationForm)
         {
             return authRepository.CheckForDuplicate(registrationForm.Email, registrationForm.Username);
         }
@@ -39,7 +38,7 @@ namespace ApolloAPI.Services
             return authRepository.GetPersonIdByUsername(username);
         }
 
-        internal bool RegisterUser(RegistrationForm registrationForm)
+        internal bool RegisterUser(ApolloAPI.Data.Client.Form.RegistrationForm registrationForm)
         {
             User user = new User()
             {
@@ -61,15 +60,18 @@ namespace ApolloAPI.Services
             return authRepository.CreateNewUser(user, credential);
         }
 
-        internal bool LoginUser(LoginForm loginForm)
+        internal bool LoginUser(ApolloAPI.Data.Client.Form.LoginForm loginForm)
         {
             return authRepository.CheckLoginCredentials(loginForm.Email, loginForm.Username, loginForm.Password);
         }
 
         #region Doctor
 
-        internal bool RegisterDoctor(string username, string password)
+        internal bool RegisterDoctor(ApolloAPI.Data.Doctors.Form.RegistrationForm registrationForm)
         {
+            string username = registrationForm.Username;
+            string password = registrationForm.Password;
+
             Doctor doctor = new Doctor()
             {
                 Id = Guid.NewGuid(),
@@ -85,13 +87,18 @@ namespace ApolloAPI.Services
                 Role = Role.Doctor,
                 Username = username,
                 Email = username + "@doctor.com",
-                Password = password,
-                CreatedAt = DateTime.Now
+                Password = BCrypt.Net.BCrypt.HashPassword(password),
+                CreatedAt = DateTime.UtcNow
             };
 
             return authRepository.CreateNewDoctor(doctor, credential);
         }
 
         #endregion
+
+        internal bool LoginDoctor(Data.Doctors.Form.LoginForm loginForm)
+        {
+            return authRepository.CheckLoginCredentials(loginForm.Email, loginForm.Username, loginForm.Password);
+        }
     }
 }

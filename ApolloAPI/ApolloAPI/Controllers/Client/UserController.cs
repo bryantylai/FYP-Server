@@ -5,8 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using ApolloAPI.Authorization;
-using ApolloAPI.Data.Form;
-using ApolloAPI.Data.Item;
+using ApolloAPI.Data.Client.Form;
+using ApolloAPI.Data.Client.Item;
 using ApolloAPI.Data.Utility;
 using ApolloAPI.Services;
 
@@ -27,24 +27,24 @@ namespace ApolloAPI.Controllers.Client
 
         [Route("windows/home")]
         [HttpGet]
-        public Data.Item.Windows.HomeItem GetWindowsDataForHome()
+        public ApolloAPI.Data.Client.Item.Windows.HomeItem GetWindowsDataForHome()
         {
             username = this.RequestContext.Principal.Identity.Name;
             isUser = this.RequestContext.Principal.IsInRole("User");
 
-            if (isUser) { return userService.GetHomeData(authService.GetPersonIdByUsername(username), new Data.Item.Windows.HomeItem()); }
+            if (isUser) { return userService.GetHomeData(authService.GetPersonIdByUsername(username), new ApolloAPI.Data.Client.Item.Windows.HomeItem()); }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }
 
         [Route("ios/home")]
         [HttpGet]
-        public Data.Item.iOS.HomeItem GetIOSDataForHome()
+        public ApolloAPI.Data.Client.Item.iOS.HomeItem GetIOSDataForHome()
         {
             username = this.RequestContext.Principal.Identity.Name;
             isUser = this.RequestContext.Principal.IsInRole("User");
 
-            if (isUser) { return userService.GetHomeData(authService.GetPersonIdByUsername(username), new Data.Item.iOS.HomeItem()); }
+            if (isUser) { return userService.GetHomeData(authService.GetPersonIdByUsername(username), new ApolloAPI.Data.Client.Item.iOS.HomeItem()); }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }

@@ -8,7 +8,7 @@ namespace ApolloAPI.Repositories
 {
     public class DoctorRepository : AbstractRepository
     {
-        internal Doctor GetDoctor(Guid doctorId)
+        internal Doctor GetDoctorByDoctorId(Guid doctorId)
         {
             return dbEntities.People.Single((d) => d.Id == doctorId) as Doctor;
         }
@@ -26,14 +26,19 @@ namespace ApolloAPI.Repositories
             return doctors;
         }
 
-        internal IEnumerable<Appointment> ListAllAppointments(Guid userId)
+        internal IEnumerable<Appointment> ListAllAppointments(Guid id)
         {
-            return dbEntities.Appointments.Where((a) => a.UserId == userId);
+            return dbEntities.Appointments.Where((a) => a.UserId == id || a.DoctorId == id);
         }
 
         internal IEnumerable<Discussion> ListAllDiscussions()
         {
             return dbEntities.Discussions;
+        }
+
+        internal IEnumerable<Discussion> ListAllDiscussions(Guid userId)
+        {
+            return dbEntities.Discussions.Where((d) => d.UserId == userId);
         }
 
         internal IEnumerable<Reply> GetDicussionReplies(Guid discussionId)
@@ -50,6 +55,17 @@ namespace ApolloAPI.Repositories
         internal bool RecordDiscussion(Discussion discussion)
         {
             dbEntities.Discussions.Add(discussion);
+            return dbEntities.SaveChanges() == 1;
+        }
+
+        internal Discussion GetDiscussion(Guid discussionId)
+        {
+            return dbEntities.Discussions.Single((d) => d.Id == discussionId);
+        }
+
+        internal bool RecordDiscussionReply(Reply reply)
+        {
+            dbEntities.Replies.Add(reply);
             return dbEntities.SaveChanges() == 1;
         }
     }

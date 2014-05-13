@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ApolloAPI.Data.Form
+namespace ApolloAPI.Data.Doctors.Form
 {
-
-    public class ProfileForm
+    public class LoginForm : AuthForm
     {
     }
 }

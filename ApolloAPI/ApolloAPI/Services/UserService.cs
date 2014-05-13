@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ApolloAPI.Data.Form;
-using ApolloAPI.Data.Item;
-using ApolloAPI.Data.Item.Windows;
+using ApolloAPI.Data.Client.Form;
+using ApolloAPI.Data.Client.Item;
 using ApolloAPI.Models;
 using ApolloAPI.Repositories;
 
@@ -25,7 +24,7 @@ namespace ApolloAPI.Services
             return keys.Any((k) => k == null) ? false : true;
         }
 
-        internal Data.Item.Windows.HomeItem GetHomeData(Guid userId, Data.Item.Windows.HomeItem homeItem)
+        internal ApolloAPI.Data.Client.Item.Windows.HomeItem GetHomeData(Guid userId, ApolloAPI.Data.Client.Item.Windows.HomeItem homeItem)
         {
             DoctorRepository doctorRepository = new DoctorRepository();
 
@@ -54,7 +53,7 @@ namespace ApolloAPI.Services
             return homeItem;
         }
 
-        internal Data.Item.iOS.HomeItem GetHomeData(Guid userId, Data.Item.iOS.HomeItem homeItem)
+        internal ApolloAPI.Data.Client.Item.iOS.HomeItem GetHomeData(Guid userId, ApolloAPI.Data.Client.Item.iOS.HomeItem homeItem)
         {
             DoctorRepository doctorRepository = new DoctorRepository();
 

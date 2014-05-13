@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ApolloAPI.Data.Item;
+using ApolloAPI.Data.Client.Item;
 
-namespace ApolloAPI.Data.Item.Windows
+namespace ApolloAPI.Data.Client.Item.Windows
 {
     public class HomeItem
     {

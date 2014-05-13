@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ApolloAPI.Data.Form;
-using ApolloAPI.Data.Item;
+using ApolloAPI.Data.Client.Form;
+using ApolloAPI.Data.Client.Item;
 using ApolloAPI.Models;
 using ApolloAPI.Repositories;
 

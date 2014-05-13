@@ -18,5 +18,7 @@ namespace ApolloAPI.Models
         public System.Guid DoctorId { get; set; }
         public System.Guid UserId { get; set; }
         public System.DateTime AppointmentTime { get; set; }
+        public string Reason { get; set; }
+        public bool IsApproved { get; set; }
     }
 }

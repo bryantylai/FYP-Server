@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ApolloAPI.Data.Form
+namespace ApolloAPI.Data.Doctors.Form
 {
-    public class DiscussionForm
+    public class ReplyForm
     {
-        public string Title { get; set; }
+        public Guid DiscussionId { get; set; }
         public string Content { get; set; }
     }
 }

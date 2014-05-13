@@ -5,8 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using ApolloAPI.Authorization;
-using ApolloAPI.Data.Form;
-using ApolloAPI.Data.Item;
+using ApolloAPI.Data.Client.Form;
+using ApolloAPI.Data.Client.Item;
 using ApolloAPI.Data.Utility;
 using ApolloAPI.Models;
 using ApolloAPI.Services;
@@ -45,7 +45,7 @@ namespace ApolloAPI.Controllers.Client
             username = this.RequestContext.Principal.Identity.Name;
             isUser = this.RequestContext.Principal.IsInRole("User");
 
-            if (isUser) { return doctorService.ListOfAppointments(authService.GetPersonIdByUsername(username)); }
+            if (isUser) { return doctorService.ListOfAppointments(authService.GetPersonIdByUsername(username), new HashSet<AppointmentGeneralItem>()); }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }
@@ -108,7 +108,7 @@ namespace ApolloAPI.Controllers.Client
             username = this.RequestContext.Principal.Identity.Name;
             isUser = this.RequestContext.Principal.IsInRole("User");
 
-            if (isUser) { return doctorService.ListOfDiscussions(authService.GetPersonIdByUsername(username)); }
+            if (isUser) { return doctorService.ListOfDiscussions(authService.GetPersonIdByUsername(username), new HashSet<DiscussionGeneralItem>()); }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }

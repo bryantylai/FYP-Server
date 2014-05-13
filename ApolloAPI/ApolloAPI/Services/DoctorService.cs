@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ApolloAPI.Data.Form;
-using ApolloAPI.Data.Item;
+using ApolloAPI.Data.Client.Form;
 using ApolloAPI.Models;
 using ApolloAPI.Repositories;
 
@@ -18,59 +17,9 @@ namespace ApolloAPI.Services
             doctorRepository = new DoctorRepository();
         }
 
-        internal Doctor GetDoctorByDoctorId(Guid doctorId)
+        internal Doctor GetDoctorByDoctorIdByDoctorId(Guid doctorId)
         {
-            return doctorRepository.GetDoctor(doctorId);
-        }
-
-        internal IEnumerable<Doctor> ListOfDoctors()
-        {
-            return doctorRepository.ListAllDoctors();
-        }
-
-        internal IEnumerable<Doctor> ListOfDoctors(string expertise)
-        {
-            return doctorRepository.ListAllDoctors().Where((d) => String.Equals(d.FieldOfExpertise, expertise, StringComparison.OrdinalIgnoreCase));
-        }
-
-        internal IEnumerable<AppointmentGeneralItem> ListOfAppointments(Guid userId)
-        {
-            IEnumerable<Appointment> appointments = doctorRepository.ListAllAppointments(userId).OrderBy((a) => a.AppointmentTime);
-            HashSet<AppointmentGeneralItem> appointmentList = new HashSet<AppointmentGeneralItem>();
-            
-            foreach (Appointment appointment in appointments)
-            {
-                AppointmentGeneralItem appointmentGeneralItem = new AppointmentGeneralItem()
-                {
-
-                };
-
-                appointmentList.Add(appointmentGeneralItem);
-            }
-
-            return appointmentList;
-        }
-
-        internal IEnumerable<DiscussionGeneralItem> ListOfDiscussions(Guid userId)
-        {
-            IEnumerable<Discussion> discussions = doctorRepository.ListAllDiscussions();
-            HashSet<DiscussionGeneralItem> discussionList = new HashSet<DiscussionGeneralItem>();
-            foreach (Discussion discussion in discussions)
-            {
-                IEnumerable<Reply> replies = doctorRepository.GetDicussionReplies(discussion.Id);
-
-                DiscussionGeneralItem discussionGeneralItem = new DiscussionGeneralItem()
-                {
-                    DiscussionId = discussion.Id,
-                    Title = discussion.Title,
-                    ReplyCount = replies.Count(),
-                    LastActive = replies.OrderByDescending((r) => r.RepliedAt).First().RepliedAt
-                };
-
-                discussionList.Add(discussionGeneralItem);  
-            }
-
-            return discussionList;
+            return doctorRepository.GetDoctorByDoctorId(doctorId);
         }
 
         internal bool ValidateForm(AppointmentForm appointmentForm)
@@ -89,6 +38,89 @@ namespace ApolloAPI.Services
         {
             object[] keys = { discussionForm.Title, discussionForm.Content };
             return keys.Any((k) => k == null) ? false : true;
+        }
+
+        internal IEnumerable<Doctor> ListOfDoctors()
+        {
+            return doctorRepository.ListAllDoctors();
+        }
+
+        internal IEnumerable<Doctor> ListOfDoctors(string expertise)
+        {
+            return doctorRepository.ListAllDoctors().Where((d) => String.Equals(d.FieldOfExpertise, expertise, StringComparison.OrdinalIgnoreCase));
+        }
+
+        internal IEnumerable<ApolloAPI.Data.Client.Item.AppointmentGeneralItem> ListOfAppointments(Guid userId, HashSet<ApolloAPI.Data.Client.Item.AppointmentGeneralItem> appointmentList)
+        {
+            IEnumerable<Appointment> appointments = doctorRepository.ListAllAppointments(userId).OrderBy((a) => a.AppointmentTime);            
+            foreach (Appointment appointment in appointments)
+            {
+                Doctor doctor = doctorRepository.GetDoctorByDoctorId(appointment.DoctorId);
+                ApolloAPI.Data.Client.Item.AppointmentGeneralItem appointmentGeneralItem = new ApolloAPI.Data.Client.Item.AppointmentGeneralItem()
+                {
+                    AppointmentId = appointment.Id,
+                    Reason = appointment.Reason,
+                    DoctorName = doctor.FirstName + ", " + doctor.LastName,
+                    AppointmentTime = appointment.AppointmentTime
+                };
+
+                appointmentList.Add(appointmentGeneralItem);
+            }
+
+            return appointmentList;
+        }
+
+        internal IEnumerable<ApolloAPI.Data.Doctors.Item.AppointmentItem> ListOfAppointments(Guid doctorId, HashSet<ApolloAPI.Data.Doctors.Item.AppointmentItem> appointmentList)
+        {
+            IEnumerable<Appointment> appointments = doctorRepository.ListAllAppointments(doctorId).OrderBy((a) => a.AppointmentTime);
+            foreach (Appointment appointment in appointments)
+            {
+                User user = new UserRepository().GetUserByUserId(appointment.UserId);
+                ApolloAPI.Data.Doctors.Item.AppointmentItem appointmentGeneralItem = new ApolloAPI.Data.Doctors.Item.AppointmentItem()
+                {
+                    AppointmentId = appointment.Id,
+                    Reason = appointment.Reason,
+                    User = new ApolloAPI.Data.Doctors.Item.Appointee()
+                    {
+                        Id = user.Id,
+                        FullName = user.FirstName + ", " + user.LastName,
+                        ProfileImage = user.ProfileImage
+                    },
+                    IsApproved = appointment.IsApproved,
+                    AppointmentTime = appointment.AppointmentTime
+                };
+
+                appointmentList.Add(appointmentGeneralItem);
+            }
+            
+            return appointmentList;
+        }
+
+        internal IEnumerable<ApolloAPI.Data.Client.Item.DiscussionGeneralItem> ListOfDiscussions(Guid userId, HashSet<Data.Client.Item.DiscussionGeneralItem> discussionList)
+        {
+            IEnumerable<Discussion> discussions = doctorRepository.ListAllDiscussions(userId);
+            foreach (Discussion discussion in discussions)
+            {
+                IEnumerable<Reply> replies = doctorRepository.GetDicussionReplies(discussion.Id);
+                User user = new UserRepository().GetUserByUserId(userId);
+                ApolloAPI.Data.Client.Item.DiscussionGeneralItem discussionGeneralItem = new ApolloAPI.Data.Client.Item.DiscussionGeneralItem()
+                {
+                    DiscussionId = discussion.Id,
+                    Title = discussion.Title,
+                    ReplyCount = replies.Count(),
+                    Creator = new Data.Client.Item.Person()
+                    {
+                        Id = userId,
+                        FullName = user.FirstName + ", " + user.LastName,
+                        ProfileImage = user.ProfileImage
+                    },
+                    LastActive = replies.OrderBy((r) => r.RepliedAt).Last().RepliedAt
+                };
+
+                discussionList.Add(discussionGeneralItem);  
+            }
+
+            return discussionList;
         }
 
         internal bool CreateAppointment(AppointmentForm appointmentForm, Guid userId)
@@ -121,6 +153,47 @@ namespace ApolloAPI.Services
         internal bool RescheduleAppointment(RescheduleAppointmentForm rescheduleAppointmentForm, Guid userId)
         {
             return false;
+        }
+
+        internal IEnumerable<ApolloAPI.Data.Doctors.Item.DiscussionGeneralItem> ListOfDiscussions(Guid doctorId, HashSet<ApolloAPI.Data.Doctors.Item.DiscussionGeneralItem> discussionList)
+        {
+            IEnumerable<Discussion> discussions = doctorRepository.ListAllDiscussions();
+            foreach (Discussion discussion in discussions)
+            {
+                IEnumerable<Reply> replies = doctorRepository.GetDicussionReplies(discussion.Id);
+                ApolloAPI.Data.Doctors.Item.DiscussionGeneralItem discussionGeneralItem = new ApolloAPI.Data.Doctors.Item.DiscussionGeneralItem()
+                {
+                    DiscussionId = discussion.Id,
+                    Title = discussion.Title
+                };
+
+                discussionList.Add(discussionGeneralItem);
+            }
+
+            return discussionList;
+        }
+
+        internal ApolloAPI.Data.Doctors.Item.DiscussionDetailedItem GetDiscussion(Guid discussionId)
+        {
+            Discussion discussion = doctorRepository.GetDiscussion(discussionId);
+            return new ApolloAPI.Data.Doctors.Item.DiscussionDetailedItem()
+            {
+                DiscussionId = discussionId
+            };
+        }
+
+        internal bool ReplyDiscussion(ApolloAPI.Data.Doctors.Form.ReplyForm replyForm, Guid doctorId)
+        {
+            Reply reply = new Reply()
+            {
+                Id = Guid.NewGuid(),
+                DiscussionId = replyForm.DiscussionId,
+                Content = replyForm.Content,
+                PersonId = doctorId,
+                RepliedAt = DateTime.UtcNow
+            };
+
+            return doctorRepository.RecordDiscussionReply(reply);
         }
     }
 }

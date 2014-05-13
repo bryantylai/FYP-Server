@@ -499,6 +499,8 @@
           <Property Name="DoctorId" Type="Guid" Nullable="false" />
           <Property Name="UserId" Type="Guid" Nullable="false" />
           <Property Name="AppointmentTime" Type="DateTime" Nullable="false" />
+          <Property Name="Reason" Type="String" Nullable="false" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="DoctorAppointment">
           <End Type="ApolloDatabaseModel.Doctor" Role="Doctor" Multiplicity="1" />
