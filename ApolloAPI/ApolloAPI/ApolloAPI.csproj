@@ -150,16 +150,17 @@
     <Compile Include="Controllers\Client\AuthController.cs" />
     <Compile Include="Controllers\Client\AvatarController.cs" />
     <Compile Include="Controllers\Client\DoctorController.cs" />
-    <Compile Include="Controllers\Client\UserController.cs" />
+    <Compile Include="Controllers\Client\iOS\UserController.cs" />
+    <Compile Include="Controllers\Client\Windows\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Data\Form\LoginForm.cs" />
     <Compile Include="Data\Form\RegistrationForm.cs" />
     <Compile Include="Data\Form\RunForm.cs" />
+    <Compile Include="Data\Item\iOS\HomeItem.cs" />
     <Compile Include="Data\Item\AppointmentItem.cs" />
     <Compile Include="Data\Item\DiscussionItem.cs" />
-    <Compile Include="Data\Item\HomeItem.cs" />
     <Compile Include="Data\Item\LeaderboardItem.cs" />
     <Compile Include="Data\Item\ProfileItem.cs" />
     <Compile Include="Data\Form\AppointmentForm.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="Data\Form\ProfileForm.cs" />
     <Compile Include="Data\Utility\ServerMessage.cs" />
     <Compile Include="Data\Utility\AmazonS3Keys.cs" />
+    <Compile Include="Data\Item\Windows\HomeItem.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

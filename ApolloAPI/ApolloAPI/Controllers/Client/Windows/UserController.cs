@@ -7,13 +7,14 @@ using System.Web.Http;
 using ApolloAPI.Authorization;
 using ApolloAPI.Data.Form;
 using ApolloAPI.Data.Item;
+using ApolloAPI.Data.Item.Windows;
 using ApolloAPI.Data.Utility;
 using ApolloAPI.Services;
 
-namespace ApolloAPI.Controllers.Client
+namespace ApolloAPI.Controllers.Client.Windows
 {
     [ApolloAuthorizeAttribute]
-    [RoutePrefix("api/user")]
+    [RoutePrefix("api/windows/user")]
     public class UserController : AbstractController
     {
         private UserService userService;
@@ -32,7 +33,7 @@ namespace ApolloAPI.Controllers.Client
             username = this.RequestContext.Principal.Identity.Name;
             isUser = this.RequestContext.Principal.IsInRole("User");
 
-            if (isUser) { return userService.GetHomeData(authService.GetPersonIdByUsername(username)); }
+            if (isUser) { return userService.GetHomeData(authService.GetPersonIdByUsername(username), new Data.Item.Windows.HomeItem()); }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }

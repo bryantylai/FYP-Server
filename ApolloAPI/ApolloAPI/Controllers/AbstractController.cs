@@ -16,5 +16,15 @@ namespace ApolloAPI.Controllers
         {
             authService = new AuthService();
         }
+
+        public bool IsWindows(string userAgent)
+        {
+            return String.Equals(userAgent, "Windows", StringComparison.OrdinalIgnoreCase);
+        }
+
+        public bool IsIOS(string userAgent)
+        {
+            return String.Equals(userAgent, "iOS", StringComparison.OrdinalIgnoreCase);
+        }
     }
 }

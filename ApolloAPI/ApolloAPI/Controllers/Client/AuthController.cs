@@ -13,15 +13,8 @@ using ApolloAPI.Services;
 namespace ApolloAPI.Controllers
 {
     [RoutePrefix("api/auth")]
-    public class AuthController : ApiController
+    public class AuthController : AbstractController
     {
-        private AuthService authService;
-
-        public AuthController()
-        {
-            this.authService = new AuthService();
-        }
-
         [Route("register")]
         [HttpPost]
         public ServerMessage Register([FromBody] RegistrationForm registrationForm)
