@@ -8,16 +8,15 @@ namespace ApolloAPI.Repositories
 {
     public class DoctorRepository : AbstractRepository
     {
+        internal Doctor GetDoctor(Guid doctorId)
+        {
+            return dbEntities.People.Single((d) => d.Id == doctorId) as Doctor;
+        }
+
         internal IEnumerable<Doctor> ListAllDoctors()
         {
             IEnumerable<Credential> credentials = dbEntities.Credentials.Where((c) => c.Role == Role.Doctor);
-            IEnumerable<Person> people = dbEntities.People.Where((d) => credentials.Any((c) => c.PersonId == d.Id));
-            LinkedList<Doctor> doctors = new LinkedList<Doctor>();
-            foreach (Person person in people)
-            {
-                doctors.AddLast(person as Doctor);
-            }
-            return doctors;
+            return dbEntities.People.Where((d) => credentials.Any((c) => c.PersonId == d.Id)).Cast<Doctor>();
         }
 
         internal IEnumerable<Appointment> ListAllAppointments(Guid userId)

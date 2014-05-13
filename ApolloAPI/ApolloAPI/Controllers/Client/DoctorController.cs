@@ -40,7 +40,7 @@ namespace ApolloAPI.Controllers.Client
 
         [Route("appointment")]
         [HttpGet]
-        public IEnumerable<Appointment> GetListOfAppointment()
+        public IEnumerable<AppointmentGeneralItem> GetListOfAppointment()
         {
             username = this.RequestContext.Principal.Identity.Name;
             isUser = this.RequestContext.Principal.IsInRole("User");
@@ -100,9 +100,10 @@ namespace ApolloAPI.Controllers.Client
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }
 
+
         [Route("discussion")]
         [HttpGet]
-        public IEnumerable<DiscussionItem> GetListOfDiscussion()
+        public IEnumerable<DiscussionGeneralItem> GetListOfDiscussion()
         {
             username = this.RequestContext.Principal.Identity.Name;
             isUser = this.RequestContext.Principal.IsInRole("User");

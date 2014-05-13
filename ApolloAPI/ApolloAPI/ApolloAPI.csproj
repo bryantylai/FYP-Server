@@ -150,8 +150,7 @@
     <Compile Include="Controllers\Client\AuthController.cs" />
     <Compile Include="Controllers\Client\AvatarController.cs" />
     <Compile Include="Controllers\Client\DoctorController.cs" />
-    <Compile Include="Controllers\Client\iOS\UserController.cs" />
-    <Compile Include="Controllers\Client\Windows\UserController.cs" />
+    <Compile Include="Controllers\Client\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />

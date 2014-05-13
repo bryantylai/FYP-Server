@@ -18,6 +18,11 @@ namespace ApolloAPI.Services
             doctorRepository = new DoctorRepository();
         }
 
+        internal Doctor GetDoctorByDoctorId(Guid doctorId)
+        {
+            return doctorRepository.GetDoctor(doctorId);
+        }
+
         internal IEnumerable<Doctor> ListOfDoctors()
         {
             return doctorRepository.ListAllDoctors();
@@ -28,26 +33,41 @@ namespace ApolloAPI.Services
             return doctorRepository.ListAllDoctors().Where((d) => String.Equals(d.FieldOfExpertise, expertise, StringComparison.OrdinalIgnoreCase));
         }
 
-        internal IEnumerable<Appointment> ListOfAppointments(Guid userId)
+        internal IEnumerable<AppointmentGeneralItem> ListOfAppointments(Guid userId)
         {
-            return doctorRepository.ListAllAppointments(userId).OrderBy((a) => a.AppointmentTime);
+            IEnumerable<Appointment> appointments = doctorRepository.ListAllAppointments(userId).OrderBy((a) => a.AppointmentTime);
+            HashSet<AppointmentGeneralItem> appointmentList = new HashSet<AppointmentGeneralItem>();
+            
+            foreach (Appointment appointment in appointments)
+            {
+                AppointmentGeneralItem appointmentGeneralItem = new AppointmentGeneralItem()
+                {
+
+                };
+
+                appointmentList.Add(appointmentGeneralItem);
+            }
+
+            return appointmentList;
         }
 
-        internal IEnumerable<DiscussionItem> ListOfDiscussions(Guid userId)
+        internal IEnumerable<DiscussionGeneralItem> ListOfDiscussions(Guid userId)
         {
             IEnumerable<Discussion> discussions = doctorRepository.ListAllDiscussions();
-            LinkedList<DiscussionItem> discussionList = new LinkedList<DiscussionItem>();
+            HashSet<DiscussionGeneralItem> discussionList = new HashSet<DiscussionGeneralItem>();
             foreach (Discussion discussion in discussions)
             {
                 IEnumerable<Reply> replies = doctorRepository.GetDicussionReplies(discussion.Id);
 
-                DiscussionItem discussionItem = new DiscussionItem()
+                DiscussionGeneralItem discussionGeneralItem = new DiscussionGeneralItem()
                 {
                     DiscussionId = discussion.Id,
                     Title = discussion.Title,
                     ReplyCount = replies.Count(),
                     LastActive = replies.OrderByDescending((r) => r.RepliedAt).First().RepliedAt
                 };
+
+                discussionList.Add(discussionGeneralItem);  
             }
 
             return discussionList;

@@ -43,7 +43,7 @@ namespace ApolloAPI.Services
             homeItem.Weight = Math.Round(weight, 2);
             homeItem.Height = Math.Round(height, 2);
             homeItem.BMI = Math.Round(bmi, 2);
-            homeItem.Appointment = new AppointmentItem()
+            homeItem.Appointment = new AppointmentGeneralItem()
             {
                 AppointmentId = appointment.Id,
                 AppointmentTime = appointment.AppointmentTime,
@@ -72,7 +72,7 @@ namespace ApolloAPI.Services
             homeItem.Weight = Math.Round(weight, 2);
             homeItem.Height = Math.Round(height, 2);
             homeItem.BMI = Math.Round(bmi, 2);
-            homeItem.Appointment = new AppointmentItem()
+            homeItem.Appointment = new AppointmentGeneralItem()
             {
                 AppointmentId = appointment.Id,
                 AppointmentTime = appointment.AppointmentTime,
