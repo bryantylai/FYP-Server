@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/08/2014 02:22:56
+-- Date Created: 05/13/2014 19:23:12
 -- Generated from EDMX file: C:\Users\Lai\Documents\GitHub\FYP-Server\ApolloAPI\ApolloAPI\Models\ApolloModel.edmx
 -- --------------------------------------------------
 
@@ -90,6 +90,12 @@ IF OBJECT_ID(N'[dbo].[Avatars]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Runs]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Runs];
+GO
+IF OBJECT_ID(N'[dbo].[Scoresheets]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Scoresheets];
+GO
+IF OBJECT_ID(N'[dbo].[GameSystems]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[GameSystems];
 GO
 IF OBJECT_ID(N'[dbo].[People_Doctor]', 'U') IS NOT NULL
     DROP TABLE [dbo].[People_Doctor];
@@ -215,17 +221,9 @@ CREATE TABLE [dbo].[GameSystems] (
 );
 GO
 
--- Creating table 'Gyms'
-CREATE TABLE [dbo].[Gyms] (
-    [Id] uniqueidentifier  NOT NULL,
-    [Name] nvarchar(max)  NOT NULL,
-    [Location] nvarchar(max)  NOT NULL
-);
-GO
-
 -- Creating table 'People_Doctor'
 CREATE TABLE [dbo].[People_Doctor] (
-    [FieldOfExpertise] nvarchar(max)  NOT NULL,
+    [FieldOfExpertise] nvarchar(max)  NULL,
     [Id] uniqueidentifier  NOT NULL
 );
 GO
@@ -241,8 +239,7 @@ GO
 
 -- Creating table 'People_Trainer'
 CREATE TABLE [dbo].[People_Trainer] (
-    [FieldOfExpertise] nvarchar(max)  NOT NULL,
-    [GymId] uniqueidentifier  NOT NULL,
+    [FieldOfExpertise] nvarchar(max)  NULL,
     [Id] uniqueidentifier  NOT NULL
 );
 GO
@@ -314,12 +311,6 @@ GO
 -- Creating primary key on [Id] in table 'GameSystems'
 ALTER TABLE [dbo].[GameSystems]
 ADD CONSTRAINT [PK_GameSystems]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'Gyms'
-ALTER TABLE [dbo].[Gyms]
-ADD CONSTRAINT [PK_Gyms]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -508,21 +499,6 @@ GO
 CREATE INDEX [IX_FK_AvatarRun]
 ON [dbo].[Runs]
     ([AvatarId]);
-GO
-
--- Creating foreign key on [GymId] in table 'People_Trainer'
-ALTER TABLE [dbo].[People_Trainer]
-ADD CONSTRAINT [FK_GymTrainer]
-    FOREIGN KEY ([GymId])
-    REFERENCES [dbo].[Gyms]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_GymTrainer'
-CREATE INDEX [IX_FK_GymTrainer]
-ON [dbo].[People_Trainer]
-    ([GymId]);
 GO
 
 -- Creating foreign key on [Id] in table 'People_Doctor'

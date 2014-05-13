@@ -121,8 +121,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\Doctor\" />
-    <Folder Include="Controllers\Trainer\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -151,6 +149,7 @@
     <Compile Include="Controllers\Client\AvatarController.cs" />
     <Compile Include="Controllers\Client\DoctorController.cs" />
     <Compile Include="Controllers\Client\UserController.cs" />
+    <Compile Include="Controllers\Doctors\DoctorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -209,9 +208,6 @@
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Gender.cs">
-      <DependentUpon>ApolloModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Gym.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Person.cs">

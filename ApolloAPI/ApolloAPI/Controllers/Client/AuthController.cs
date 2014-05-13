@@ -10,9 +10,9 @@ using ApolloAPI.Data.Utility;
 using ApolloAPI.Models;
 using ApolloAPI.Services;
 
-namespace ApolloAPI.Controllers
+namespace ApolloAPI.Controllers.Client
 {
-    [RoutePrefix("api/auth")]
+    [RoutePrefix("api/client/auth")]
     public class AuthController : AbstractController
     {
         [Route("register")]

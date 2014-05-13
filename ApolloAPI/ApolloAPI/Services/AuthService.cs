@@ -65,5 +65,33 @@ namespace ApolloAPI.Services
         {
             return authRepository.CheckLoginCredentials(loginForm.Email, loginForm.Username, loginForm.Password);
         }
+
+        #region Doctor
+
+        internal bool RegisterDoctor(string username, string password)
+        {
+            Doctor doctor = new Doctor()
+            {
+                Id = Guid.NewGuid(),
+                FirstName = username,
+                LastName = username,
+                FieldOfExpertise = username
+            };
+
+            Credential credential = new Credential()
+            {
+                Id = Guid.NewGuid(),
+                PersonId = doctor.Id,
+                Role = Role.Doctor,
+                Username = username,
+                Email = username + "@doctor.com",
+                Password = password,
+                CreatedAt = DateTime.Now
+            };
+
+            return authRepository.CreateNewDoctor(doctor, credential);
+        }
+
+        #endregion
     }
 }

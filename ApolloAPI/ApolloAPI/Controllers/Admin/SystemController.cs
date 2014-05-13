@@ -23,10 +23,9 @@ namespace ApolloAPI.Controllers.Admin
             username = this.RequestContext.Principal.Identity.Name;
             isAdmin = this.RequestContext.Principal.IsInRole("Admin");
 
-
             if (isAdmin) 
             {
-
+                
             }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));

@@ -16,7 +16,14 @@ namespace ApolloAPI.Repositories
         internal IEnumerable<Doctor> ListAllDoctors()
         {
             IEnumerable<Credential> credentials = dbEntities.Credentials.Where((c) => c.Role == Role.Doctor);
-            return dbEntities.People.Where((d) => credentials.Any((c) => c.PersonId == d.Id)).Cast<Doctor>();
+            HashSet<Doctor> doctors = new HashSet<Doctor>();
+            foreach (Credential credential in credentials)
+            {
+                Person person = dbEntities.People.Single((d) => d.Id == credential.PersonId);
+                doctors.Add(person as Doctor);
+            }
+
+            return doctors;
         }
 
         internal IEnumerable<Appointment> ListAllAppointments(Guid userId)

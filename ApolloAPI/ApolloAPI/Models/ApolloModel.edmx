@@ -17,7 +17,6 @@
     <EntitySet Name="Runs" EntityType="ApolloDatabaseModel.Store.Runs" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Scoresheets" EntityType="ApolloDatabaseModel.Store.Scoresheets" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="GameSystems" EntityType="ApolloDatabaseModel.Store.GameSystems" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Gyms" EntityType="ApolloDatabaseModel.Store.Gyms" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="People_Doctor" EntityType="ApolloDatabaseModel.Store.People_Doctor" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="People_User" EntityType="ApolloDatabaseModel.Store.People_User" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="People_Trainer" EntityType="ApolloDatabaseModel.Store.People_Trainer" store:Type="Tables" Schema="dbo" />
@@ -64,10 +63,6 @@
     <AssociationSet Name="AvatarRun" Association="ApolloDatabaseModel.Store.AvatarRun">
       <End Role="Avatar" EntitySet="Avatars" />
       <End Role="Run" EntitySet="Runs" />
-    </AssociationSet>
-    <AssociationSet Name="GymTrainer" Association="ApolloDatabaseModel.Store.GymTrainer">
-      <End Role="Gym" EntitySet="Gyms" />
-      <End Role="Trainer" EntitySet="People_Trainer" />
     </AssociationSet>
     <AssociationSet Name="FK_Doctor_inherits_Person" Association="ApolloDatabaseModel.Store.FK_Doctor_inherits_Person">
       <End Role="Person" EntitySet="People" />
@@ -192,19 +187,11 @@
     <Property Name="Level" Type="int" Nullable="false" />
     <Property Name="Points" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="Gyms">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Location" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
   <EntityType Name="People_Doctor">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="FieldOfExpertise" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FieldOfExpertise" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <EntityType Name="People_User">
@@ -220,8 +207,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="FieldOfExpertise" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="GymId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FieldOfExpertise" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <Association Name="DoctorAppointment">
@@ -356,18 +342,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="GymTrainer">
-    <End Role="Gym" Type="ApolloDatabaseModel.Store.Gyms" Multiplicity="1" />
-    <End Role="Trainer" Type="ApolloDatabaseModel.Store.People_Trainer" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Gym">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Trainer">
-        <PropertyRef Name="GymId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Doctor_inherits_Person">
     <End Role="Person" Type="ApolloDatabaseModel.Store.People" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -470,11 +444,6 @@
           </AssociationSet>
           <EntitySet Name="Scoresheets" EntityType="ApolloDatabaseModel.Scoresheet" />
           <EntitySet Name="GameSystems" EntityType="ApolloDatabaseModel.GameSystem" />
-          <EntitySet Name="Gyms" EntityType="ApolloDatabaseModel.Gym" />
-          <AssociationSet Name="GymTrainer" Association="ApolloDatabaseModel.GymTrainer">
-            <End Role="Gym" EntitySet="Gyms" />
-            <End Role="Trainer" EntitySet="People" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Person">
           <Key>
@@ -494,11 +463,10 @@
           <Property Name="Weight" Type="Double" Nullable="true" />
         </EntityType>
         <EntityType Name="Trainer" BaseType="ApolloDatabaseModel.Person">
-          <Property Name="FieldOfExpertise" Type="String" Nullable="false" />
-          <Property Name="GymId" Type="Guid" Nullable="false" />
+          <Property Name="FieldOfExpertise" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="Doctor" BaseType="ApolloDatabaseModel.Person" >
-          <Property Name="FieldOfExpertise" Type="String" Nullable="false" />
+          <Property Name="FieldOfExpertise" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="Credential">
           <Key>
@@ -741,26 +709,6 @@
           <Property Name="Level" Type="Int32" Nullable="false" />
           <Property Name="Points" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="Gym">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Name="Name" Type="String" Nullable="false" />
-          <Property Name="Location" Type="String" Nullable="false" />
-        </EntityType>
-        <Association Name="GymTrainer">
-          <End Type="ApolloDatabaseModel.Gym" Role="Gym" Multiplicity="1" />
-          <End Type="ApolloDatabaseModel.Trainer" Role="Trainer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gym">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Trainer">
-              <PropertyRef Name="GymId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -797,7 +745,6 @@
         <MappingFragment StoreEntitySet="People_Trainer">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="FieldOfExpertise" ColumnName="FieldOfExpertise" />
-          <ScalarProperty Name="GymId" ColumnName="GymId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -906,15 +853,6 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Level" ColumnName="Level" />
           <ScalarProperty Name="Points" ColumnName="Points" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Gyms">
-      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Gym)">
-        <MappingFragment StoreEntitySet="Gyms">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Location" ColumnName="Location" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

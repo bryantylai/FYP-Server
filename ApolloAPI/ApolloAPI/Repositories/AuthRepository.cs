@@ -27,13 +27,6 @@ namespace ApolloAPI.Repositories
             return dbEntities.Credentials.Any((c) => (c.Email == email || c.Username == username));
         }
 
-        internal bool CreateNewUser(User user, Credential credential)
-        {
-            dbEntities.People.Add(user);
-            dbEntities.Credentials.Add(credential);
-            return dbEntities.SaveChanges() == 2;
-        }
-
         internal string[] GetUserRole(string userName)
         {
             Credential credential = dbEntities.Credentials.Where((c) => c.Username == userName).First();
@@ -51,5 +44,27 @@ namespace ApolloAPI.Repositories
 
             return null;
         }
+
+        #region User
+
+        internal bool CreateNewUser(User user, Credential credential)
+        {
+            dbEntities.People.Add(user);
+            dbEntities.Credentials.Add(credential);
+            return dbEntities.SaveChanges() == 2;
+        }
+
+        #endregion
+
+        #region Doctor
+
+        internal bool CreateNewDoctor(Doctor doctor, Credential credential)
+        {
+            dbEntities.People.Add(doctor);
+            dbEntities.Credentials.Add(credential);
+            return dbEntities.SaveChanges() == 2;
+        }
+
+        #endregion
     }
 }

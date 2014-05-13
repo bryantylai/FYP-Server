@@ -36,6 +36,5 @@ namespace ApolloAPI.Models
         public DbSet<Run> Runs { get; set; }
         public DbSet<Scoresheet> Scoresheets { get; set; }
         public DbSet<GameSystem> GameSystems { get; set; }
-        public DbSet<Gym> Gyms { get; set; }
     }
 }

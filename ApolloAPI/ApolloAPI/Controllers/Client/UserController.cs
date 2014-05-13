@@ -13,7 +13,7 @@ using ApolloAPI.Services;
 namespace ApolloAPI.Controllers.Client
 {
     [ApolloAuthorizeAttribute]
-    [RoutePrefix("api/user")]
+    [RoutePrefix("api/client/user")]
     public class UserController : AbstractController
     {
         private UserService userService;
