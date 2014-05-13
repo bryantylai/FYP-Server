@@ -58,7 +58,7 @@ namespace ApolloAPI.Repositories
             return dbEntities.SaveChanges() == 1;
         }
 
-        internal Discussion GetDiscussion(Guid discussionId)
+        internal Discussion GetDiscussionByDiscussionId(Guid discussionId)
         {
             return dbEntities.Discussions.Single((d) => d.Id == discussionId);
         }
@@ -67,6 +67,11 @@ namespace ApolloAPI.Repositories
         {
             dbEntities.Replies.Add(reply);
             return dbEntities.SaveChanges() == 1;
+        }
+
+        internal Appointment GetAppointmentByAppointmentId(Guid appointmentId)
+        {
+            return dbEntities.Appointments.Single((a) => a.Id == appointmentId);
         }
     }
 }

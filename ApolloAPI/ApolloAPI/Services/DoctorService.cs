@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ApolloAPI.Data;
 using ApolloAPI.Data.Client.Form;
 using ApolloAPI.Models;
 using ApolloAPI.Repositories;
@@ -96,19 +97,19 @@ namespace ApolloAPI.Services
             return appointmentList;
         }
 
-        internal IEnumerable<ApolloAPI.Data.Client.Item.DiscussionGeneralItem> ListOfDiscussions(Guid userId, HashSet<Data.Client.Item.DiscussionGeneralItem> discussionList)
+        internal IEnumerable<DiscussionGeneralItem> ListOfDiscussions(Guid userId, HashSet<DiscussionGeneralItem> discussionList)
         {
             IEnumerable<Discussion> discussions = doctorRepository.ListAllDiscussions(userId);
             foreach (Discussion discussion in discussions)
             {
                 IEnumerable<Reply> replies = doctorRepository.GetDicussionReplies(discussion.Id);
                 User user = new UserRepository().GetUserByUserId(userId);
-                ApolloAPI.Data.Client.Item.DiscussionGeneralItem discussionGeneralItem = new ApolloAPI.Data.Client.Item.DiscussionGeneralItem()
+                DiscussionGeneralItem discussionGeneralItem = new DiscussionGeneralItem()
                 {
                     DiscussionId = discussion.Id,
                     Title = discussion.Title,
                     ReplyCount = replies.Count(),
-                    Creator = new Data.Client.Item.Person()
+                    Creator = new ApolloAPI.Data.Person()
                     {
                         Id = userId,
                         FullName = user.FirstName + ", " + user.LastName,
@@ -155,16 +156,25 @@ namespace ApolloAPI.Services
             return false;
         }
 
-        internal IEnumerable<ApolloAPI.Data.Doctors.Item.DiscussionGeneralItem> ListOfDiscussions(Guid doctorId, HashSet<ApolloAPI.Data.Doctors.Item.DiscussionGeneralItem> discussionList)
+        internal IEnumerable<DiscussionGeneralItem> ListOfDiscussions(HashSet<DiscussionGeneralItem> discussionList)
         {
             IEnumerable<Discussion> discussions = doctorRepository.ListAllDiscussions();
             foreach (Discussion discussion in discussions)
             {
                 IEnumerable<Reply> replies = doctorRepository.GetDicussionReplies(discussion.Id);
-                ApolloAPI.Data.Doctors.Item.DiscussionGeneralItem discussionGeneralItem = new ApolloAPI.Data.Doctors.Item.DiscussionGeneralItem()
+                User user = new UserRepository().GetUserByUserId(discussion.UserId);
+                DiscussionGeneralItem discussionGeneralItem = new DiscussionGeneralItem()
                 {
                     DiscussionId = discussion.Id,
-                    Title = discussion.Title
+                    Title = discussion.Title,
+                    ReplyCount = replies.Count(),
+                    Creator = new ApolloAPI.Data.Person()
+                    {
+                        Id = user.Id,
+                        FullName = user.FirstName + ", " + user.LastName,
+                        ProfileImage = user.ProfileImage
+                    },
+                    LastActive = replies.OrderBy((r) => r.RepliedAt).Last().RepliedAt
                 };
 
                 discussionList.Add(discussionGeneralItem);
@@ -173,10 +183,10 @@ namespace ApolloAPI.Services
             return discussionList;
         }
 
-        internal ApolloAPI.Data.Doctors.Item.DiscussionDetailedItem GetDiscussion(Guid discussionId)
+        internal DiscussionDetailedItem GetDiscussionByDiscussionId(Guid discussionId)
         {
-            Discussion discussion = doctorRepository.GetDiscussion(discussionId);
-            return new ApolloAPI.Data.Doctors.Item.DiscussionDetailedItem()
+            Discussion discussion = doctorRepository.GetDiscussionByDiscussionId(discussionId);
+            return new DiscussionDetailedItem()
             {
                 DiscussionId = discussionId
             };
@@ -194,6 +204,13 @@ namespace ApolloAPI.Services
             };
 
             return doctorRepository.RecordDiscussionReply(reply);
+        }
+
+        internal bool MakeApproval(Guid appointmentId)
+        {
+            Appointment appointment = doctorRepository.GetAppointmentByAppointmentId(appointmentId);
+            appointment.IsApproved = !appointment.IsApproved;
+            return doctorRepository.SaveUpdate();
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using ApolloAPI.Authorization;
+using ApolloAPI.Data;
 using ApolloAPI.Data.Client.Form;
 using ApolloAPI.Data.Client.Item;
 using ApolloAPI.Data.Utility;

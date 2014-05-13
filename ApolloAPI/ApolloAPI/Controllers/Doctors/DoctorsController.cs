@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using ApolloAPI.Authorization;
+using ApolloAPI.Data;
 using ApolloAPI.Data.Doctors.Form;
 using ApolloAPI.Data.Doctors.Item;
 using ApolloAPI.Data.Utility;
@@ -57,24 +58,23 @@ namespace ApolloAPI.Controllers.Doctors
         [HttpGet]
         public IEnumerable<DiscussionGeneralItem> GetListOfDiscussion()
         {
-            username = this.RequestContext.Principal.Identity.Name;
             isDoctor = this.RequestContext.Principal.IsInRole("Doctor");
 
-            if (isDoctor) { return doctorService.ListOfDiscussions(authService.GetPersonIdByUsername(username), new HashSet<DiscussionGeneralItem>()); }
+            if (isDoctor) { return doctorService.ListOfDiscussions(new HashSet<DiscussionGeneralItem>()); }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }
 
         [Route("discussion/{id}")]
         [HttpGet]
-        public DiscussionDetailedItem GetDiscussion(string id)
+        public DiscussionDetailedItem GetDiscussionByDiscussionId(string id)
         {
             isDoctor = this.RequestContext.Principal.IsInRole("Doctor");
 
             if (isDoctor)
             {
                 Guid discussionId = Guid.Parse(id);
-                return doctorService.GetDiscussion(discussionId);
+                return doctorService.GetDiscussionByDiscussionId(discussionId);
             }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
@@ -110,6 +110,29 @@ namespace ApolloAPI.Controllers.Doctors
             isDoctor = this.RequestContext.Principal.IsInRole("Doctor");
 
             if (isDoctor) { return doctorService.ListOfAppointments(authService.GetPersonIdByUsername(username), new HashSet<AppointmentItem>()); }
+
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        }
+
+        [Route("appointment/{id}")]
+        [HttpGet]
+        public ServerMessage MakeApprovalOnAppointment(string id)
+        {
+            username = this.RequestContext.Principal.Identity.Name;
+            isDoctor = this.RequestContext.Principal.IsInRole("Doctor");
+
+            if (isDoctor)
+            {
+                Guid appointmentId = Guid.Parse(id);
+                if (doctorService.MakeApproval(appointmentId))
+                {
+                    return new ServerMessage() { IsError = false };
+                }
+                else
+                {
+                    return new ServerMessage() { IsError = true, Message = "Unable to approve/disapprove appointment" };
+                }
+            }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }

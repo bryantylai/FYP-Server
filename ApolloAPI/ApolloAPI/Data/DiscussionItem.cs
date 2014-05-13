@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ApolloAPI.Data.Client.Item
+namespace ApolloAPI.Data
 {
     public abstract class DiscussionItem
     {
