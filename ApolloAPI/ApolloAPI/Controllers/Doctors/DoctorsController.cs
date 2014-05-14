@@ -13,7 +13,6 @@ using ApolloAPI.Services;
 
 namespace ApolloAPI.Controllers.Doctors
 {
-    //[ApolloAuthorizeAttribute]
     [RoutePrefix("api/doctors")]
     public class DoctorsController : AbstractController
     {
@@ -54,6 +53,7 @@ namespace ApolloAPI.Controllers.Doctors
             }
         }
 
+        [ApolloAuthorizeAttribute]
         [Route("discussion/fetch-all")]
         [HttpGet]
         public IEnumerable<DiscussionGeneralItem> GetListOfDiscussion()
@@ -65,6 +65,7 @@ namespace ApolloAPI.Controllers.Doctors
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }
 
+        [ApolloAuthorizeAttribute]
         [Route("discussion/{id}")]
         [HttpGet]
         public DiscussionDetailedItem GetDiscussionByDiscussionId(string id)
@@ -80,6 +81,7 @@ namespace ApolloAPI.Controllers.Doctors
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }
 
+        [ApolloAuthorizeAttribute]
         [Route("discussion")]
         [HttpPost]
         public ServerMessage ReplyToDiscussion([FromBody] ReplyForm replyForm)
@@ -102,6 +104,7 @@ namespace ApolloAPI.Controllers.Doctors
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }
 
+        [ApolloAuthorizeAttribute]
         [Route("appointment/fetch-all")]
         [HttpGet]
         public IEnumerable<AppointmentItem> GetAppointments()
@@ -114,6 +117,7 @@ namespace ApolloAPI.Controllers.Doctors
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }
 
+        [ApolloAuthorizeAttribute]
         [Route("appointment/{id}")]
         [HttpGet]
         public ServerMessage MakeApprovalOnAppointment(string id)

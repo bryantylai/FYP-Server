@@ -66,5 +66,16 @@ namespace ApolloAPI.Repositories
         }
 
         #endregion
+
+        #region Trainer
+
+        internal bool CreateNewTrainer(Trainer trainer, Credential credential)
+        {
+            dbEntities.People.Add(trainer);
+            dbEntities.Credentials.Add(credential);
+            return dbEntities.SaveChanges() == 2;
+        }
+
+        #endregion
     }
 }

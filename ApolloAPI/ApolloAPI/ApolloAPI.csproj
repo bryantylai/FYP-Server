@@ -122,6 +122,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Data\Admin\" />
+    <Folder Include="Data\Trainers\Item\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="Controllers\Client\UserController.cs" />
     <Compile Include="Controllers\Doctors\DoctorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Trainers\TrainersController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Data\Client\Form\LoginForm.cs" />
@@ -171,6 +173,9 @@
     <Compile Include="Data\Doctors\Form\RegistrationForm.cs" />
     <Compile Include="Data\Doctors\Form\ReplyForm.cs" />
     <Compile Include="Data\Doctors\Item\AppointmentItem.cs" />
+    <Compile Include="Data\Trainers\Form\AuthForm.cs" />
+    <Compile Include="Data\Trainers\Form\LoginForm.cs" />
+    <Compile Include="Data\Trainers\Form\RegistrationForm.cs" />
     <Compile Include="Data\Utility\ServerMessage.cs" />
     <Compile Include="Data\Utility\AmazonS3Keys.cs" />
     <Compile Include="Data\Client\Item\Windows\HomeItem.cs" />
@@ -252,6 +257,7 @@
     <Compile Include="Services\DoctorService.cs" />
     <Compile Include="Services\PointService.cs" />
     <Compile Include="Services\SystemService.cs" />
+    <Compile Include="Services\TrainerService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>

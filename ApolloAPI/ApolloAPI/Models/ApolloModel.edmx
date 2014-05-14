@@ -109,6 +109,8 @@
     <Property Name="DoctorId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="AppointmentTime" Type="datetime" Nullable="false" />
+    <Property Name="Reason" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsApproved" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Discussions">
     <Key>
@@ -770,6 +772,8 @@
           <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="AppointmentTime" ColumnName="AppointmentTime" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

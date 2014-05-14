@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/13/2014 19:23:12
+-- Date Created: 05/14/2014 21:49:26
 -- Generated from EDMX file: C:\Users\Lai\Documents\GitHub\FYP-Server\ApolloAPI\ApolloAPI\Models\ApolloModel.edmx
 -- --------------------------------------------------
 
@@ -140,7 +140,9 @@ CREATE TABLE [dbo].[Appointments] (
     [Id] uniqueidentifier  NOT NULL,
     [DoctorId] uniqueidentifier  NOT NULL,
     [UserId] uniqueidentifier  NOT NULL,
-    [AppointmentTime] datetime  NOT NULL
+    [AppointmentTime] datetime  NOT NULL,
+    [Reason] nvarchar(max)  NOT NULL,
+    [IsApproved] bit  NOT NULL
 );
 GO
 
