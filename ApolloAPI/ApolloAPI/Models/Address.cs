@@ -21,5 +21,6 @@ namespace ApolloAPI.Models
         public string City { get; set; }
         public string State { get; set; }
         public string Country { get; set; }
+        public System.Data.Spatial.DbGeography Coordinate { get; set; }
     }
 }

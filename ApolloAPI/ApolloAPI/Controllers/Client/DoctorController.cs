@@ -29,12 +29,24 @@ namespace ApolloAPI.Controllers.Client
 
         [Route("fetch-all")]
         [HttpGet]
-        public IEnumerable<Doctor> GetListOfDoctors()
+        public IEnumerable<DoctorItem> GetListOfDoctors()
         {
             username = this.RequestContext.Principal.Identity.Name;
             isUser = this.RequestContext.Principal.IsInRole("User");
 
             if (isUser) { return doctorService.ListOfDoctors(); }
+
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        }
+
+        [Route("fetch-all")]
+        [HttpPost]
+        public IEnumerable<FilteredDoctorItem> GetListOfFilteredDoctors([FromBody] DoctorFilterForm doctorFilterForm)
+        {
+            username = this.RequestContext.Principal.Identity.Name;
+            isUser = this.RequestContext.Principal.IsInRole("User");
+
+            if (isUser) { return doctorService.ListOfDoctors(doctorFilterForm); }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }

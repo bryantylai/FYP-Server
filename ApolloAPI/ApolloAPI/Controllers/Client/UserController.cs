@@ -62,7 +62,7 @@ namespace ApolloAPI.Controllers.Client
         }
 
         [Route("profile")]
-        [HttpPut]
+        [HttpPost]
         public ServerMessage UpdateUserProfile([FromBody] ProfileForm profileForm)
         {
             username = this.RequestContext.Principal.Identity.Name;

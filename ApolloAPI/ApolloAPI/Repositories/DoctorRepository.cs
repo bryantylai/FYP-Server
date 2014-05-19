@@ -73,5 +73,10 @@ namespace ApolloAPI.Repositories
         {
             return dbEntities.Appointments.Single((a) => a.Id == appointmentId);
         }
+
+        internal MedicalCenter GetMedicalCenterFromMedicalCenterId(Guid centerId)
+        {
+            return dbEntities.MedicalCenters.Single((m) => m.Id == centerId);
+        }
     }
 }

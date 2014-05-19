@@ -19,5 +19,10 @@ namespace ApolloAPI.Repositories
         {
             return dbEntities.SaveChanges() != 0;
         }
+
+        internal Address GetAddressByAddressId(Guid addressId)
+        {
+            return dbEntities.Addresses.Single((a) => a.Id == addressId);
+        }
     }
 }

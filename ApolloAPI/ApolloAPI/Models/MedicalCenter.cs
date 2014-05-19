@@ -16,5 +16,7 @@ namespace ApolloAPI.Models
     {
         public System.Guid Id { get; set; }
         public System.Guid AddressId { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
     }
 }

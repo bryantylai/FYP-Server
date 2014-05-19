@@ -39,21 +39,21 @@ namespace ApolloAPI.Controllers.Client
 
         [Route("login")]
         [HttpPost]
-        public ServerMessage Login([FromBody] LoginForm loginForm)
+        public LoginMessage Login([FromBody] LoginForm loginForm)
         {
             if (authService.ValidateForm(loginForm))
             {
                 if (authService.LoginUser(loginForm))
                 {
-                    return new ServerMessage() { IsError = false };
+                    return authService.CheckIfNewAccount(loginForm.Username) ? new LoginMessage() { IsError = false, NewAccount = true } : new LoginMessage() { IsError = false, NewAccount = false };
                 }
                 else
                 {
-                    return new ServerMessage() { IsError = true, Message = "Useranme or Password entered is incorrect" };
+                    return new LoginMessage() { IsError = true, Message = "Useranme or Password entered is incorrect", NewAccount = false };
                 }
             }
 
-            return new ServerMessage() { IsError = true, Message = "There is empty fields in the Login form." };
+            return new LoginMessage() { IsError = true, Message = "There is empty fields in the Login form.", NewAccount = false };
         }
     }
 }

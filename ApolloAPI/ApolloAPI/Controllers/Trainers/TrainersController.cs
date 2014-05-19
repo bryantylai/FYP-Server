@@ -16,8 +16,8 @@ namespace ApolloAPI.Controllers.Trainers
     public class TrainersController : AbstractController
     {
         private TrainerService trainerService;
-        private string username;
-        private bool isTrainer;
+        //private string username;
+        //private bool isTrainer;
 
         public TrainersController()
         {

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/16/2014 01:25:01
+-- Date Created: 05/19/2014 22:33:23
 -- Generated from EDMX file: C:\Users\Lai\Documents\GitHub\FYP-Server\ApolloAPI\ApolloAPI\Models\ApolloModel.edmx
 -- --------------------------------------------------
 
@@ -50,6 +50,21 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_AvatarRun]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Runs] DROP CONSTRAINT [FK_AvatarRun];
 GO
+IF OBJECT_ID(N'[dbo].[FK_AddressGym]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Gyms] DROP CONSTRAINT [FK_AddressGym];
+GO
+IF OBJECT_ID(N'[dbo].[FK_GymTrainer]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[People_Trainer] DROP CONSTRAINT [FK_GymTrainer];
+GO
+IF OBJECT_ID(N'[dbo].[FK_AddressMedicalCenter]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MedicalCenters] DROP CONSTRAINT [FK_AddressMedicalCenter];
+GO
+IF OBJECT_ID(N'[dbo].[FK_MedicalCenterDoctor]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[People_Doctor] DROP CONSTRAINT [FK_MedicalCenterDoctor];
+GO
+IF OBJECT_ID(N'[dbo].[FK_RunRoute]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Routes] DROP CONSTRAINT [FK_RunRoute];
+GO
 IF OBJECT_ID(N'[dbo].[FK_Doctor_inherits_Person]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[People_Doctor] DROP CONSTRAINT [FK_Doctor_inherits_Person];
 GO
@@ -94,6 +109,18 @@ GO
 IF OBJECT_ID(N'[dbo].[GameSystems]', 'U') IS NOT NULL
     DROP TABLE [dbo].[GameSystems];
 GO
+IF OBJECT_ID(N'[dbo].[Addresses]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Addresses];
+GO
+IF OBJECT_ID(N'[dbo].[Gyms]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Gyms];
+GO
+IF OBJECT_ID(N'[dbo].[MedicalCenters]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MedicalCenters];
+GO
+IF OBJECT_ID(N'[dbo].[Routes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Routes];
+GO
 IF OBJECT_ID(N'[dbo].[People_Doctor]', 'U') IS NOT NULL
     DROP TABLE [dbo].[People_Doctor];
 GO
@@ -128,7 +155,8 @@ CREATE TABLE [dbo].[Credentials] (
     [Email] nvarchar(max)  NOT NULL,
     [Password] nvarchar(max)  NOT NULL,
     [Role] smallint  NOT NULL,
-    [CreatedAt] datetime  NOT NULL
+    [CreatedAt] datetime  NOT NULL,
+    [LastLogin] datetime  NOT NULL
 );
 GO
 
@@ -219,21 +247,26 @@ CREATE TABLE [dbo].[Addresses] (
     [PostCode] nvarchar(max)  NULL,
     [City] nvarchar(max)  NULL,
     [State] nvarchar(max)  NULL,
-    [Country] nvarchar(max)  NULL
+    [Country] nvarchar(max)  NULL,
+    [Coordinate] geography  NOT NULL
 );
 GO
 
 -- Creating table 'Gyms'
 CREATE TABLE [dbo].[Gyms] (
     [Id] uniqueidentifier  NOT NULL,
-    [AddressId] uniqueidentifier  NOT NULL
+    [AddressId] uniqueidentifier  NOT NULL,
+    [Name] nvarchar(max)  NOT NULL,
+    [Phone] nvarchar(max)  NOT NULL
 );
 GO
 
 -- Creating table 'MedicalCenters'
 CREATE TABLE [dbo].[MedicalCenters] (
     [Id] uniqueidentifier  NOT NULL,
-    [AddressId] uniqueidentifier  NOT NULL
+    [AddressId] uniqueidentifier  NOT NULL,
+    [Name] nvarchar(max)  NOT NULL,
+    [Phone] nvarchar(max)  NOT NULL
 );
 GO
 

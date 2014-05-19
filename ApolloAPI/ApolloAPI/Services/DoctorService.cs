@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Spatial;
 using System.Linq;
 using System.Web;
 using ApolloAPI.Data;
 using ApolloAPI.Data.Client.Form;
+using ApolloAPI.Data.Client.Item;
+using ApolloAPI.Data.Utility;
 using ApolloAPI.Models;
 using ApolloAPI.Repositories;
 
@@ -41,14 +44,57 @@ namespace ApolloAPI.Services
             return keys.Any((k) => k == null) ? false : true;
         }
 
-        internal IEnumerable<Doctor> ListOfDoctors()
+        internal IEnumerable<DoctorItem> ListOfDoctors()
         {
-            return doctorRepository.ListAllDoctors();
+            IEnumerable<Doctor> doctors = doctorRepository.ListAllDoctors();
+            HashSet<DoctorItem> doctorList = new HashSet<DoctorItem>();
+
+            foreach (Doctor doctor in doctors)
+            {
+                MedicalCenter medCenter = new MedicalCenter();
+                doctorList.Add(new DoctorItem()
+                {
+                    DoctorId = doctor.Id,
+                    Name = doctor.FirstName + ", " + doctor.LastName,
+                    Expertise = doctor.FieldOfExpertise,
+                    CenterName = medCenter.Name,
+                    Phone = medCenter.Phone,
+                });
+            }
+
+            return doctorList;
         }
 
-        internal IEnumerable<Doctor> ListOfDoctors(string expertise)
+        internal IEnumerable<FilteredDoctorItem> ListOfDoctors(DoctorFilterForm doctorFilterForm)
         {
-            return doctorRepository.ListAllDoctors().Where((d) => String.Equals(d.FieldOfExpertise, expertise, StringComparison.OrdinalIgnoreCase));
+            IEnumerable<Doctor> doctors = doctorRepository.ListAllDoctors();
+            doctors = doctors.Where((d) => String.Equals(d.FieldOfExpertise, doctorFilterForm.Expertise, StringComparison.OrdinalIgnoreCase));
+
+            HashSet<FilteredDoctorItem> doctorList = new HashSet<FilteredDoctorItem>();
+
+            foreach (Doctor doctor in doctors)
+            {
+                MedicalCenter medCenter = doctorRepository.GetMedicalCenterFromMedicalCenterId(doctor.MedicalCenterId);                
+                Address address = doctorRepository.GetAddressByAddressId(medCenter.AddressId);
+
+                DbGeography medCenterLocation = DbGeography.FromText(string.Format("POINT ({1} {0})", address.Coordinate.Latitude, address.Coordinate.Longitude));
+                DbGeography userLocation = DbGeography.FromText(string.Format("POINT ({1} {0})", doctorFilterForm.Location.Latitude, doctorFilterForm.Location.Longitude));
+
+                double? nullableDistance = medCenterLocation.Distance(userLocation);
+                double totalDistance = nullableDistance.HasValue ? nullableDistance.Value : 0.0D;
+
+                doctorList.Add(new FilteredDoctorItem()
+                {
+                    DoctorId = doctor.Id,
+                    Name = doctor.FirstName + ", " + doctor.LastName,
+                    Expertise = doctor.FieldOfExpertise,
+                    DistanceFromUser = totalDistance,
+                    CenterName = medCenter.Name,
+                    Phone = medCenter.Phone
+                });
+            }
+
+            return doctorList.OrderBy((d) => d.DistanceFromUser);
         }
 
         internal IEnumerable<ApolloAPI.Data.Client.Item.AppointmentGeneralItem> ListOfAppointments(Guid userId, HashSet<ApolloAPI.Data.Client.Item.AppointmentGeneralItem> appointmentList)

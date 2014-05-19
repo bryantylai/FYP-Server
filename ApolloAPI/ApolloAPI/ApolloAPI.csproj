@@ -156,10 +156,12 @@
     <Compile Include="Controllers\Trainers\TrainersController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Data\Client\Form\DoctorFilterForm.cs" />
     <Compile Include="Data\Client\Form\LoginForm.cs" />
     <Compile Include="Data\Client\Form\RegistrationForm.cs" />
     <Compile Include="Data\Client\Form\ReplyForm.cs" />
     <Compile Include="Data\Client\Form\RunForm.cs" />
+    <Compile Include="Data\Client\Item\DoctorItem.cs" />
     <Compile Include="Data\Client\Item\iOS\HomeItem.cs" />
     <Compile Include="Data\Client\Item\AppointmentItem.cs" />
     <Compile Include="Data\DiscussionItem.cs" />
@@ -176,6 +178,7 @@
     <Compile Include="Data\Trainers\Form\AuthForm.cs" />
     <Compile Include="Data\Trainers\Form\LoginForm.cs" />
     <Compile Include="Data\Trainers\Form\RegistrationForm.cs" />
+    <Compile Include="Data\Utility\Coordinate.cs" />
     <Compile Include="Data\Utility\ServerMessage.cs" />
     <Compile Include="Data\Utility\AmazonS3Keys.cs" />
     <Compile Include="Data\Client\Item\Windows\HomeItem.cs" />
