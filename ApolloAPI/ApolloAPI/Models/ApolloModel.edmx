@@ -497,6 +497,7 @@
           <Property Name="Password" Nullable="false" Type="String" />
           <Property Name="Role" Nullable="false" Type="ApolloDatabaseModel.Role" />
           <Property Name="CreatedAt" Nullable="false" Type="DateTime" />
+          <Property Name="LastLogin" Type="DateTime" Nullable="false" />
         </EntityType>
         <EnumType Name="Gender" UnderlyingType="Int16">
           <Member Name="Male" />

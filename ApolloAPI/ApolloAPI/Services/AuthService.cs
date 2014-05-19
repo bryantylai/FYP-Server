@@ -65,6 +65,11 @@ namespace ApolloAPI.Services
             return authRepository.CheckLoginCredentials(loginForm.Email, loginForm.Username, loginForm.Password);
         }
 
+        internal bool CheckIfNewAccount(string username)
+        {
+            return authRepository.GetLastLoginDate(GetPersonIdByUsername(username)) == null;
+        }
+
         #region Doctor
 
         internal bool RegisterDoctor(ApolloAPI.Data.Doctors.Form.RegistrationForm registrationForm)

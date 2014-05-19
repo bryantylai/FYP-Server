@@ -27,6 +27,11 @@ namespace ApolloAPI.Repositories
             return dbEntities.Credentials.Any((c) => (c.Email == email || c.Username == username));
         }
 
+        internal DateTime GetLastLoginDate(Guid personId)
+        {
+            return dbEntities.Credentials.Single((c) => c.PersonId == personId).LastLogin;
+        }
+
         internal string[] GetUserRole(string userName)
         {
             Credential credential = dbEntities.Credentials.Where((c) => c.Username == userName).First();

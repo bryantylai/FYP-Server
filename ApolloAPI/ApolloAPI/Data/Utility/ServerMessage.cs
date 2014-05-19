@@ -10,4 +10,9 @@ namespace ApolloAPI.Data.Utility
         public bool IsError { get; set; }
         public string Message { get; set; }
     }
+
+    public class LoginMessage : ServerMessage
+    {
+        public bool NewAccount { get; set; }
+    }
 }
