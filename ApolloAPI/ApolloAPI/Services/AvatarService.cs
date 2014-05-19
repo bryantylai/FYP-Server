@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Spatial;
 using System.Linq;
 using System.Web;
 using ApolloAPI.Data.Client.Form;
@@ -32,26 +33,46 @@ namespace ApolloAPI.Services
 
         internal bool ValidateForm(RunForm runForm)
         {
-            object[] keys = { runForm.StartTime, runForm.EndTime, runForm.Distance };
+            object[] keys = { runForm.Coordinates };
             return keys.Any((k) => k == null) ? false : true;
         }
 
         internal bool UpdateRun(RunForm runForm, Guid userId)
         {
             Avatar avatar = avatarRepository.GetAvatarFromUserId(userId);
-            TimeSpan timeDiff = runForm.EndTime - runForm.StartTime;
-            int point = PointService.Calculate(timeDiff, runForm.Distance);
+            HashSet<Route> routeList = new HashSet<Route>();
+            IEnumerable<Coordinate> coordinates = runForm.Coordinates;
+            Guid runId = Guid.NewGuid();
+            double totalDistance = 0.0D;
+            
+            for (int index = 0; index < coordinates.Count(); )
+            {
+                Coordinate startCoordinate = coordinates.ElementAt(index++);
+                Coordinate endCoordinate = coordinates.ElementAt(index++);
+
+                Route route = new Route()
+                {
+                    Id = Guid.NewGuid(),
+                    RunId = runId,
+                    Start = DbGeography.FromText(String.Format("POINT ({1} {0})", startCoordinate.Latitude, startCoordinate.Latitude)),
+                    End = DbGeography.FromText(String.Format("POINT ({1} {0})", endCoordinate.Latitude, endCoordinate.Latitude))
+                };
+
+                double? nullableDistance = route.End.Distance(route.Start);
+                totalDistance = nullableDistance.HasValue ? nullableDistance.Value : 0.0D;
+
+                routeList.Add(route);
+            }
 
             Run run = new Run()
             {
-                Id = Guid.NewGuid(),
-                AvatarId = avatar.Id,
-                Distance = runForm.Distance,
-                RunningTime = timeDiff,
-                Point = point
+                Id = runId,
+                RanBy = avatar.Id,
+                RunningTime = runForm.EndTime - runForm.StartTime,
+                Routes = routeList,
             };
 
-            return true;
+            return avatarRepository.SaveRun(run);
         }
     }
 }

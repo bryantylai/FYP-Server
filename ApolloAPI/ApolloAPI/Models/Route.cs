@@ -12,12 +12,11 @@ namespace ApolloAPI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Post
+    public partial class Route
     {
         public System.Guid Id { get; set; }
-        public string Title { get; set; }
-        public string Photo { get; set; }
-        public System.Guid PostedBy { get; set; }
-        public System.DateTime PostedAt { get; set; }
+        public System.Guid RunId { get; set; }
+        public System.Data.Spatial.DbGeography Start { get; set; }
+        public System.Data.Spatial.DbGeography End { get; set; }
     }
 }

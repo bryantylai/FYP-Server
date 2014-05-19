@@ -12,5 +12,11 @@ namespace ApolloAPI.Repositories
         {
             return dbEntities.Avatars.Where((u) => u.Equals(userId)).First();
         }
+
+        internal bool SaveRun(Run run)
+        {
+            dbEntities.Runs.Add(run);
+            return dbEntities.SaveChanges() != 0;
+        }
     }
 }

@@ -182,6 +182,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Address.cs">
+      <DependentUpon>ApolloModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ApolloModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -221,6 +224,12 @@
     <Compile Include="Models\Gender.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Gym.cs">
+      <DependentUpon>ApolloModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MedicalCenter.cs">
+      <DependentUpon>ApolloModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Person.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
@@ -233,10 +242,10 @@
     <Compile Include="Models\Role.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Run.cs">
+    <Compile Include="Models\Route.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Scoresheet.cs">
+    <Compile Include="Models\Run.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Trainer.cs">

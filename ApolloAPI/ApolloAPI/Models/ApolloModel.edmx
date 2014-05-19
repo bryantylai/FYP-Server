@@ -6,215 +6,206 @@
     <edmx:StorageModels>
     <Schema Namespace="ApolloDatabaseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="ApolloDatabaseModelStoreContainer">
-    <EntitySet Name="People" EntityType="ApolloDatabaseModel.Store.People" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Credentials" EntityType="ApolloDatabaseModel.Store.Credentials" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Appointments" EntityType="ApolloDatabaseModel.Store.Appointments" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Discussions" EntityType="ApolloDatabaseModel.Store.Discussions" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Replies" EntityType="ApolloDatabaseModel.Store.Replies" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Posts" EntityType="ApolloDatabaseModel.Store.Posts" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Comments" EntityType="ApolloDatabaseModel.Store.Comments" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Avatars" EntityType="ApolloDatabaseModel.Store.Avatars" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Runs" EntityType="ApolloDatabaseModel.Store.Runs" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Scoresheets" EntityType="ApolloDatabaseModel.Store.Scoresheets" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="GameSystems" EntityType="ApolloDatabaseModel.Store.GameSystems" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="People_Doctor" EntityType="ApolloDatabaseModel.Store.People_Doctor" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="People_User" EntityType="ApolloDatabaseModel.Store.People_User" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="People_Trainer" EntityType="ApolloDatabaseModel.Store.People_Trainer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="People" EntityType="ApolloDatabaseModel.Store.People" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Credentials" EntityType="ApolloDatabaseModel.Store.Credentials" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Appointments" EntityType="ApolloDatabaseModel.Store.Appointments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Discussions" EntityType="ApolloDatabaseModel.Store.Discussions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Replies" EntityType="ApolloDatabaseModel.Store.Replies" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Posts" EntityType="ApolloDatabaseModel.Store.Posts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Comments" EntityType="ApolloDatabaseModel.Store.Comments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Avatars" EntityType="ApolloDatabaseModel.Store.Avatars" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Runs" EntityType="ApolloDatabaseModel.Store.Runs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GameSystems" EntityType="ApolloDatabaseModel.Store.GameSystems" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="People_Doctor" EntityType="ApolloDatabaseModel.Store.People_Doctor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="People_User" EntityType="ApolloDatabaseModel.Store.People_User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="People_Trainer" EntityType="ApolloDatabaseModel.Store.People_Trainer" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="DoctorAppointment" Association="ApolloDatabaseModel.Store.DoctorAppointment">
-      <End Role="Doctor" EntitySet="People_Doctor" />
-      <End Role="Appointment" EntitySet="Appointments" />
+      <End EntitySet="People_Doctor" Role="Doctor" />
+      <End EntitySet="Appointments" Role="Appointment" />
     </AssociationSet>
     <AssociationSet Name="UserAppointment" Association="ApolloDatabaseModel.Store.UserAppointment">
-      <End Role="User" EntitySet="People_User" />
-      <End Role="Appointment" EntitySet="Appointments" />
+      <End EntitySet="People_User" Role="User" />
+      <End EntitySet="Appointments" Role="Appointment" />
     </AssociationSet>
     <AssociationSet Name="UserDiscussion" Association="ApolloDatabaseModel.Store.UserDiscussion">
-      <End Role="User" EntitySet="People_User" />
-      <End Role="Discussion" EntitySet="Discussions" />
+      <End EntitySet="People_User" Role="User" />
+      <End EntitySet="Discussions" Role="Discussion" />
     </AssociationSet>
     <AssociationSet Name="DiscussionReply" Association="ApolloDatabaseModel.Store.DiscussionReply">
-      <End Role="Discussion" EntitySet="Discussions" />
-      <End Role="Reply" EntitySet="Replies" />
+      <End EntitySet="Discussions" Role="Discussion" />
+      <End EntitySet="Replies" Role="Reply" />
     </AssociationSet>
     <AssociationSet Name="PersonReply" Association="ApolloDatabaseModel.Store.PersonReply">
-      <End Role="Person" EntitySet="People" />
-      <End Role="Reply" EntitySet="Replies" />
+      <End EntitySet="People" Role="Person" />
+      <End EntitySet="Replies" Role="Reply" />
     </AssociationSet>
     <AssociationSet Name="PersonCredential" Association="ApolloDatabaseModel.Store.PersonCredential">
-      <End Role="Person" EntitySet="People" />
-      <End Role="Credential" EntitySet="Credentials" />
+      <End EntitySet="People" Role="Person" />
+      <End EntitySet="Credentials" Role="Credential" />
     </AssociationSet>
     <AssociationSet Name="PostComment" Association="ApolloDatabaseModel.Store.PostComment">
-      <End Role="Post" EntitySet="Posts" />
-      <End Role="Comment" EntitySet="Comments" />
+      <End EntitySet="Posts" Role="Post" />
+      <End EntitySet="Comments" Role="Comment" />
     </AssociationSet>
     <AssociationSet Name="UserPost" Association="ApolloDatabaseModel.Store.UserPost">
-      <End Role="User" EntitySet="People_User" />
-      <End Role="Post" EntitySet="Posts" />
+      <End EntitySet="People_User" Role="User" />
+      <End EntitySet="Posts" Role="Post" />
     </AssociationSet>
     <AssociationSet Name="UserComment" Association="ApolloDatabaseModel.Store.UserComment">
-      <End Role="User" EntitySet="People_User" />
-      <End Role="Comment" EntitySet="Comments" />
+      <End EntitySet="People_User" Role="User" />
+      <End EntitySet="Comments" Role="Comment" />
     </AssociationSet>
     <AssociationSet Name="UserAvatar" Association="ApolloDatabaseModel.Store.UserAvatar">
-      <End Role="User" EntitySet="People_User" />
-      <End Role="Avatar" EntitySet="Avatars" />
+      <End EntitySet="People_User" Role="User" />
+      <End EntitySet="Avatars" Role="Avatar" />
     </AssociationSet>
     <AssociationSet Name="AvatarRun" Association="ApolloDatabaseModel.Store.AvatarRun">
-      <End Role="Avatar" EntitySet="Avatars" />
-      <End Role="Run" EntitySet="Runs" />
+      <End EntitySet="Avatars" Role="Avatar" />
+      <End EntitySet="Runs" Role="Run" />
     </AssociationSet>
     <AssociationSet Name="FK_Doctor_inherits_Person" Association="ApolloDatabaseModel.Store.FK_Doctor_inherits_Person">
-      <End Role="Person" EntitySet="People" />
-      <End Role="Doctor" EntitySet="People_Doctor" />
+      <End EntitySet="People" Role="Person" />
+      <End EntitySet="People_Doctor" Role="Doctor" />
     </AssociationSet>
     <AssociationSet Name="FK_User_inherits_Person" Association="ApolloDatabaseModel.Store.FK_User_inherits_Person">
-      <End Role="Person" EntitySet="People" />
-      <End Role="User" EntitySet="People_User" />
+      <End EntitySet="People" Role="Person" />
+      <End EntitySet="People_User" Role="User" />
     </AssociationSet>
     <AssociationSet Name="FK_Trainer_inherits_Person" Association="ApolloDatabaseModel.Store.FK_Trainer_inherits_Person">
-      <End Role="Person" EntitySet="People" />
-      <End Role="Trainer" EntitySet="People_Trainer" />
+      <End EntitySet="People" Role="Person" />
+      <End EntitySet="People_Trainer" Role="Trainer" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="People">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="FirstName" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="LastName" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="DateOfBirth" Type="datetime" Nullable="true" />
-    <Property Name="Gender" Type="smallint" Nullable="true" />
-    <Property Name="Phone" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="ProfileImage" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Id" Nullable="false" Type="uniqueidentifier" />
+    <Property Name="FirstName" Nullable="true" Type="nvarchar(max)" />
+    <Property Name="LastName" Nullable="true" Type="nvarchar(max)" />
+    <Property Name="DateOfBirth" Nullable="true" Type="datetime" />
+    <Property Name="Gender" Nullable="true" Type="smallint" />
+    <Property Name="Phone" Nullable="true" Type="nvarchar(max)" />
+    <Property Name="ProfileImage" Nullable="true" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Credentials">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Role" Type="smallint" Nullable="false" />
-    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+    <Property Name="Id" Nullable="false" Type="uniqueidentifier" />
+    <Property Name="PersonId" Nullable="false" Type="uniqueidentifier" />
+    <Property Name="Username" Nullable="false" Type="nvarchar(max)" />
+    <Property Name="Email" Nullable="false" Type="nvarchar(max)" />
+    <Property Name="Password" Nullable="false" Type="nvarchar(max)" />
+    <Property Name="Role" Nullable="false" Type="smallint" />
+    <Property Name="CreatedAt" Nullable="false" Type="datetime" />
   </EntityType>
   <EntityType Name="Appointments">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="DoctorId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="AppointmentTime" Type="datetime" Nullable="false" />
-    <Property Name="Reason" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="IsApproved" Type="bit" Nullable="false" />
+    <Property Name="Id" Nullable="false" Type="uniqueidentifier" />
+    <Property Name="DoctorId" Nullable="false" Type="uniqueidentifier" />
+    <Property Name="UserId" Nullable="false" Type="uniqueidentifier" />
+    <Property Name="AppointmentTime" Nullable="false" Type="datetime" />
+    <Property Name="Reason" Nullable="false" Type="nvarchar(max)" />
+    <Property Name="IsApproved" Nullable="false" Type="bit" />
   </EntityType>
   <EntityType Name="Discussions">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
-    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Id" Nullable="false" Type="uniqueidentifier" />
+    <Property Name="UserId" Nullable="false" Type="uniqueidentifier" />
+    <Property Name="CreatedAt" Nullable="false" Type="datetime" />
+    <Property Name="Title" Nullable="false" Type="nvarchar(max)" />
+    <Property Name="Content" Nullable="false" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Replies">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="RepliedAt" Type="datetime" Nullable="false" />
-    <Property Name="DiscussionId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="PersonId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Id" Nullable="false" Type="uniqueidentifier" />
+    <Property Name="Content" Nullable="false" Type="nvarchar(max)" />
+    <Property Name="RepliedAt" Nullable="false" Type="datetime" />
+    <Property Name="DiscussionId" Nullable="false" Type="uniqueidentifier" />
+    <Property Name="PersonId" Nullable="false" Type="uniqueidentifier" />
   </EntityType>
   <EntityType Name="Posts">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="PostedAt" Type="datetime" Nullable="false" />
-    <Property Name="Photo" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Id" Nullable="false" Type="uniqueidentifier" />
+    <Property Name="UserId" Nullable="false" Type="uniqueidentifier" />
+    <Property Name="Title" Nullable="false" Type="nvarchar(max)" />
+    <Property Name="Content" Nullable="false" Type="nvarchar(max)" />
+    <Property Name="PostedAt" Nullable="false" Type="datetime" />
+    <Property Name="Photo" Nullable="true" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Comments">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="PostId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="CommentedAt" Type="datetime" Nullable="false" />
+    <Property Name="Id" Nullable="false" Type="uniqueidentifier" />
+    <Property Name="PostId" Nullable="false" Type="uniqueidentifier" />
+    <Property Name="UserId" Nullable="false" Type="uniqueidentifier" />
+    <Property Name="Content" Nullable="false" Type="nvarchar(max)" />
+    <Property Name="CommentedAt" Nullable="false" Type="datetime" />
   </EntityType>
   <EntityType Name="Avatars">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Level" Type="int" Nullable="false" />
-    <Property Name="Points" Type="int" Nullable="false" />
-    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Id" Nullable="false" Type="uniqueidentifier" />
+    <Property Name="Name" Nullable="false" Type="nvarchar(max)" />
+    <Property Name="Level" Nullable="false" Type="int" />
+    <Property Name="Points" Nullable="false" Type="int" />
+    <Property Name="UserId" Nullable="false" Type="uniqueidentifier" />
   </EntityType>
   <EntityType Name="Runs">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="RunningTime" Type="time" Nullable="false" />
-    <Property Name="Distance" Type="float" Nullable="false" />
-    <Property Name="Point" Type="int" Nullable="false" />
-    <Property Name="AvatarId" Type="uniqueidentifier" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Scoresheets">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="TotalDistance" Type="float" Nullable="false" />
-    <Property Name="Points" Type="int" Nullable="false" />
+    <Property Name="Id" Nullable="false" Type="uniqueidentifier" />
+    <Property Name="RunningTime" Nullable="false" Type="time" />
+    <Property Name="Distance" Nullable="false" Type="float" />
+    <Property Name="Point" Nullable="false" Type="int" />
+    <Property Name="AvatarId" Nullable="false" Type="uniqueidentifier" />
   </EntityType>
   <EntityType Name="GameSystems">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Level" Type="int" Nullable="false" />
-    <Property Name="Points" Type="int" Nullable="false" />
+    <Property Name="Id" Nullable="false" Type="uniqueidentifier" />
+    <Property Name="Level" Nullable="false" Type="int" />
+    <Property Name="Points" Nullable="false" Type="int" />
   </EntityType>
   <EntityType Name="People_Doctor">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="FieldOfExpertise" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FieldOfExpertise" Nullable="true" Type="nvarchar(max)" />
+    <Property Name="Id" Nullable="false" Type="uniqueidentifier" />
   </EntityType>
   <EntityType Name="People_User">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Status" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Height" Type="float" Nullable="true" />
-    <Property Name="Weight" Type="float" Nullable="true" />
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Status" Nullable="true" Type="nvarchar(max)" />
+    <Property Name="Height" Nullable="true" Type="float" />
+    <Property Name="Weight" Nullable="true" Type="float" />
+    <Property Name="Id" Nullable="false" Type="uniqueidentifier" />
   </EntityType>
   <EntityType Name="People_Trainer">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="FieldOfExpertise" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FieldOfExpertise" Nullable="true" Type="nvarchar(max)" />
+    <Property Name="Id" Nullable="false" Type="uniqueidentifier" />
   </EntityType>
   <Association Name="DoctorAppointment">
-    <End Role="Doctor" Type="ApolloDatabaseModel.Store.People_Doctor" Multiplicity="1" />
-    <End Role="Appointment" Type="ApolloDatabaseModel.Store.Appointments" Multiplicity="*" />
+    <End Type="ApolloDatabaseModel.Store.People_Doctor" Multiplicity="1" Role="Doctor" />
+    <End Type="ApolloDatabaseModel.Store.Appointments" Multiplicity="*" Role="Appointment" />
     <ReferentialConstraint>
       <Principal Role="Doctor">
         <PropertyRef Name="Id" />
@@ -225,8 +216,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="UserAppointment">
-    <End Role="User" Type="ApolloDatabaseModel.Store.People_User" Multiplicity="1" />
-    <End Role="Appointment" Type="ApolloDatabaseModel.Store.Appointments" Multiplicity="*" />
+    <End Type="ApolloDatabaseModel.Store.People_User" Multiplicity="1" Role="User" />
+    <End Type="ApolloDatabaseModel.Store.Appointments" Multiplicity="*" Role="Appointment" />
     <ReferentialConstraint>
       <Principal Role="User">
         <PropertyRef Name="Id" />
@@ -237,8 +228,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="UserDiscussion">
-    <End Role="User" Type="ApolloDatabaseModel.Store.People_User" Multiplicity="1" />
-    <End Role="Discussion" Type="ApolloDatabaseModel.Store.Discussions" Multiplicity="*" />
+    <End Type="ApolloDatabaseModel.Store.People_User" Multiplicity="1" Role="User" />
+    <End Type="ApolloDatabaseModel.Store.Discussions" Multiplicity="*" Role="Discussion" />
     <ReferentialConstraint>
       <Principal Role="User">
         <PropertyRef Name="Id" />
@@ -249,8 +240,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="DiscussionReply">
-    <End Role="Discussion" Type="ApolloDatabaseModel.Store.Discussions" Multiplicity="1" />
-    <End Role="Reply" Type="ApolloDatabaseModel.Store.Replies" Multiplicity="*" />
+    <End Type="ApolloDatabaseModel.Store.Discussions" Multiplicity="1" Role="Discussion" />
+    <End Type="ApolloDatabaseModel.Store.Replies" Multiplicity="*" Role="Reply" />
     <ReferentialConstraint>
       <Principal Role="Discussion">
         <PropertyRef Name="Id" />
@@ -261,8 +252,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="PersonReply">
-    <End Role="Person" Type="ApolloDatabaseModel.Store.People" Multiplicity="1" />
-    <End Role="Reply" Type="ApolloDatabaseModel.Store.Replies" Multiplicity="*" />
+    <End Type="ApolloDatabaseModel.Store.People" Multiplicity="1" Role="Person" />
+    <End Type="ApolloDatabaseModel.Store.Replies" Multiplicity="*" Role="Reply" />
     <ReferentialConstraint>
       <Principal Role="Person">
         <PropertyRef Name="Id" />
@@ -273,8 +264,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="PersonCredential">
-    <End Role="Person" Type="ApolloDatabaseModel.Store.People" Multiplicity="1" />
-    <End Role="Credential" Type="ApolloDatabaseModel.Store.Credentials" Multiplicity="*" />
+    <End Type="ApolloDatabaseModel.Store.People" Multiplicity="1" Role="Person" />
+    <End Type="ApolloDatabaseModel.Store.Credentials" Multiplicity="*" Role="Credential" />
     <ReferentialConstraint>
       <Principal Role="Person">
         <PropertyRef Name="Id" />
@@ -285,8 +276,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="PostComment">
-    <End Role="Post" Type="ApolloDatabaseModel.Store.Posts" Multiplicity="1" />
-    <End Role="Comment" Type="ApolloDatabaseModel.Store.Comments" Multiplicity="*" />
+    <End Type="ApolloDatabaseModel.Store.Posts" Multiplicity="1" Role="Post" />
+    <End Type="ApolloDatabaseModel.Store.Comments" Multiplicity="*" Role="Comment" />
     <ReferentialConstraint>
       <Principal Role="Post">
         <PropertyRef Name="Id" />
@@ -297,8 +288,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="UserPost">
-    <End Role="User" Type="ApolloDatabaseModel.Store.People_User" Multiplicity="1" />
-    <End Role="Post" Type="ApolloDatabaseModel.Store.Posts" Multiplicity="*" />
+    <End Type="ApolloDatabaseModel.Store.People_User" Multiplicity="1" Role="User" />
+    <End Type="ApolloDatabaseModel.Store.Posts" Multiplicity="*" Role="Post" />
     <ReferentialConstraint>
       <Principal Role="User">
         <PropertyRef Name="Id" />
@@ -309,8 +300,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="UserComment">
-    <End Role="User" Type="ApolloDatabaseModel.Store.People_User" Multiplicity="1" />
-    <End Role="Comment" Type="ApolloDatabaseModel.Store.Comments" Multiplicity="*" />
+    <End Type="ApolloDatabaseModel.Store.People_User" Multiplicity="1" Role="User" />
+    <End Type="ApolloDatabaseModel.Store.Comments" Multiplicity="*" Role="Comment" />
     <ReferentialConstraint>
       <Principal Role="User">
         <PropertyRef Name="Id" />
@@ -321,8 +312,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="UserAvatar">
-    <End Role="User" Type="ApolloDatabaseModel.Store.People_User" Multiplicity="1" />
-    <End Role="Avatar" Type="ApolloDatabaseModel.Store.Avatars" Multiplicity="*" />
+    <End Type="ApolloDatabaseModel.Store.People_User" Multiplicity="1" Role="User" />
+    <End Type="ApolloDatabaseModel.Store.Avatars" Multiplicity="*" Role="Avatar" />
     <ReferentialConstraint>
       <Principal Role="User">
         <PropertyRef Name="Id" />
@@ -333,8 +324,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="AvatarRun">
-    <End Role="Avatar" Type="ApolloDatabaseModel.Store.Avatars" Multiplicity="1" />
-    <End Role="Run" Type="ApolloDatabaseModel.Store.Runs" Multiplicity="*" />
+    <End Type="ApolloDatabaseModel.Store.Avatars" Multiplicity="1" Role="Avatar" />
+    <End Type="ApolloDatabaseModel.Store.Runs" Multiplicity="*" Role="Run" />
     <ReferentialConstraint>
       <Principal Role="Avatar">
         <PropertyRef Name="Id" />
@@ -345,10 +336,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Doctor_inherits_Person">
-    <End Role="Person" Type="ApolloDatabaseModel.Store.People" Multiplicity="1">
+    <End Type="ApolloDatabaseModel.Store.People" Multiplicity="1" Role="Person">
       <OnDelete Action="Cascade" />
     </End>
-    <End Role="Doctor" Type="ApolloDatabaseModel.Store.People_Doctor" Multiplicity="0..1" />
+    <End Type="ApolloDatabaseModel.Store.People_Doctor" Multiplicity="0..1" Role="Doctor" />
     <ReferentialConstraint>
       <Principal Role="Person">
         <PropertyRef Name="Id" />
@@ -359,10 +350,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_User_inherits_Person">
-    <End Role="Person" Type="ApolloDatabaseModel.Store.People" Multiplicity="1">
+    <End Type="ApolloDatabaseModel.Store.People" Multiplicity="1" Role="Person">
       <OnDelete Action="Cascade" />
     </End>
-    <End Role="User" Type="ApolloDatabaseModel.Store.People_User" Multiplicity="0..1" />
+    <End Type="ApolloDatabaseModel.Store.People_User" Multiplicity="0..1" Role="User" />
     <ReferentialConstraint>
       <Principal Role="Person">
         <PropertyRef Name="Id" />
@@ -373,10 +364,10 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Trainer_inherits_Person">
-    <End Role="Person" Type="ApolloDatabaseModel.Store.People" Multiplicity="1">
+    <End Type="ApolloDatabaseModel.Store.People" Multiplicity="1" Role="Person">
       <OnDelete Action="Cascade" />
     </End>
-    <End Role="Trainer" Type="ApolloDatabaseModel.Store.People_Trainer" Multiplicity="0..1" />
+    <End Type="ApolloDatabaseModel.Store.People_Trainer" Multiplicity="0..1" Role="Trainer" />
     <ReferentialConstraint>
       <Principal Role="Person">
         <PropertyRef Name="Id" />
@@ -390,97 +381,122 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ApolloDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="ApolloDatabaseEntities" annotation:LazyLoadingEnabled="true" >
+        <EntityContainer Name="ApolloDatabaseEntities" annotation:LazyLoadingEnabled="false" >
           <EntitySet Name="People" EntityType="ApolloDatabaseModel.Person" />
           <EntitySet Name="Credentials" EntityType="ApolloDatabaseModel.Credential" />
           <EntitySet Name="Appointments" EntityType="ApolloDatabaseModel.Appointment" />
           <AssociationSet Name="DoctorAppointment" Association="ApolloDatabaseModel.DoctorAppointment">
-            <End Role="Doctor" EntitySet="People" />
-            <End Role="Appointment" EntitySet="Appointments" />
+            <End EntitySet="People" Role="Doctor" />
+            <End EntitySet="Appointments" Role="Appointment" />
           </AssociationSet>
           <AssociationSet Name="UserAppointment" Association="ApolloDatabaseModel.UserAppointment">
-            <End Role="User" EntitySet="People" />
-            <End Role="Appointment" EntitySet="Appointments" />
+            <End EntitySet="People" Role="User" />
+            <End EntitySet="Appointments" Role="Appointment" />
           </AssociationSet>
           <EntitySet Name="Discussions" EntityType="ApolloDatabaseModel.Discussion" />
           <AssociationSet Name="UserDiscussion" Association="ApolloDatabaseModel.UserDiscussion">
-            <End Role="User" EntitySet="People" />
-            <End Role="Discussion" EntitySet="Discussions" />
+            <End EntitySet="People" Role="User" />
+            <End EntitySet="Discussions" Role="Discussion" />
           </AssociationSet>
           <EntitySet Name="Replies" EntityType="ApolloDatabaseModel.Reply" />
           <AssociationSet Name="DiscussionReply" Association="ApolloDatabaseModel.DiscussionReply">
-            <End Role="Discussion" EntitySet="Discussions" />
-            <End Role="Reply" EntitySet="Replies" />
+            <End EntitySet="Discussions" Role="Discussion" />
+            <End EntitySet="Replies" Role="Reply" />
           </AssociationSet>
           <AssociationSet Name="PersonReply" Association="ApolloDatabaseModel.PersonReply">
-            <End Role="Person" EntitySet="People" />
-            <End Role="Reply" EntitySet="Replies" />
+            <End EntitySet="People" Role="Person" />
+            <End EntitySet="Replies" Role="Reply" />
           </AssociationSet>
           <AssociationSet Name="PersonCredential" Association="ApolloDatabaseModel.PersonCredential">
-            <End Role="Person" EntitySet="People" />
-            <End Role="Credential" EntitySet="Credentials" />
+            <End EntitySet="People" Role="Person" />
+            <End EntitySet="Credentials" Role="Credential" />
           </AssociationSet>
           <EntitySet Name="Posts" EntityType="ApolloDatabaseModel.Post" />
           <EntitySet Name="Comments" EntityType="ApolloDatabaseModel.Comment" />
           <AssociationSet Name="PostComment" Association="ApolloDatabaseModel.PostComment">
-            <End Role="Post" EntitySet="Posts" />
-            <End Role="Comment" EntitySet="Comments" />
+            <End EntitySet="Posts" Role="Post" />
+            <End EntitySet="Comments" Role="Comment" />
           </AssociationSet>
           <AssociationSet Name="UserPost" Association="ApolloDatabaseModel.UserPost">
-            <End Role="User" EntitySet="People" />
-            <End Role="Post" EntitySet="Posts" />
+            <End EntitySet="People" Role="User" />
+            <End EntitySet="Posts" Role="Post" />
           </AssociationSet>
           <AssociationSet Name="UserComment" Association="ApolloDatabaseModel.UserComment">
-            <End Role="User" EntitySet="People" />
-            <End Role="Comment" EntitySet="Comments" />
+            <End EntitySet="People" Role="User" />
+            <End EntitySet="Comments" Role="Comment" />
           </AssociationSet>
           <EntitySet Name="Avatars" EntityType="ApolloDatabaseModel.Avatar" />
           <AssociationSet Name="UserAvatar" Association="ApolloDatabaseModel.UserAvatar">
-            <End Role="User" EntitySet="People" />
-            <End Role="Avatar" EntitySet="Avatars" />
+            <End EntitySet="People" Role="User" />
+            <End EntitySet="Avatars" Role="Avatar" />
           </AssociationSet>
           <EntitySet Name="Runs" EntityType="ApolloDatabaseModel.Run" />
           <AssociationSet Name="AvatarRun" Association="ApolloDatabaseModel.AvatarRun">
-            <End Role="Avatar" EntitySet="Avatars" />
-            <End Role="Run" EntitySet="Runs" />
+            <End EntitySet="Avatars" Role="Avatar" />
+            <End EntitySet="Runs" Role="Run" />
           </AssociationSet>
-          <EntitySet Name="Scoresheets" EntityType="ApolloDatabaseModel.Scoresheet" />
           <EntitySet Name="GameSystems" EntityType="ApolloDatabaseModel.GameSystem" />
+          <EntitySet Name="Addresses" EntityType="ApolloDatabaseModel.Address" />
+          <EntitySet Name="Gyms" EntityType="ApolloDatabaseModel.Gym" />
+          <AssociationSet Name="AddressGym" Association="ApolloDatabaseModel.AddressGym">
+            <End EntitySet="Addresses" Role="Address" />
+            <End EntitySet="Gyms" Role="Gym" />
+          </AssociationSet>
+          <AssociationSet Name="GymTrainer" Association="ApolloDatabaseModel.GymTrainer">
+            <End EntitySet="Gyms" Role="Gym" />
+            <End EntitySet="People" Role="Trainer" />
+          </AssociationSet>
+          <EntitySet Name="MedicalCenters" EntityType="ApolloDatabaseModel.MedicalCenter" />
+          <AssociationSet Name="AddressMedicalCenter" Association="ApolloDatabaseModel.AddressMedicalCenter">
+            <End EntitySet="Addresses" Role="Address" />
+            <End EntitySet="MedicalCenters" Role="MedicalCenter" />
+          </AssociationSet>
+          <AssociationSet Name="MedicalCenterDoctor" Association="ApolloDatabaseModel.MedicalCenterDoctor">
+            <End EntitySet="MedicalCenters" Role="MedicalCenter" />
+            <End EntitySet="People" Role="Doctor" />
+          </AssociationSet>
+          <EntitySet Name="Routes" EntityType="ApolloDatabaseModel.Route" />
+          <AssociationSet Name="RunRoute" Association="ApolloDatabaseModel.RunRoute">
+            <End Role="Run" EntitySet="Runs" />
+            <End Role="Route" EntitySet="Routes" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Person">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Name="FirstName" Type="String" Nullable="true" />
-          <Property Name="LastName" Type="String" Nullable="true" />
-          <Property Name="DateOfBirth" Type="DateTime" Nullable="true" />
-          <Property Name="Gender" Type="ApolloDatabaseModel.Gender" Nullable="true" />
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" Type="Guid" />
+          <Property Name="FirstName" Nullable="true" Type="String" />
+          <Property Name="LastName" Nullable="true" Type="String" />
+          <Property Name="DateOfBirth" Nullable="true" Type="DateTime" />
+          <Property Name="Gender" Nullable="true" Type="ApolloDatabaseModel.Gender" />
           <Property Name="Phone" Type="String" Nullable="true" />
-          <Property Name="ProfileImage" Type="String" Nullable="true" />
+          <Property Name="ProfileImage" Nullable="true" Type="String" />
         </EntityType>
         <EntityType Name="User" BaseType="ApolloDatabaseModel.Person">
-          <Property Name="Status" Type="String" Nullable="true" />
-          <Property Name="Height" Type="Double" Nullable="true" />
-          <Property Name="Weight" Type="Double" Nullable="true" />
+          <Property Name="Status" Nullable="true" Type="String" />
+          <Property Name="Height" Nullable="true" Type="Double" />
+          <Property Name="Weight" Nullable="true" Type="Double" />
         </EntityType>
         <EntityType Name="Trainer" BaseType="ApolloDatabaseModel.Person">
-          <Property Name="FieldOfExpertise" Type="String" Nullable="true" />
+          <Property Name="FieldOfExpertise" Nullable="true" Type="String" />
+          <Property Name="GymId" Nullable="false" Type="Guid" />
         </EntityType>
-        <EntityType Name="Doctor" BaseType="ApolloDatabaseModel.Person" >
-          <Property Name="FieldOfExpertise" Type="String" Nullable="true" />
+        <EntityType Name="Doctor" BaseType="ApolloDatabaseModel.Person">
+          <Property Name="FieldOfExpertise" Nullable="true" Type="String" />
+          <Property Name="MedicalCenterId" Nullable="false" Type="Guid" />
         </EntityType>
         <EntityType Name="Credential">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Name="PersonId" Type="Guid" Nullable="false" />
-          <Property Name="Username" Type="String" Nullable="false" />
-          <Property Name="Email" Type="String" Nullable="false" />
-          <Property Name="Password" Type="String" Nullable="false" />
-          <Property Name="Role" Type="ApolloDatabaseModel.Role" Nullable="false" />
-          <Property Name="CreatedAt" Type="DateTime" Nullable="false" />
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" Type="Guid" />
+          <Property Name="PersonId" Nullable="false" Type="Guid" />
+          <Property Name="Username" Nullable="false" Type="String" />
+          <Property Name="Email" Nullable="false" Type="String" />
+          <Property Name="Password" Nullable="false" Type="String" />
+          <Property Name="Role" Nullable="false" Type="ApolloDatabaseModel.Role" />
+          <Property Name="CreatedAt" Nullable="false" Type="DateTime" />
         </EntityType>
         <EnumType Name="Gender" UnderlyingType="Int16">
           <Member Name="Male" />
@@ -497,34 +513,34 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Name="DoctorId" Type="Guid" Nullable="false" />
-          <Property Name="UserId" Type="Guid" Nullable="false" />
-          <Property Name="AppointmentTime" Type="DateTime" Nullable="false" />
-          <Property Name="Reason" Type="String" Nullable="false" />
-          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" Type="Guid" />
+          <Property Name="AppointmentTo" Nullable="false" Type="Guid" />
+          <Property Name="Reason" Nullable="false" Type="String" />
+          <Property Name="IsApproved" Nullable="false" Type="Boolean" />
+          <Property Name="AppointmentBy" Nullable="false" Type="Guid" />
+          <Property Name="AppointmentTime" Nullable="false" Type="DateTime" />
         </EntityType>
         <Association Name="DoctorAppointment">
-          <End Type="ApolloDatabaseModel.Doctor" Role="Doctor" Multiplicity="1" />
-          <End Type="ApolloDatabaseModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <End Type="ApolloDatabaseModel.Doctor" Multiplicity="1" Role="Doctor" />
+          <End Type="ApolloDatabaseModel.Appointment" Multiplicity="*" Role="Appointment" />
           <ReferentialConstraint>
             <Principal Role="Doctor">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Appointment">
-              <PropertyRef Name="DoctorId" />
+              <PropertyRef Name="AppointmentTo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="UserAppointment">
-          <End Type="ApolloDatabaseModel.User" Role="User" Multiplicity="1" />
-          <End Type="ApolloDatabaseModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <End Type="ApolloDatabaseModel.User" Multiplicity="1" Role="User" />
+          <End Type="ApolloDatabaseModel.Appointment" Multiplicity="*" Role="Appointment" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Appointment">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="AppointmentBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -532,21 +548,21 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Name="UserId" Type="Guid" Nullable="false" />
-          <Property Name="CreatedAt" Type="DateTime" Nullable="false" />
-          <Property Name="Title" Type="String" Nullable="false" />
-          <Property Name="Content" Type="String" Nullable="false" />
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" Type="Guid" />
+          <Property Name="Title" Nullable="false" Type="String" />
+          <Property Name="Content" Nullable="false" Type="String" />
+          <Property Name="CreatedBy" Nullable="false" Type="Guid" />
+          <Property Name="CreatedAt" Nullable="false" Type="DateTime" />
         </EntityType>
         <Association Name="UserDiscussion">
-          <End Type="ApolloDatabaseModel.User" Role="User" Multiplicity="1" />
-          <End Type="ApolloDatabaseModel.Discussion" Role="Discussion" Multiplicity="*" />
+          <End Type="ApolloDatabaseModel.User" Multiplicity="1" Role="User" />
+          <End Type="ApolloDatabaseModel.Discussion" Multiplicity="*" Role="Discussion" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Discussion">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -554,15 +570,15 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Name="Content" Type="String" Nullable="false" />
-          <Property Name="RepliedAt" Type="DateTime" Nullable="false" />
-          <Property Name="DiscussionId" Type="Guid" Nullable="false" />
-          <Property Name="PersonId" Type="Guid" Nullable="false" />
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" Type="Guid" />
+          <Property Name="DiscussionId" Nullable="false" Type="Guid" />
+          <Property Name="Content" Nullable="false" Type="String" />
+          <Property Name="RepliedBy" Nullable="false" Type="Guid" />
+          <Property Name="RepliedAt" Nullable="false" Type="DateTime" />
         </EntityType>
         <Association Name="DiscussionReply">
-          <End Type="ApolloDatabaseModel.Discussion" Role="Discussion" Multiplicity="1" />
-          <End Type="ApolloDatabaseModel.Reply" Role="Reply" Multiplicity="*" />
+          <End Type="ApolloDatabaseModel.Discussion" Multiplicity="1" Role="Discussion" />
+          <End Type="ApolloDatabaseModel.Reply" Multiplicity="*" Role="Reply" />
           <ReferentialConstraint>
             <Principal Role="Discussion">
               <PropertyRef Name="Id" />
@@ -573,20 +589,20 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="PersonReply">
-          <End Type="ApolloDatabaseModel.Person" Role="Person" Multiplicity="1" />
-          <End Type="ApolloDatabaseModel.Reply" Role="Reply" Multiplicity="*" />
+          <End Type="ApolloDatabaseModel.Person" Multiplicity="1" Role="Person" />
+          <End Type="ApolloDatabaseModel.Reply" Multiplicity="*" Role="Reply" />
           <ReferentialConstraint>
             <Principal Role="Person">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Reply">
-              <PropertyRef Name="PersonId" />
+              <PropertyRef Name="RepliedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="PersonCredential">
-          <End Type="ApolloDatabaseModel.Person" Role="Person" Multiplicity="1" />
-          <End Type="ApolloDatabaseModel.Credential" Role="Credential" Multiplicity="*" />
+          <End Type="ApolloDatabaseModel.Person" Multiplicity="1" Role="Person" />
+          <End Type="ApolloDatabaseModel.Credential" Multiplicity="*" Role="Credential" />
           <ReferentialConstraint>
             <Principal Role="Person">
               <PropertyRef Name="Id" />
@@ -600,26 +616,25 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Name="UserId" Type="Guid" Nullable="false" />
-          <Property Name="Title" Type="String" Nullable="false" />
-          <Property Name="Content" Type="String" Nullable="false" />
-          <Property Name="PostedAt" Type="DateTime" Nullable="false" />
-          <Property Name="Photo" Type="String" Nullable="true" />
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" Type="Guid" />
+          <Property Name="Title" Nullable="false" Type="String" />
+          <Property Name="Photo" Nullable="true" Type="String" />
+          <Property Name="PostedBy" Nullable="false" Type="Guid" />
+          <Property Name="PostedAt" Nullable="false" Type="DateTime" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Name="PostId" Type="Guid" Nullable="false" />
-          <Property Name="UserId" Type="Guid" Nullable="false" />
-          <Property Name="Content" Type="String" Nullable="false" />
-          <Property Name="CommentedAt" Type="DateTime" Nullable="false" />
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" Type="Guid" />
+          <Property Name="PostId" Nullable="false" Type="Guid" />
+          <Property Name="Content" Nullable="false" Type="String" />
+          <Property Name="CommentedBy" Nullable="false" Type="Guid" />
+          <Property Name="CommentedAt" Nullable="false" Type="DateTime" />
         </EntityType>
         <Association Name="PostComment">
-          <End Type="ApolloDatabaseModel.Post" Role="Post" Multiplicity="1" />
-          <End Type="ApolloDatabaseModel.Comment" Role="Comment" Multiplicity="*" />
+          <End Type="ApolloDatabaseModel.Post" Multiplicity="1" Role="Post" />
+          <End Type="ApolloDatabaseModel.Comment" Multiplicity="*" Role="Comment" />
           <ReferentialConstraint>
             <Principal Role="Post">
               <PropertyRef Name="Id" />
@@ -630,26 +645,26 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="UserPost">
-          <End Type="ApolloDatabaseModel.User" Role="User" Multiplicity="1" />
-          <End Type="ApolloDatabaseModel.Post" Role="Post" Multiplicity="*" />
+          <End Type="ApolloDatabaseModel.User" Multiplicity="1" Role="User" />
+          <End Type="ApolloDatabaseModel.Post" Multiplicity="*" Role="Post" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Post">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="PostedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="UserComment">
-          <End Type="ApolloDatabaseModel.User" Role="User" Multiplicity="1" />
-          <End Type="ApolloDatabaseModel.Comment" Role="Comment" Multiplicity="*" />
+          <End Type="ApolloDatabaseModel.User" Multiplicity="1" Role="User" />
+          <End Type="ApolloDatabaseModel.Comment" Multiplicity="*" Role="Comment" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Comment">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="CommentedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -657,21 +672,21 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Name="Name" Type="String" Nullable="false" />
-          <Property Name="Level" Type="Int32" Nullable="false" />
-          <Property Name="Points" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" Type="Guid" />
+          <Property Name="Owner" Nullable="false" Type="Guid" />
+          <Property Name="Name" Nullable="false" Type="String" />
+          <Property Name="Level" Nullable="false" Type="Int32" />
+          <Property Name="Points" Nullable="false" Type="Int32" />
         </EntityType>
         <Association Name="UserAvatar">
-          <End Type="ApolloDatabaseModel.User" Role="User" Multiplicity="1" />
-          <End Type="ApolloDatabaseModel.Avatar" Role="Avatar" Multiplicity="*" />
+          <End Type="ApolloDatabaseModel.User" Multiplicity="1" Role="User" />
+          <End Type="ApolloDatabaseModel.Avatar" Multiplicity="*" Role="Avatar" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Avatar">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="Owner" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -679,40 +694,128 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Name="RunningTime" Type="Time" Nullable="false" />
-          <Property Name="Distance" Type="Double" Nullable="false" />
-          <Property Name="Point" Type="Int32" Nullable="false" />
-          <Property Name="AvatarId" Type="Guid" Nullable="false" />
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" Type="Guid" />
+          <Property Name="RanBy" Nullable="false" Type="Guid" />
+          <Property Name="RunningTime" Nullable="false" Type="Time" />
+          <Property Name="Distance" Nullable="false" Type="Double" />
+          <Property Name="Point" Nullable="false" Type="Int32" />
+          <NavigationProperty Name="Routes" Relationship="ApolloDatabaseModel.RunRoute" FromRole="Run" ToRole="Route" />
         </EntityType>
         <Association Name="AvatarRun">
-          <End Type="ApolloDatabaseModel.Avatar" Role="Avatar" Multiplicity="1" />
-          <End Type="ApolloDatabaseModel.Run" Role="Run" Multiplicity="*" />
+          <End Type="ApolloDatabaseModel.Avatar" Multiplicity="1" Role="Avatar" />
+          <End Type="ApolloDatabaseModel.Run" Multiplicity="*" Role="Run" />
           <ReferentialConstraint>
             <Principal Role="Avatar">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Run">
-              <PropertyRef Name="AvatarId" />
+              <PropertyRef Name="RanBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Scoresheet">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Name="TotalDistance" Type="Double" Nullable="false" />
-          <Property Name="Points" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="GameSystem">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Name="Level" Type="Int32" Nullable="false" />
-          <Property Name="Points" Type="Int32" Nullable="false" />
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" Type="Guid" />
+          <Property Name="Level" Nullable="false" Type="Int32" />
+          <Property Name="Points" Nullable="false" Type="Int32" />
         </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" Type="Guid" />
+          <Property Name="UnitNoBuildingName" Nullable="true" Type="String" />
+          <Property Name="Street" Nullable="true" Type="String" />
+          <Property Name="PostCode" Nullable="true" Type="String" />
+          <Property Name="City" Nullable="true" Type="String" />
+          <Property Name="State" Nullable="true" Type="String" />
+          <Property Name="Country" Nullable="true" Type="String" />
+        </EntityType>
+        <EntityType Name="Gym">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" Type="Guid" />
+          <Property Name="AddressId" Nullable="false" Type="Guid" />
+        </EntityType>
+        <Association Name="AddressGym">
+          <End Type="ApolloDatabaseModel.Address" Multiplicity="1" Role="Address" />
+          <End Type="ApolloDatabaseModel.Gym" Multiplicity="*" Role="Gym" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Gym">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="GymTrainer">
+          <End Type="ApolloDatabaseModel.Gym" Multiplicity="1" Role="Gym" />
+          <End Type="ApolloDatabaseModel.Trainer" Multiplicity="*" Role="Trainer" />
+          <ReferentialConstraint>
+            <Principal Role="Gym">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trainer">
+              <PropertyRef Name="GymId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MedicalCenter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" Type="Guid" />
+          <Property Name="AddressId" Nullable="false" Type="Guid" />
+        </EntityType>
+        <Association Name="AddressMedicalCenter">
+          <End Type="ApolloDatabaseModel.Address" Multiplicity="1" Role="Address" />
+          <End Type="ApolloDatabaseModel.MedicalCenter" Multiplicity="*" Role="MedicalCenter" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MedicalCenter">
+              <PropertyRef Name="AddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MedicalCenterDoctor">
+          <End Type="ApolloDatabaseModel.MedicalCenter" Multiplicity="1" Role="MedicalCenter" />
+          <End Type="ApolloDatabaseModel.Doctor" Multiplicity="*" Role="Doctor" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalCenter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="MedicalCenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Route">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="RunId" Type="Guid" Nullable="false" />
+          <Property Name="Start" Type="Geography" Nullable="false" />
+          <Property Name="End" Type="Geography" Nullable="false" />
+        </EntityType>
+        <Association Name="RunRoute">
+          <End Type="ApolloDatabaseModel.Run" Role="Run" Multiplicity="1" />
+          <End Type="ApolloDatabaseModel.Route" Role="Route" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Run">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Route">
+              <PropertyRef Name="RunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -727,7 +830,6 @@
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
           <ScalarProperty Name="Gender" ColumnName="Gender" />
-          <ScalarProperty Name="Phone" ColumnName="Phone" />
           <ScalarProperty Name="ProfileImage" ColumnName="ProfileImage" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -769,8 +871,8 @@
       <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Appointment)">
         <MappingFragment StoreEntitySet="Appointments">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="AppointmentTo" ColumnName="DoctorId" />
+          <ScalarProperty Name="AppointmentBy" ColumnName="UserId" />
           <ScalarProperty Name="AppointmentTime" ColumnName="AppointmentTime" />
           <ScalarProperty Name="Reason" ColumnName="Reason" />
           <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
@@ -781,7 +883,7 @@
       <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Discussion)">
         <MappingFragment StoreEntitySet="Discussions">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CreatedBy" ColumnName="UserId" />
           <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Content" ColumnName="Content" />
@@ -795,7 +897,7 @@
           <ScalarProperty Name="Content" ColumnName="Content" />
           <ScalarProperty Name="RepliedAt" ColumnName="RepliedAt" />
           <ScalarProperty Name="DiscussionId" ColumnName="DiscussionId" />
-          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+          <ScalarProperty Name="RepliedBy" ColumnName="PersonId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -803,9 +905,8 @@
       <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Post)">
         <MappingFragment StoreEntitySet="Posts">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PostedBy" ColumnName="UserId" />
           <ScalarProperty Name="Title" ColumnName="Title" />
-          <ScalarProperty Name="Content" ColumnName="Content" />
           <ScalarProperty Name="PostedAt" ColumnName="PostedAt" />
           <ScalarProperty Name="Photo" ColumnName="Photo" />
         </MappingFragment>
@@ -816,7 +917,7 @@
         <MappingFragment StoreEntitySet="Comments">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="PostId" ColumnName="PostId" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CommentedBy" ColumnName="UserId" />
           <ScalarProperty Name="Content" ColumnName="Content" />
           <ScalarProperty Name="CommentedAt" ColumnName="CommentedAt" />
         </MappingFragment>
@@ -829,7 +930,7 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Level" ColumnName="Level" />
           <ScalarProperty Name="Points" ColumnName="Points" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Owner" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -840,16 +941,7 @@
           <ScalarProperty Name="RunningTime" ColumnName="RunningTime" />
           <ScalarProperty Name="Distance" ColumnName="Distance" />
           <ScalarProperty Name="Point" ColumnName="Point" />
-          <ScalarProperty Name="AvatarId" ColumnName="AvatarId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Scoresheets">
-      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Scoresheet)">
-        <MappingFragment StoreEntitySet="Scoresheets">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="TotalDistance" ColumnName="TotalDistance" />
-          <ScalarProperty Name="Points" ColumnName="Points" />
+          <ScalarProperty Name="RanBy" ColumnName="AvatarId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

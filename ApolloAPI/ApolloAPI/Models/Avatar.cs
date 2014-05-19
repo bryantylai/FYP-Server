@@ -15,9 +15,9 @@ namespace ApolloAPI.Models
     public partial class Avatar
     {
         public System.Guid Id { get; set; }
+        public System.Guid Owner { get; set; }
         public string Name { get; set; }
         public int Level { get; set; }
         public int Points { get; set; }
-        public System.Guid UserId { get; set; }
     }
 }

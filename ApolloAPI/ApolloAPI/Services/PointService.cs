@@ -33,10 +33,10 @@ namespace ApolloAPI.Services
                 pointRepository.InitializeGameSystem(gameSystems);
             }
 
-            if (!pointRepository.IsScoresheetInitialized())
-            {
+            //if (!pointRepository.IsScoresheetInitialized())
+            //{
 
-            }
+            //}
 
             return true;
         }

@@ -28,7 +28,7 @@ namespace ApolloAPI.Repositories
 
         internal IEnumerable<Appointment> ListAllAppointments(Guid id)
         {
-            return dbEntities.Appointments.Where((a) => a.UserId == id || a.DoctorId == id);
+            return dbEntities.Appointments.Where((a) => a.AppointmentBy == id || a.AppointmentTo == id);
         }
 
         internal IEnumerable<Discussion> ListAllDiscussions()
@@ -38,7 +38,7 @@ namespace ApolloAPI.Repositories
 
         internal IEnumerable<Discussion> ListAllDiscussions(Guid userId)
         {
-            return dbEntities.Discussions.Where((d) => d.UserId == userId);
+            return dbEntities.Discussions.Where((d) => d.CreatedBy == userId);
         }
 
         internal IEnumerable<Reply> GetDicussionReplies(Guid discussionId)

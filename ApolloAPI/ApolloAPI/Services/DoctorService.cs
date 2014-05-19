@@ -56,7 +56,7 @@ namespace ApolloAPI.Services
             IEnumerable<Appointment> appointments = doctorRepository.ListAllAppointments(userId).OrderBy((a) => a.AppointmentTime);            
             foreach (Appointment appointment in appointments)
             {
-                Doctor doctor = doctorRepository.GetDoctorByDoctorId(appointment.DoctorId);
+                Doctor doctor = doctorRepository.GetDoctorByDoctorId(appointment.AppointmentTo);
                 ApolloAPI.Data.Client.Item.AppointmentGeneralItem appointmentGeneralItem = new ApolloAPI.Data.Client.Item.AppointmentGeneralItem()
                 {
                     AppointmentId = appointment.Id,
@@ -76,7 +76,7 @@ namespace ApolloAPI.Services
             IEnumerable<Appointment> appointments = doctorRepository.ListAllAppointments(doctorId).OrderBy((a) => a.AppointmentTime);
             foreach (Appointment appointment in appointments)
             {
-                User user = new UserRepository().GetUserByUserId(appointment.UserId);
+                User user = new UserRepository().GetUserByUserId(appointment.AppointmentBy);
                 ApolloAPI.Data.Doctors.Item.AppointmentItem appointmentGeneralItem = new ApolloAPI.Data.Doctors.Item.AppointmentItem()
                 {
                     AppointmentId = appointment.Id,
@@ -129,9 +129,11 @@ namespace ApolloAPI.Services
             Appointment appointment = new Appointment()
             {
                 Id = Guid.NewGuid(),
-                UserId = userId,
-                DoctorId = appointmentForm.DoctorId,
-                AppointmentTime = appointmentForm.AppointmentTime
+                AppointmentBy = userId,
+                AppointmentTo = appointmentForm.DoctorId,
+                AppointmentTime = appointmentForm.AppointmentTime,
+                IsApproved = false,
+                Reason = appointmentForm.Reason
             };
 
             return doctorRepository.RecordAppointment(appointment);
@@ -142,7 +144,7 @@ namespace ApolloAPI.Services
             Discussion discussion = new Discussion()
             {
                 Id = Guid.NewGuid(),
-                UserId = userId,
+                CreatedBy = userId,
                 Title = discussionForm.Title,
                 Content = discussionForm.Content,
                 CreatedAt = DateTime.UtcNow
@@ -162,7 +164,7 @@ namespace ApolloAPI.Services
             foreach (Discussion discussion in discussions)
             {
                 IEnumerable<Reply> replies = doctorRepository.GetDicussionReplies(discussion.Id);
-                User user = new UserRepository().GetUserByUserId(discussion.UserId);
+                User user = new UserRepository().GetUserByUserId(discussion.CreatedBy);
                 DiscussionGeneralItem discussionGeneralItem = new DiscussionGeneralItem()
                 {
                     DiscussionId = discussion.Id,
@@ -199,7 +201,7 @@ namespace ApolloAPI.Services
                 Id = Guid.NewGuid(),
                 DiscussionId = replyForm.DiscussionId,
                 Content = replyForm.Content,
-                PersonId = doctorId,
+                RepliedBy = doctorId,
                 RepliedAt = DateTime.UtcNow
             };
 

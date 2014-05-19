@@ -15,9 +15,9 @@ namespace ApolloAPI.Models
     public partial class Reply
     {
         public System.Guid Id { get; set; }
-        public string Content { get; set; }
-        public System.DateTime RepliedAt { get; set; }
         public System.Guid DiscussionId { get; set; }
-        public System.Guid PersonId { get; set; }
+        public string Content { get; set; }
+        public System.Guid RepliedBy { get; set; }
+        public System.DateTime RepliedAt { get; set; }
     }
 }

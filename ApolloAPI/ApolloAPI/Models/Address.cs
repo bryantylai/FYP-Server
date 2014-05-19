@@ -12,12 +12,14 @@ namespace ApolloAPI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Post
+    public partial class Address
     {
         public System.Guid Id { get; set; }
-        public string Title { get; set; }
-        public string Photo { get; set; }
-        public System.Guid PostedBy { get; set; }
-        public System.DateTime PostedAt { get; set; }
+        public string UnitNoBuildingName { get; set; }
+        public string Street { get; set; }
+        public string PostCode { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Country { get; set; }
     }
 }

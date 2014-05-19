@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/14/2014 21:49:26
+-- Date Created: 05/16/2014 01:25:01
 -- Generated from EDMX file: C:\Users\Lai\Documents\GitHub\FYP-Server\ApolloAPI\ApolloAPI\Models\ApolloModel.edmx
 -- --------------------------------------------------
 
@@ -91,9 +91,6 @@ GO
 IF OBJECT_ID(N'[dbo].[Runs]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Runs];
 GO
-IF OBJECT_ID(N'[dbo].[Scoresheets]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Scoresheets];
-GO
 IF OBJECT_ID(N'[dbo].[GameSystems]', 'U') IS NOT NULL
     DROP TABLE [dbo].[GameSystems];
 GO
@@ -138,42 +135,41 @@ GO
 -- Creating table 'Appointments'
 CREATE TABLE [dbo].[Appointments] (
     [Id] uniqueidentifier  NOT NULL,
-    [DoctorId] uniqueidentifier  NOT NULL,
-    [UserId] uniqueidentifier  NOT NULL,
-    [AppointmentTime] datetime  NOT NULL,
+    [AppointmentTo] uniqueidentifier  NOT NULL,
     [Reason] nvarchar(max)  NOT NULL,
-    [IsApproved] bit  NOT NULL
+    [IsApproved] bit  NOT NULL,
+    [AppointmentBy] uniqueidentifier  NOT NULL,
+    [AppointmentTime] datetime  NOT NULL
 );
 GO
 
 -- Creating table 'Discussions'
 CREATE TABLE [dbo].[Discussions] (
     [Id] uniqueidentifier  NOT NULL,
-    [UserId] uniqueidentifier  NOT NULL,
-    [CreatedAt] datetime  NOT NULL,
     [Title] nvarchar(max)  NOT NULL,
-    [Content] nvarchar(max)  NOT NULL
+    [Content] nvarchar(max)  NOT NULL,
+    [CreatedBy] uniqueidentifier  NOT NULL,
+    [CreatedAt] datetime  NOT NULL
 );
 GO
 
 -- Creating table 'Replies'
 CREATE TABLE [dbo].[Replies] (
     [Id] uniqueidentifier  NOT NULL,
-    [Content] nvarchar(max)  NOT NULL,
-    [RepliedAt] datetime  NOT NULL,
     [DiscussionId] uniqueidentifier  NOT NULL,
-    [PersonId] uniqueidentifier  NOT NULL
+    [Content] nvarchar(max)  NOT NULL,
+    [RepliedBy] uniqueidentifier  NOT NULL,
+    [RepliedAt] datetime  NOT NULL
 );
 GO
 
 -- Creating table 'Posts'
 CREATE TABLE [dbo].[Posts] (
     [Id] uniqueidentifier  NOT NULL,
-    [UserId] uniqueidentifier  NOT NULL,
     [Title] nvarchar(max)  NOT NULL,
-    [Content] nvarchar(max)  NOT NULL,
-    [PostedAt] datetime  NOT NULL,
-    [Photo] nvarchar(max)  NULL
+    [Photo] nvarchar(max)  NULL,
+    [PostedBy] uniqueidentifier  NOT NULL,
+    [PostedAt] datetime  NOT NULL
 );
 GO
 
@@ -181,8 +177,8 @@ GO
 CREATE TABLE [dbo].[Comments] (
     [Id] uniqueidentifier  NOT NULL,
     [PostId] uniqueidentifier  NOT NULL,
-    [UserId] uniqueidentifier  NOT NULL,
     [Content] nvarchar(max)  NOT NULL,
+    [CommentedBy] uniqueidentifier  NOT NULL,
     [CommentedAt] datetime  NOT NULL
 );
 GO
@@ -190,28 +186,20 @@ GO
 -- Creating table 'Avatars'
 CREATE TABLE [dbo].[Avatars] (
     [Id] uniqueidentifier  NOT NULL,
+    [Owner] uniqueidentifier  NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
     [Level] int  NOT NULL,
-    [Points] int  NOT NULL,
-    [UserId] uniqueidentifier  NOT NULL
+    [Points] int  NOT NULL
 );
 GO
 
 -- Creating table 'Runs'
 CREATE TABLE [dbo].[Runs] (
     [Id] uniqueidentifier  NOT NULL,
+    [RanBy] uniqueidentifier  NOT NULL,
     [RunningTime] time  NOT NULL,
     [Distance] float  NOT NULL,
-    [Point] int  NOT NULL,
-    [AvatarId] uniqueidentifier  NOT NULL
-);
-GO
-
--- Creating table 'Scoresheets'
-CREATE TABLE [dbo].[Scoresheets] (
-    [Id] uniqueidentifier  NOT NULL,
-    [TotalDistance] float  NOT NULL,
-    [Points] int  NOT NULL
+    [Point] int  NOT NULL
 );
 GO
 
@@ -223,9 +211,45 @@ CREATE TABLE [dbo].[GameSystems] (
 );
 GO
 
+-- Creating table 'Addresses'
+CREATE TABLE [dbo].[Addresses] (
+    [Id] uniqueidentifier  NOT NULL,
+    [UnitNoBuildingName] nvarchar(max)  NULL,
+    [Street] nvarchar(max)  NULL,
+    [PostCode] nvarchar(max)  NULL,
+    [City] nvarchar(max)  NULL,
+    [State] nvarchar(max)  NULL,
+    [Country] nvarchar(max)  NULL
+);
+GO
+
+-- Creating table 'Gyms'
+CREATE TABLE [dbo].[Gyms] (
+    [Id] uniqueidentifier  NOT NULL,
+    [AddressId] uniqueidentifier  NOT NULL
+);
+GO
+
+-- Creating table 'MedicalCenters'
+CREATE TABLE [dbo].[MedicalCenters] (
+    [Id] uniqueidentifier  NOT NULL,
+    [AddressId] uniqueidentifier  NOT NULL
+);
+GO
+
+-- Creating table 'Routes'
+CREATE TABLE [dbo].[Routes] (
+    [Id] uniqueidentifier  NOT NULL,
+    [RunId] uniqueidentifier  NOT NULL,
+    [Start] geography  NOT NULL,
+    [End] geography  NOT NULL
+);
+GO
+
 -- Creating table 'People_Doctor'
 CREATE TABLE [dbo].[People_Doctor] (
     [FieldOfExpertise] nvarchar(max)  NULL,
+    [MedicalCenterId] uniqueidentifier  NOT NULL,
     [Id] uniqueidentifier  NOT NULL
 );
 GO
@@ -242,6 +266,7 @@ GO
 -- Creating table 'People_Trainer'
 CREATE TABLE [dbo].[People_Trainer] (
     [FieldOfExpertise] nvarchar(max)  NULL,
+    [GymId] uniqueidentifier  NOT NULL,
     [Id] uniqueidentifier  NOT NULL
 );
 GO
@@ -304,15 +329,33 @@ ADD CONSTRAINT [PK_Runs]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Scoresheets'
-ALTER TABLE [dbo].[Scoresheets]
-ADD CONSTRAINT [PK_Scoresheets]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
 -- Creating primary key on [Id] in table 'GameSystems'
 ALTER TABLE [dbo].[GameSystems]
 ADD CONSTRAINT [PK_GameSystems]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Addresses'
+ALTER TABLE [dbo].[Addresses]
+ADD CONSTRAINT [PK_Addresses]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Gyms'
+ALTER TABLE [dbo].[Gyms]
+ADD CONSTRAINT [PK_Gyms]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'MedicalCenters'
+ALTER TABLE [dbo].[MedicalCenters]
+ADD CONSTRAINT [PK_MedicalCenters]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Routes'
+ALTER TABLE [dbo].[Routes]
+ADD CONSTRAINT [PK_Routes]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -338,10 +381,10 @@ GO
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
 
--- Creating foreign key on [DoctorId] in table 'Appointments'
+-- Creating foreign key on [AppointmentTo] in table 'Appointments'
 ALTER TABLE [dbo].[Appointments]
 ADD CONSTRAINT [FK_DoctorAppointment]
-    FOREIGN KEY ([DoctorId])
+    FOREIGN KEY ([AppointmentTo])
     REFERENCES [dbo].[People_Doctor]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -350,13 +393,13 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_DoctorAppointment'
 CREATE INDEX [IX_FK_DoctorAppointment]
 ON [dbo].[Appointments]
-    ([DoctorId]);
+    ([AppointmentTo]);
 GO
 
--- Creating foreign key on [UserId] in table 'Appointments'
+-- Creating foreign key on [AppointmentBy] in table 'Appointments'
 ALTER TABLE [dbo].[Appointments]
 ADD CONSTRAINT [FK_UserAppointment]
-    FOREIGN KEY ([UserId])
+    FOREIGN KEY ([AppointmentBy])
     REFERENCES [dbo].[People_User]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -365,13 +408,13 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserAppointment'
 CREATE INDEX [IX_FK_UserAppointment]
 ON [dbo].[Appointments]
-    ([UserId]);
+    ([AppointmentBy]);
 GO
 
--- Creating foreign key on [UserId] in table 'Discussions'
+-- Creating foreign key on [CreatedBy] in table 'Discussions'
 ALTER TABLE [dbo].[Discussions]
 ADD CONSTRAINT [FK_UserDiscussion]
-    FOREIGN KEY ([UserId])
+    FOREIGN KEY ([CreatedBy])
     REFERENCES [dbo].[People_User]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -380,7 +423,7 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserDiscussion'
 CREATE INDEX [IX_FK_UserDiscussion]
 ON [dbo].[Discussions]
-    ([UserId]);
+    ([CreatedBy]);
 GO
 
 -- Creating foreign key on [DiscussionId] in table 'Replies'
@@ -398,10 +441,10 @@ ON [dbo].[Replies]
     ([DiscussionId]);
 GO
 
--- Creating foreign key on [PersonId] in table 'Replies'
+-- Creating foreign key on [RepliedBy] in table 'Replies'
 ALTER TABLE [dbo].[Replies]
 ADD CONSTRAINT [FK_PersonReply]
-    FOREIGN KEY ([PersonId])
+    FOREIGN KEY ([RepliedBy])
     REFERENCES [dbo].[People]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -410,7 +453,7 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_PersonReply'
 CREATE INDEX [IX_FK_PersonReply]
 ON [dbo].[Replies]
-    ([PersonId]);
+    ([RepliedBy]);
 GO
 
 -- Creating foreign key on [PersonId] in table 'Credentials'
@@ -443,10 +486,10 @@ ON [dbo].[Comments]
     ([PostId]);
 GO
 
--- Creating foreign key on [UserId] in table 'Posts'
+-- Creating foreign key on [PostedBy] in table 'Posts'
 ALTER TABLE [dbo].[Posts]
 ADD CONSTRAINT [FK_UserPost]
-    FOREIGN KEY ([UserId])
+    FOREIGN KEY ([PostedBy])
     REFERENCES [dbo].[People_User]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -455,13 +498,13 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserPost'
 CREATE INDEX [IX_FK_UserPost]
 ON [dbo].[Posts]
-    ([UserId]);
+    ([PostedBy]);
 GO
 
--- Creating foreign key on [UserId] in table 'Comments'
+-- Creating foreign key on [CommentedBy] in table 'Comments'
 ALTER TABLE [dbo].[Comments]
 ADD CONSTRAINT [FK_UserComment]
-    FOREIGN KEY ([UserId])
+    FOREIGN KEY ([CommentedBy])
     REFERENCES [dbo].[People_User]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -470,13 +513,13 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserComment'
 CREATE INDEX [IX_FK_UserComment]
 ON [dbo].[Comments]
-    ([UserId]);
+    ([CommentedBy]);
 GO
 
--- Creating foreign key on [UserId] in table 'Avatars'
+-- Creating foreign key on [Owner] in table 'Avatars'
 ALTER TABLE [dbo].[Avatars]
 ADD CONSTRAINT [FK_UserAvatar]
-    FOREIGN KEY ([UserId])
+    FOREIGN KEY ([Owner])
     REFERENCES [dbo].[People_User]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -485,13 +528,13 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserAvatar'
 CREATE INDEX [IX_FK_UserAvatar]
 ON [dbo].[Avatars]
-    ([UserId]);
+    ([Owner]);
 GO
 
--- Creating foreign key on [AvatarId] in table 'Runs'
+-- Creating foreign key on [RanBy] in table 'Runs'
 ALTER TABLE [dbo].[Runs]
 ADD CONSTRAINT [FK_AvatarRun]
-    FOREIGN KEY ([AvatarId])
+    FOREIGN KEY ([RanBy])
     REFERENCES [dbo].[Avatars]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -500,7 +543,82 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_AvatarRun'
 CREATE INDEX [IX_FK_AvatarRun]
 ON [dbo].[Runs]
-    ([AvatarId]);
+    ([RanBy]);
+GO
+
+-- Creating foreign key on [AddressId] in table 'Gyms'
+ALTER TABLE [dbo].[Gyms]
+ADD CONSTRAINT [FK_AddressGym]
+    FOREIGN KEY ([AddressId])
+    REFERENCES [dbo].[Addresses]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_AddressGym'
+CREATE INDEX [IX_FK_AddressGym]
+ON [dbo].[Gyms]
+    ([AddressId]);
+GO
+
+-- Creating foreign key on [GymId] in table 'People_Trainer'
+ALTER TABLE [dbo].[People_Trainer]
+ADD CONSTRAINT [FK_GymTrainer]
+    FOREIGN KEY ([GymId])
+    REFERENCES [dbo].[Gyms]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_GymTrainer'
+CREATE INDEX [IX_FK_GymTrainer]
+ON [dbo].[People_Trainer]
+    ([GymId]);
+GO
+
+-- Creating foreign key on [AddressId] in table 'MedicalCenters'
+ALTER TABLE [dbo].[MedicalCenters]
+ADD CONSTRAINT [FK_AddressMedicalCenter]
+    FOREIGN KEY ([AddressId])
+    REFERENCES [dbo].[Addresses]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_AddressMedicalCenter'
+CREATE INDEX [IX_FK_AddressMedicalCenter]
+ON [dbo].[MedicalCenters]
+    ([AddressId]);
+GO
+
+-- Creating foreign key on [MedicalCenterId] in table 'People_Doctor'
+ALTER TABLE [dbo].[People_Doctor]
+ADD CONSTRAINT [FK_MedicalCenterDoctor]
+    FOREIGN KEY ([MedicalCenterId])
+    REFERENCES [dbo].[MedicalCenters]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_MedicalCenterDoctor'
+CREATE INDEX [IX_FK_MedicalCenterDoctor]
+ON [dbo].[People_Doctor]
+    ([MedicalCenterId]);
+GO
+
+-- Creating foreign key on [RunId] in table 'Routes'
+ALTER TABLE [dbo].[Routes]
+ADD CONSTRAINT [FK_RunRoute]
+    FOREIGN KEY ([RunId])
+    REFERENCES [dbo].[Runs]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_RunRoute'
+CREATE INDEX [IX_FK_RunRoute]
+ON [dbo].[Routes]
+    ([RunId]);
 GO
 
 -- Creating foreign key on [Id] in table 'People_Doctor'

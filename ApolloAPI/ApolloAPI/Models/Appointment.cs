@@ -15,10 +15,10 @@ namespace ApolloAPI.Models
     public partial class Appointment
     {
         public System.Guid Id { get; set; }
-        public System.Guid DoctorId { get; set; }
-        public System.Guid UserId { get; set; }
-        public System.DateTime AppointmentTime { get; set; }
+        public System.Guid AppointmentTo { get; set; }
         public string Reason { get; set; }
         public bool IsApproved { get; set; }
+        public System.Guid AppointmentBy { get; set; }
+        public System.DateTime AppointmentTime { get; set; }
     }
 }

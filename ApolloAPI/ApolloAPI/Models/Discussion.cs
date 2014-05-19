@@ -15,9 +15,9 @@ namespace ApolloAPI.Models
     public partial class Discussion
     {
         public System.Guid Id { get; set; }
-        public System.Guid UserId { get; set; }
-        public System.DateTime CreatedAt { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
+        public System.Guid CreatedBy { get; set; }
+        public System.DateTime CreatedAt { get; set; }
     }
 }

@@ -16,8 +16,8 @@ namespace ApolloAPI.Models
     {
         public System.Guid Id { get; set; }
         public System.Guid PostId { get; set; }
-        public System.Guid UserId { get; set; }
         public string Content { get; set; }
+        public System.Guid CommentedBy { get; set; }
         public System.DateTime CommentedAt { get; set; }
     }
 }

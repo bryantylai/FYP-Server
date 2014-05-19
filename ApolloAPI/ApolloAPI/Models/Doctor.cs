@@ -15,5 +15,6 @@ namespace ApolloAPI.Models
     public partial class Doctor : Person
     {
         public string FieldOfExpertise { get; set; }
+        public System.Guid MedicalCenterId { get; set; }
     }
 }
