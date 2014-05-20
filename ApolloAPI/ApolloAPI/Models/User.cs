@@ -14,8 +14,9 @@ namespace ApolloAPI.Models
     
     public partial class User : Person
     {
-        public string Status { get; set; }
+        public string Introduction { get; set; }
         public Nullable<double> Height { get; set; }
         public Nullable<double> Weight { get; set; }
+        public string CoverImage { get; set; }
     }
 }

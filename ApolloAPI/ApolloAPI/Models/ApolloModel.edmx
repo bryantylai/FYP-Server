@@ -600,9 +600,10 @@
           <Property Name="ProfileImage" Nullable="true" Type="String" />
         </EntityType>
         <EntityType Name="User" BaseType="ApolloDatabaseModel.Person">
-          <Property Name="Status" Nullable="true" Type="String" />
+          <Property Name="Introduction" Nullable="true" Type="String" />
           <Property Name="Height" Nullable="true" Type="Double" />
           <Property Name="Weight" Nullable="true" Type="Double" />
+          <Property Name="CoverImage" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="Trainer" BaseType="ApolloDatabaseModel.Person">
           <Property Name="FieldOfExpertise" Nullable="true" Type="String" />
@@ -976,7 +977,7 @@
       <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.User)">
         <MappingFragment StoreEntitySet="People_User">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Introduction" ColumnName="Status" />
           <ScalarProperty Name="Height" ColumnName="Height" />
           <ScalarProperty Name="Weight" ColumnName="Weight" />
         </MappingFragment>
