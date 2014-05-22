@@ -123,7 +123,7 @@
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Role" Type="smallint" Nullable="false" />
     <Property Name="CreatedAt" Type="datetime" Nullable="false" />
-    <Property Name="LastLogin" Type="datetime" Nullable="false" />
+    <Property Name="LastLogin" Type="datetime" Nullable="true" />
   </EntityType>
   <EntityType Name="Appointments">
     <Key>
@@ -256,9 +256,10 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Status" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Introduction" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Height" Type="float" Nullable="true" />
     <Property Name="Weight" Type="float" Nullable="true" />
+    <Property Name="CoverImage" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <EntityType Name="People_Trainer">
@@ -624,7 +625,7 @@
           <Property Name="Password" Nullable="false" Type="String" />
           <Property Name="Role" Nullable="false" Type="ApolloDatabaseModel.Role" />
           <Property Name="CreatedAt" Nullable="false" Type="DateTime" />
-          <Property Name="LastLogin" Type="DateTime" Nullable="false" />
+          <Property Name="LastLogin" Type="DateTime" Nullable="true" />
         </EntityType>
         <EnumType Name="Gender" UnderlyingType="Int16">
           <Member Name="Male" />
@@ -977,9 +978,10 @@
       <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.User)">
         <MappingFragment StoreEntitySet="People_User">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Introduction" ColumnName="Status" />
+          <ScalarProperty Name="Introduction" ColumnName="Introduction" />
           <ScalarProperty Name="Height" ColumnName="Height" />
           <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="CoverImage" ColumnName="CoverImage" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Trainer)">

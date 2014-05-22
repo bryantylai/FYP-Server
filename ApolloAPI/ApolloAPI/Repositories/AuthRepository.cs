@@ -29,7 +29,8 @@ namespace ApolloAPI.Repositories
 
         internal DateTime GetLastLoginDate(Guid personId)
         {
-            return dbEntities.Credentials.Single((c) => c.PersonId == personId).LastLogin;
+            DateTime? nullableDateTime = dbEntities.Credentials.Single((c) => c.PersonId == personId).LastLogin;
+            return nullableDateTime.HasValue ? nullableDateTime.Value : new DateTime();
         }
 
         internal string[] GetUserRole(string userName)

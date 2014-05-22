@@ -151,9 +151,7 @@
     <Compile Include="Controllers\Client\AvatarController.cs" />
     <Compile Include="Controllers\Client\DoctorController.cs" />
     <Compile Include="Controllers\Client\UserController.cs" />
-    <Compile Include="Controllers\Doctors\DoctorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\Trainers\TrainersController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Data\Client\Form\DoctorFilterForm.cs" />

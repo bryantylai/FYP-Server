@@ -12,7 +12,7 @@ using ApolloAPI.Services;
 
 namespace ApolloAPI.Controllers.Client
 {
-    [RoutePrefix("api/client/auth")]
+    [RoutePrefix("api/auth")]
     public class AuthController : AbstractController
     {
         [Route("register")]

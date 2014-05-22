@@ -24,6 +24,12 @@ namespace ApolloAPI.Services
             return keys.Any((k) => k == null) ? false : true;
         }
 
+        internal bool ValidateForm(ProfileFormWindows profileForm)
+        {
+            object[] keys = { };
+            return keys.Any((k) => k == null) ? false : true;
+        }
+
         internal ApolloAPI.Data.Client.Item.Windows.HomeItem GetHomeData(Guid userId, ApolloAPI.Data.Client.Item.Windows.HomeItem homeItem)
         {
             DoctorRepository doctorRepository = new DoctorRepository();
@@ -94,12 +100,51 @@ namespace ApolloAPI.Services
         internal UserProfileItem GetProfile(Guid userId)
         {
             User user = userRepository.GetUserByUserId(userId);
-            return new UserProfileItem();
+            return new UserProfileItem()
+                {
+                    Id = user.Id,
+                    AboutMe = user.Introduction,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    ProfileImage = user.ProfileImage,
+                    CoverImage = user.CoverImage,
+                    Gender = user.Gender.Equals(Gender.Male) ? "Male" : "Female",
+                    DateOfBirth = user.DateOfBirth.HasValue ? user.DateOfBirth.Value.Ticks.ToString() : new DateTime().Ticks.ToString(),
+                    Phone = user.Phone
+                };
         }
 
         internal bool UpdateProfile(ProfileForm profileForm, Guid userId)
         {
             User user = userRepository.GetUserByUserId(userId);
+            user.FirstName = profileForm.FirstName;
+            user.LastName = profileForm.LastName;
+            user.Phone = profileForm.Phone;
+            user.ProfileImage = profileForm.ProfileImage;
+            user.Gender = profileForm.Gender.Equals("Male") ? Gender.Male : Gender.Female;
+            user.Introduction = profileForm.AboutMe;
+            user.CoverImage = profileForm.CoverImage;
+            long dobLong = Int64.Parse(profileForm.DateOfBirth);
+            user.DateOfBirth = new DateTime(dobLong);
+            
+            return userRepository.SaveUpdate();
+        }
+
+        internal bool UpdateProfile(ProfileFormWindows profileForm, Guid userId)
+        {
+            User user = userRepository.GetUserByUserId(userId);
+            user.FirstName = profileForm.FirstName;
+            user.LastName = profileForm.LastName;
+            user.Phone = profileForm.Phone;
+            user.ProfileImage = profileForm.ProfileImage;
+            user.Gender = profileForm.Gender.Equals("Male") ? Gender.Male : Gender.Female;
+            user.Introduction = profileForm.AboutMe;
+            user.CoverImage = profileForm.CoverImage;
+            long dobLong = Int64.Parse(profileForm.DateOfBirth);
+            user.DateOfBirth = new DateTime(dobLong);
+            user.Weight = Double.Parse(profileForm.Weight);
+            user.Height = Double.Parse(profileForm.Height);
+
             return userRepository.SaveUpdate();
         }
     }

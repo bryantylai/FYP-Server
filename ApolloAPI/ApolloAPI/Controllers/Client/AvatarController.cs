@@ -13,7 +13,7 @@ using ApolloAPI.Services;
 namespace ApolloAPI.Controllers.Client
 {
     [ApolloAuthorizeAttribute]
-    [RoutePrefix("api/client/avatar")]
+    [RoutePrefix("api/avatar")]
     public class AvatarController : AbstractController
     {
         private AvatarService avatarService;

@@ -13,7 +13,7 @@ using ApolloAPI.Services;
 namespace ApolloAPI.Controllers.Client
 {
     [ApolloAuthorizeAttribute]
-    [RoutePrefix("api/client/user")]
+    [RoutePrefix("api/user")]
     public class UserController : AbstractController
     {
         private UserService userService;
@@ -61,9 +61,34 @@ namespace ApolloAPI.Controllers.Client
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }
 
-        [Route("profile")]
+        [Route("ios/profile")]
         [HttpPost]
         public ServerMessage UpdateUserProfile([FromBody] ProfileForm profileForm)
+        {
+            username = this.RequestContext.Principal.Identity.Name;
+            isUser = this.RequestContext.Principal.IsInRole("User");
+
+            if (isUser)
+            {
+                if (userService.ValidateForm(profileForm))
+                {
+                    if (userService.UpdateProfile(profileForm, authService.GetPersonIdByUsername(username)))
+                    {
+                        return new ServerMessage() { IsError = false };
+                    }
+
+                    return new ServerMessage() { IsError = true, Message = "Unable to update profile" };
+                }
+
+                return new ServerMessage() { IsError = true, Message = "There is empty fields in the Profile form." };
+            }
+
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        }
+
+        [Route("windows/profile")]
+        [HttpPost]
+        public ServerMessage UpdateUserProfile([FromBody] ProfileFormWindows profileForm)
         {
             username = this.RequestContext.Principal.Identity.Name;
             isUser = this.RequestContext.Principal.IsInRole("User");

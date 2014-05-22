@@ -21,6 +21,6 @@ namespace ApolloAPI.Models
         public string Password { get; set; }
         public Role Role { get; set; }
         public System.DateTime CreatedAt { get; set; }
-        public System.DateTime LastLogin { get; set; }
+        public Nullable<System.DateTime> LastLogin { get; set; }
     }
 }
