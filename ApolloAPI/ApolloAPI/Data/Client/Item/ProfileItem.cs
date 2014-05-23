@@ -20,6 +20,8 @@ namespace ApolloAPI.Data.Client.Item
         public string AboutMe { get; set; }
         public string Gender { get; set; }
         public string Phone { get; set; }
+        public double Weight { get; set; }
+        public double Height { get; set; }
     }
 
     public class AvatarProfileItem : ProfileItem
