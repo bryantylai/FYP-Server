@@ -15,8 +15,14 @@ namespace ApolloAPI.Repositories
             dbEntities = new ApolloDatabaseEntities();
         }
 
-        public bool SaveUpdate()
+        internal bool SaveUpdate()
         {
+            return dbEntities.SaveChanges() != 0;
+        }
+
+        internal bool UpdateLogin(Guid userId, DateTime now)
+        {
+            dbEntities.Credentials.Single((c) => c.PersonId == userId).LastLogin = now;
             return dbEntities.SaveChanges() != 0;
         }
 
