@@ -128,8 +128,8 @@ namespace ApolloAPI.Services
             user.CoverImage = profileForm.CoverImage;
             long dobLong = Int64.Parse(profileForm.DateOfBirth);
             user.DateOfBirth = new DateTime(dobLong);
-            
-            return userRepository.SaveUpdate();
+
+            return userRepository.SaveUpdate() ? userRepository.UpdateLogin(userId, DateTime.UtcNow) : false;
         }
 
         internal bool UpdateProfile(ProfileFormWindows profileForm, Guid userId)
@@ -147,7 +147,7 @@ namespace ApolloAPI.Services
             user.Weight = Double.Parse(profileForm.Weight);
             user.Height = Double.Parse(profileForm.Height);
 
-            return userRepository.SaveUpdate();
+            return userRepository.SaveUpdate() ? userRepository.UpdateLogin(userId, DateTime.UtcNow) : false;
         }
     }
 }
