@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="ApolloAPI.Services.AuthService">
+    <Position X="0.75" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAkACAAAAAABAIEAAIAAAAAAAAAQIAAAAAAAE=</HashCode>
+      <FileName>Services\AuthService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Services.AvatarService">
+    <Position X="3.75" Y="0.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAEgAAAAAAAAAAAAAAAAAAAQAAAACAAAAAAAA=</HashCode>
+      <FileName>Services\AvatarService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Services.DoctorService">
+    <Position X="7.5" Y="0.5" Width="5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAEBEAAAAAAAAAAAAACAABKAIIAAAAQAAAAAI=</HashCode>
+      <FileName>Services\DoctorService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Services.PointService">
+    <Position X="3.25" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAABAAAAAAIAA=</HashCode>
+      <FileName>Services\PointService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Services.SystemService">
+    <Position X="0.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\SystemService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Services.TrainerService">
+    <Position X="0.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\TrainerService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Services.UserService">
+    <Position X="6.25" Y="4.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAEAAAAAAAAAAAAAAAAAAAAQAAAAAAAIAACAA=</HashCode>
+      <FileName>Services\UserService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

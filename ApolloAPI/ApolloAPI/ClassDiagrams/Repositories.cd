@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="ApolloAPI.Repositories.AbstractRepository">
+    <Position X="2.75" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAACAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Repositories\AbstractRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Repositories.AuthRepository">
+    <Position X="0.5" Y="3.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAACAAAABAAABAAAAAAAgAACAIAAQAAAAA=</HashCode>
+      <FileName>Repositories\AuthRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Repositories.AvatarRepository">
+    <Position X="0.5" Y="6.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Repositories\AvatarRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Repositories.DoctorRepository">
+    <Position X="3.5" Y="5.25" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAABAgAgAAABAAAAAABBAEAAAIAACAAAAAAI=</HashCode>
+      <FileName>Repositories\DoctorRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Repositories.PointRepository">
+    <Position X="4.5" Y="3.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\PointRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Repositories.UserRepository">
+    <Position X="7.5" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\UserRepository.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

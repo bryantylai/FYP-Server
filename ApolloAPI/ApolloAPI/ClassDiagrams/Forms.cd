@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="ApolloAPI.Data.Client.Form.AppointmentForm">
+    <Position X="26.25" Y="4.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAACAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Data\Client\Form\AppointmentForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Data.Client.Form.RescheduleAppointmentForm">
+    <Position X="26" Y="6.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Client\Form\AppointmentForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Data.Client.Form.AuthForm">
+    <Position X="24.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Client\Form\AuthForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Data.Client.Form.DiscussionForm">
+    <Position X="31" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Client\Form\DiscussionForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Data.Client.Form.DoctorFilterForm">
+    <Position X="32.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Data\Client\Form\DoctorFilterForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Data.Client.Form.LoginForm">
+    <Position X="23" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Client\Form\LoginForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Data.Client.Form.ProfileForm">
+    <Position X="23" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAACCAAAAAAAACAAQAAABAAAAIAAAAAg=</HashCode>
+      <FileName>Data\Client\Form\ProfileForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Data.Client.Form.ProfileFormWindows">
+    <Position X="23" Y="7.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Client\Form\ProfileForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Data.Client.Form.BMIForm">
+    <Position X="29.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Client\Form\ProfileForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Data.Client.Form.RegistrationForm">
+    <Position X="25.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Data\Client\Form\RegistrationForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Data.Client.Form.ReplyForm">
+    <Position X="29.25" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Client\Form\ReplyForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Data.Client.Form.RunForm">
+    <Position X="31.25" Y="2.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Client\Form\RunForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

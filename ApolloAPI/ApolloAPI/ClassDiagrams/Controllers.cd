@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="ApolloAPI.Controllers.AbstractController">
+    <Position X="6.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\AbstractController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Controllers.UtilityController">
+    <Position X="8.25" Y="3.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAACAAAQAAAA=</HashCode>
+      <FileName>Controllers\UtilityController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Controllers.Admin.SystemController">
+    <Position X="5" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAEAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\Admin\SystemController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Controllers.Client.AuthController">
+    <Position X="11.75" Y="3.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Controllers\Client\AuthController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Controllers.Client.AvatarController">
+    <Position X="0.5" Y="3.25" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAEABCQAAAA=</HashCode>
+      <FileName>Controllers\Client\AvatarController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Controllers.Client.DoctorController">
+    <Position X="5.25" Y="5.5" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEEAAAAAAAAAACAEAAAAAAgEBAEAAAAQAAIA=</HashCode>
+      <FileName>Controllers\Client\DoctorController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Controllers.Client.UserController">
+    <Position X="10.25" Y="5.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAABAEAQAQAAABAAAAAAAQAAAA=</HashCode>
+      <FileName>Controllers\Client\UserController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

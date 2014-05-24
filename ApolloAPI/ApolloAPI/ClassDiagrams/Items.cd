@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="ApolloAPI.Data.Client.Item.AppointmentItem">
+    <Position X="22.25" Y="1" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Client\Item\AppointmentItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Data.Client.Item.AppointmentGeneralItem">
+    <Position X="20.5" Y="2.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAQAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Data\Client\Item\AppointmentItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Data.Client.Item.AppointmentDetailedItem">
+    <Position X="23.25" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Client\Item\AppointmentItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Data.Client.Item.DoctorItem">
+    <Position X="20.5" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAACAAAAAAAAIQAgAAA=</HashCode>
+      <FileName>Data\Client\Item\DoctorItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Data.Client.Item.FilteredDoctorItem">
+    <Position X="20.5" Y="7.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Client\Item\DoctorItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Data.Client.Item.LeaderboardItem">
+    <Position X="26.25" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAgAAAAAAAAAAAAAAgCAAAAgAIAAAAAAA=</HashCode>
+      <FileName>Data\Client\Item\LeaderboardItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Data.Client.Item.ProfileItem">
+    <Position X="16.75" Y="1" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Client\Item\ProfileItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Data.Client.Item.UserProfileItem">
+    <Position X="17.75" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAABAAAAACAAAAAAAAACCAQAAABAAAAIAAAAAg=</HashCode>
+      <FileName>Data\Client\Item\ProfileItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Data.Client.Item.AvatarProfileItem">
+    <Position X="15.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Client\Item\ProfileItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApolloAPI.Data.Client.Item.iOS.HomeItem">
+    <Position X="26.25" Y="1" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAABAAgAAAAAIAAAAAAQCAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Client\Item\iOS\HomeItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

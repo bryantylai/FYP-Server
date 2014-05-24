@@ -310,8 +310,15 @@
       <LastGenOutput>ApolloModel.cs</LastGenOutput>
     </Content>
     <Compile Include="Data\Doctors\Form\AuthForm.cs" />
+    <Content Include="ClassDiagrams\Repositories.cd" />
+    <Content Include="ClassDiagrams\Controllers.cd" />
+    <Content Include="ClassDiagrams\Services.cd" />
+    <Content Include="ClassDiagrams\Forms.cd" />
+    <Content Include="ClassDiagrams\Items.cd" />
     <None Include="Properties\PublishProfiles\apollo-api - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\apollo-api - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\apollo-ws - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\apollo-ws - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\apollo-ws.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

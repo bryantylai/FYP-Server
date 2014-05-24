@@ -54,7 +54,8 @@ namespace ApolloAPI.Services
                 Password = BCrypt.Net.BCrypt.HashPassword(registrationForm.Password),
                 Role = Role.User,
                 CreatedAt = DateTime.UtcNow,
-                PersonId = user.Id
+                PersonId = user.Id,
+                LastLogin = new DateTime()
             };
 
             return authRepository.CreateNewUser(user, credential);
@@ -67,7 +68,7 @@ namespace ApolloAPI.Services
 
         internal bool CheckIfNewAccount(string username)
         {
-            return authRepository.GetLastLoginDate(GetPersonIdByUsername(username)) == null;
+            return authRepository.GetLastLoginDate(GetPersonIdByUsername(username)) == new DateTime();
         }
 
         #region Doctor

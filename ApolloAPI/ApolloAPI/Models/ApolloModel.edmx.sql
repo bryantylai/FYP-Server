@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/22/2014 17:26:14
--- Generated from EDMX file: C:\Users\Lai\Documents\GitHub\FYP-Server\ApolloAPI\ApolloAPI\Models\ApolloModel.edmx
+-- Date Created: 05/24/2014 17:13:05
+-- Generated from EDMX file: C:\Users\sysadm\Documents\GitHub\FYP-Server\ApolloAPI\ApolloAPI\Models\ApolloModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -422,7 +422,6 @@ ADD CONSTRAINT [FK_DoctorAppointment]
     REFERENCES [dbo].[People_Doctor]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_DoctorAppointment'
 CREATE INDEX [IX_FK_DoctorAppointment]
@@ -437,7 +436,6 @@ ADD CONSTRAINT [FK_UserAppointment]
     REFERENCES [dbo].[People_User]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserAppointment'
 CREATE INDEX [IX_FK_UserAppointment]
@@ -452,7 +450,6 @@ ADD CONSTRAINT [FK_UserDiscussion]
     REFERENCES [dbo].[People_User]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserDiscussion'
 CREATE INDEX [IX_FK_UserDiscussion]
@@ -467,7 +464,6 @@ ADD CONSTRAINT [FK_DiscussionReply]
     REFERENCES [dbo].[Discussions]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_DiscussionReply'
 CREATE INDEX [IX_FK_DiscussionReply]
@@ -482,7 +478,6 @@ ADD CONSTRAINT [FK_PersonReply]
     REFERENCES [dbo].[People]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_PersonReply'
 CREATE INDEX [IX_FK_PersonReply]
@@ -497,7 +492,6 @@ ADD CONSTRAINT [FK_PersonCredential]
     REFERENCES [dbo].[People]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_PersonCredential'
 CREATE INDEX [IX_FK_PersonCredential]
@@ -512,7 +506,6 @@ ADD CONSTRAINT [FK_PostComment]
     REFERENCES [dbo].[Posts]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_PostComment'
 CREATE INDEX [IX_FK_PostComment]
@@ -527,7 +520,6 @@ ADD CONSTRAINT [FK_UserPost]
     REFERENCES [dbo].[People_User]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserPost'
 CREATE INDEX [IX_FK_UserPost]
@@ -542,7 +534,6 @@ ADD CONSTRAINT [FK_UserComment]
     REFERENCES [dbo].[People_User]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserComment'
 CREATE INDEX [IX_FK_UserComment]
@@ -557,7 +548,6 @@ ADD CONSTRAINT [FK_UserAvatar]
     REFERENCES [dbo].[People_User]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_UserAvatar'
 CREATE INDEX [IX_FK_UserAvatar]
@@ -572,7 +562,6 @@ ADD CONSTRAINT [FK_AvatarRun]
     REFERENCES [dbo].[Avatars]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_AvatarRun'
 CREATE INDEX [IX_FK_AvatarRun]
@@ -587,7 +576,6 @@ ADD CONSTRAINT [FK_AddressGym]
     REFERENCES [dbo].[Addresses]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_AddressGym'
 CREATE INDEX [IX_FK_AddressGym]
@@ -602,7 +590,6 @@ ADD CONSTRAINT [FK_GymTrainer]
     REFERENCES [dbo].[Gyms]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_GymTrainer'
 CREATE INDEX [IX_FK_GymTrainer]
@@ -617,7 +604,6 @@ ADD CONSTRAINT [FK_AddressMedicalCenter]
     REFERENCES [dbo].[Addresses]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_AddressMedicalCenter'
 CREATE INDEX [IX_FK_AddressMedicalCenter]
@@ -632,7 +618,6 @@ ADD CONSTRAINT [FK_MedicalCenterDoctor]
     REFERENCES [dbo].[MedicalCenters]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_MedicalCenterDoctor'
 CREATE INDEX [IX_FK_MedicalCenterDoctor]
@@ -647,7 +632,6 @@ ADD CONSTRAINT [FK_RunRoute]
     REFERENCES [dbo].[Runs]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_RunRoute'
 CREATE INDEX [IX_FK_RunRoute]
