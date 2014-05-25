@@ -37,31 +37,6 @@ namespace ApolloAPI.Controllers.Client
             return new ServerMessage() { IsError = true, Message = "There is empty fields in the Registration form." };
         }
 
-        [Route("login/{u}/{p}")]
-        [HttpGet]
-        public LoginMessage Login(string u, string p)
-        {
-            LoginForm loginForm = new LoginForm()
-            {
-                Username = u,
-                Password = p
-            };
-
-            if (authService.ValidateForm(loginForm))
-            {
-                if (authService.LoginUser(loginForm))
-                {
-                    return new LoginMessage() { IsError = false, NewAccount = authService.CheckIfNewAccount(loginForm.Username) };
-                }
-                else
-                {
-                    return new LoginMessage() { IsError = true, Message = "Username or Password entered is incorrect", NewAccount = false };
-                }
-            }
-
-            return new LoginMessage() { IsError = true, Message = "There is empty fields in the Login form.", NewAccount = false };
-        }
-
         [Route("login")]
         [HttpPost]
         public LoginMessage Login([FromBody] LoginForm loginForm)
