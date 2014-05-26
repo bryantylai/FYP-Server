@@ -68,7 +68,17 @@ namespace ApolloAPI.Services
         internal bool CheckIfNewAccount(string username)
         {
             DateTime date = authRepository.GetLastLoginDate(GetPersonIdByUsername(username));
-            bool isNew = date == new DateTime() ? true : authRepository.UpdateLogin(authRepository.GetPersonIdByUsername(username), DateTime.UtcNow);
+
+            bool isNew = false;
+            if (date == new DateTime() || date == null)
+            {
+                isNew = true;
+            }
+            else
+            {
+                authRepository.UpdateLogin(authRepository.GetPersonIdByUsername(username), DateTime.UtcNow);
+            }
+
             return isNew;
         }
 

@@ -95,7 +95,7 @@ namespace ApolloAPI.Controllers.Client
         //        AboutMe = "I'm Bryan",
         //        DateOfBirth = new DateTime(1992, 12,23).Ticks.ToString(),
         //        FirstName = "Bryan",
-        //        LastName = "Lai",
+        //        LastName = "Lai Lai",
         //        Gender = "Male",
         //        Phone = "0123456789"
         //    };

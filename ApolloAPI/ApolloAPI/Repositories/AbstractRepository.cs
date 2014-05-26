@@ -22,8 +22,9 @@ namespace ApolloAPI.Repositories
 
         internal bool UpdateLogin(Guid userId, DateTime now)
         {
-            dbEntities.Credentials.Single((c) => c.PersonId == userId).LastLogin = now;
-            return dbEntities.SaveChanges() != 0;
+            Credential credential = dbEntities.Credentials.Single((c) => c.PersonId == userId);
+            credential.LastLogin = now;
+            return SaveUpdate();
         }
 
         internal Address GetAddressByAddressId(Guid addressId)

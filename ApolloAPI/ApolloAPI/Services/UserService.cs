@@ -129,7 +129,7 @@ namespace ApolloAPI.Services
             long dobLong = Int64.Parse(profileForm.DateOfBirth);
             user.DateOfBirth = new DateTime(dobLong);
 
-            return userRepository.SaveUpdate() ? userRepository.UpdateLogin(userId, DateTime.UtcNow) : false;
+            return userRepository.UpdateLogin(userId, DateTime.UtcNow);
         }
 
         internal bool UpdateProfile(ProfileFormWindows profileForm, Guid userId)
@@ -147,7 +147,7 @@ namespace ApolloAPI.Services
             user.Weight = Double.Parse(profileForm.Weight);
             user.Height = Double.Parse(profileForm.Height);
 
-            return userRepository.SaveUpdate() ? userRepository.UpdateLogin(userId, DateTime.UtcNow) : false;
+            return userRepository.UpdateLogin(userId, DateTime.UtcNow); ;
         }
     }
 }
