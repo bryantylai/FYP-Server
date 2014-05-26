@@ -109,7 +109,7 @@ namespace ApolloAPI.Services
                     ProfileImage = user.ProfileImage,
                     CoverImage = user.CoverImage,
                     Gender = user.Gender.Equals(Gender.Male) ? "Male" : "Female",
-                    DateOfBirth = user.DateOfBirth.HasValue ? user.DateOfBirth.Value.Ticks : new DateTime().Ticks,
+                    DateOfBirth = user.DateOfBirth.HasValue ? user.DateOfBirth.Value.Ticks : 0,
                     Phone = user.Phone,
                     Weight = user.Weight.HasValue ? user.Weight.Value : 0.0,
                     Height = user.Height.HasValue ? user.Height.Value : 0.0
@@ -129,7 +129,7 @@ namespace ApolloAPI.Services
             long dobLong = Int64.Parse(profileForm.DateOfBirth);
             user.DateOfBirth = new DateTime(dobLong);
 
-            return userRepository.SaveUpdate() ? userRepository.UpdateLogin(userId, DateTime.UtcNow) : false;
+            return userRepository.UpdateLogin(userId, DateTime.UtcNow);
         }
 
         internal bool UpdateProfile(ProfileFormWindows profileForm, Guid userId)
@@ -147,7 +147,7 @@ namespace ApolloAPI.Services
             user.Weight = Double.Parse(profileForm.Weight);
             user.Height = Double.Parse(profileForm.Height);
 
-            return userRepository.SaveUpdate() ? userRepository.UpdateLogin(userId, DateTime.UtcNow) : false;
+            return userRepository.UpdateLogin(userId, DateTime.UtcNow); ;
         }
 
         internal bool UpdateBMI(BMIForm bmiForm, Guid userId)
