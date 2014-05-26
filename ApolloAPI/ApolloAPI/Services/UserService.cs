@@ -109,7 +109,7 @@ namespace ApolloAPI.Services
                     ProfileImage = user.ProfileImage,
                     CoverImage = user.CoverImage,
                     Gender = user.Gender.Equals(Gender.Male) ? "Male" : "Female",
-                    DateOfBirth = user.DateOfBirth.HasValue ? user.DateOfBirth.Value.Ticks.ToString() : new DateTime().Ticks.ToString(),
+                    DateOfBirth = user.DateOfBirth.HasValue ? user.DateOfBirth.Value.Ticks : 0,
                     Phone = user.Phone,
                     Weight = user.Weight.HasValue ? user.Weight.Value : 0.0,
                     Height = user.Height.HasValue ? user.Height.Value : 0.0

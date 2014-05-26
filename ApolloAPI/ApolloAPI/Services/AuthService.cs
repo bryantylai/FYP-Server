@@ -54,8 +54,7 @@ namespace ApolloAPI.Services
                 Password = BCrypt.Net.BCrypt.HashPassword(registrationForm.Password),
                 Role = Role.User,
                 CreatedAt = DateTime.UtcNow,
-                PersonId = user.Id,
-                LastLogin = new DateTime()
+                PersonId = user.Id
             };
 
             return authRepository.CreateNewUser(user, credential);

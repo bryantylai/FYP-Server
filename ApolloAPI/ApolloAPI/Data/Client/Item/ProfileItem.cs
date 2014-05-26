@@ -16,7 +16,7 @@ namespace ApolloAPI.Data.Client.Item
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string CoverImage { get; set; }
-        public string DateOfBirth { get; set; }
+        public long DateOfBirth { get; set; }
         public string AboutMe { get; set; }
         public string Gender { get; set; }
         public string Phone { get; set; }

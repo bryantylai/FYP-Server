@@ -86,6 +86,41 @@ namespace ApolloAPI.Controllers.Client
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }
 
+        //[Route("windows/profile")]
+        //[HttpGet]
+        //public ServerMessage UpdateUserProfile()
+        //{
+        //    ProfileForm profileForm = new ProfileForm()
+        //    {
+        //        AboutMe = "I'm Bryan",
+        //        DateOfBirth = new DateTime(1992, 12,23).Ticks.ToString(),
+        //        FirstName = "Bryan",
+        //        LastName = "Lai",
+        //        Gender = "Male",
+        //        Phone = "0123456789"
+        //    };
+
+        //    username = this.RequestContext.Principal.Identity.Name;
+        //    isUser = this.RequestContext.Principal.IsInRole("User");
+
+        //    if (isUser)
+        //    {
+        //        if (userService.ValidateForm(profileForm))
+        //        {
+        //            if (userService.UpdateProfile(profileForm, authService.GetPersonIdByUsername(username)))
+        //            {
+        //                return new ServerMessage() { IsError = false };
+        //            }
+
+        //            return new ServerMessage() { IsError = true, Message = "Unable to update profile" };
+        //        }
+
+        //        return new ServerMessage() { IsError = true, Message = "There is empty fields in the Profile form." };
+        //    }
+
+        //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        //}
+
         [Route("windows/profile")]
         [HttpPost]
         public ServerMessage UpdateUserProfile([FromBody] ProfileFormWindows profileForm)
