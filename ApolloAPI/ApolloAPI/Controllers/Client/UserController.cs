@@ -86,6 +86,26 @@ namespace ApolloAPI.Controllers.Client
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }
 
+        [Route("ios/bmi")]
+        [HttpPost]
+        public ServerMessage UpdateBMI([FromBody] BMIForm bmiForm)
+        {
+            username = this.RequestContext.Principal.Identity.Name;
+            isUser = this.RequestContext.Principal.IsInRole("User");
+
+            if (isUser)
+            {
+                if (userService.UpdateBMI(bmiForm, authService.GetPersonIdByUsername(username)))
+                {
+                    return new ServerMessage() { IsError = false };
+                }
+
+                return new ServerMessage() { IsError = true, Message = "Unable to update BMI" };
+            }
+
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        }
+
         [Route("windows/profile")]
         [HttpPost]
         public ServerMessage UpdateUserProfile([FromBody] ProfileFormWindows profileForm)

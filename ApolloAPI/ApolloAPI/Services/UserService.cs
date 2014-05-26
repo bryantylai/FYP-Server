@@ -149,5 +149,14 @@ namespace ApolloAPI.Services
 
             return userRepository.SaveUpdate() ? userRepository.UpdateLogin(userId, DateTime.UtcNow) : false;
         }
+
+        internal bool UpdateBMI(BMIForm bmiForm, Guid userId)
+        {
+            User user = userRepository.GetUserByUserId(userId);
+            user.Weight = Double.Parse(bmiForm.Weight);
+            user.Height = Double.Parse(bmiForm.Height);
+
+            return userRepository.SaveUpdate();
+        }
     }
 }
