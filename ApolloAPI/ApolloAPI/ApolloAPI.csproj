@@ -243,9 +243,6 @@
     <Compile Include="Models\Role.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Route.cs">
-      <DependentUpon>ApolloModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Run.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>

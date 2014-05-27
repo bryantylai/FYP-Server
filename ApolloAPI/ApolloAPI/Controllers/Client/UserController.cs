@@ -88,19 +88,21 @@ namespace ApolloAPI.Controllers.Client
 
         [Route("ios/bmi")]
         [HttpPost]
-        public ServerMessage UpdateBMI([FromBody] BMIForm bmiForm)
+        public BMIMessage UpdateBMI([FromBody] BMIForm bmiForm)
         {
             username = this.RequestContext.Principal.Identity.Name;
             isUser = this.RequestContext.Principal.IsInRole("User");
 
             if (isUser)
             {
-                if (userService.UpdateBMI(bmiForm, authService.GetPersonIdByUsername(username)))
+                Guid id = authService.GetPersonIdByUsername(username);
+                if (userService.UpdateBMI(bmiForm, id))
                 {
-                    return new ServerMessage() { IsError = false };
+                    UserProfileItem item = userService.GetProfile(id);
+                    return new BMIMessage() { IsError = false, Height = item.Height, Weight = item.Weight };
                 }
 
-                return new ServerMessage() { IsError = true, Message = "Unable to update BMI" };
+                return new BMIMessage() { IsError = true, Message = "Unable to update BMI" };
             }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));

@@ -14,17 +14,11 @@ namespace ApolloAPI.Models
     
     public partial class Run
     {
-        public Run()
-        {
-            this.Routes = new HashSet<Route>();
-        }
-    
         public System.Guid Id { get; set; }
         public System.Guid RanBy { get; set; }
-        public System.TimeSpan RunningTime { get; set; }
+        public System.DateTime StartTime { get; set; }
+        public System.DateTime EndTime { get; set; }
         public double Distance { get; set; }
         public int Point { get; set; }
-    
-        public virtual ICollection<Route> Routes { get; set; }
     }
 }

@@ -28,7 +28,17 @@ namespace ApolloAPI.Data.Client.Item
     {
         public string Name { get; set; }
         public int Level { get; set; }
-        public int Points { get; set; }
-        public string OwnerName { get; set; }
+        public double Experience { get; set; }
+        public IEnumerable<RunItem> All { get; set; }
+        public IEnumerable<RunItem> Month { get; set; }
+        public IEnumerable<RunItem> Week { get; set; }
+        public IEnumerable<RunItem> Day { get; set; }
+    }
+
+    public class RunItem
+    {
+        public long RunDate { get; set; }
+        public double Distance { get; set; }
+        public long Duration { get; set; }
     }
 }

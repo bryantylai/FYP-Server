@@ -39,6 +39,5 @@ namespace ApolloAPI.Models
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Gym> Gyms { get; set; }
         public DbSet<MedicalCenter> MedicalCenters { get; set; }
-        public DbSet<Route> Routes { get; set; }
     }
 }

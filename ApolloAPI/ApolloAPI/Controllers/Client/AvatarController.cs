@@ -51,19 +51,19 @@ namespace ApolloAPI.Controllers.Client
 
         [Route("run")]
         [HttpPost]
-        public ServerMessage SubmitRunningForm([FromBody] RunForm runForm)
+        public RunMessage SubmitRunningForm([FromBody] RunForm runForm)
         {
             username = this.RequestContext.Principal.Identity.Name;
             isUser = this.RequestContext.Principal.IsInRole("User");
 
             if (isUser)
             {
-                if (avatarService.ValidateForm(runForm) && avatarService.UpdateRun(runForm, authService.GetPersonIdByUsername(username)))
+                if (avatarService.ValidateForm(runForm))
                 {
-                    return new ServerMessage();
+                    return avatarService.UpdateRun(runForm, authService.GetPersonIdByUsername(username));
                 }
 
-                return new ServerMessage() { IsError = true, Message = "Unable to update run" };
+                return new RunMessage() { IsError = true, Message = "There is empty fields in the form." };
             }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));

@@ -19,7 +19,6 @@
     <EntitySet Name="Addresses" EntityType="ApolloDatabaseModel.Store.Addresses" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Gyms" EntityType="ApolloDatabaseModel.Store.Gyms" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="MedicalCenters" EntityType="ApolloDatabaseModel.Store.MedicalCenters" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Routes" EntityType="ApolloDatabaseModel.Store.Routes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="People_Doctor" EntityType="ApolloDatabaseModel.Store.People_Doctor" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="People_User" EntityType="ApolloDatabaseModel.Store.People_User" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="People_Trainer" EntityType="ApolloDatabaseModel.Store.People_Trainer" store:Type="Tables" Schema="dbo" />
@@ -82,10 +81,6 @@
     <AssociationSet Name="MedicalCenterDoctor" Association="ApolloDatabaseModel.Store.MedicalCenterDoctor">
       <End Role="MedicalCenter" EntitySet="MedicalCenters" />
       <End Role="Doctor" EntitySet="People_Doctor" />
-    </AssociationSet>
-    <AssociationSet Name="RunRoute" Association="ApolloDatabaseModel.Store.RunRoute">
-      <End Role="Run" EntitySet="Runs" />
-      <End Role="Route" EntitySet="Routes" />
     </AssociationSet>
     <AssociationSet Name="FK_Doctor_inherits_Person" Association="ApolloDatabaseModel.Store.FK_Doctor_inherits_Person">
       <End Role="Person" EntitySet="People" />
@@ -192,7 +187,8 @@
     </Key>
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
     <Property Name="RanBy" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="RunningTime" Type="time" Nullable="false" />
+    <Property Name="StartTime" Type="datetime" Nullable="false" />
+    <Property Name="EndTime" Type="datetime" Nullable="false" />
     <Property Name="Distance" Type="float" Nullable="false" />
     <Property Name="Point" Type="int" Nullable="false" />
   </EntityType>
@@ -234,15 +230,6 @@
     <Property Name="AddressId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Routes">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="RunId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Start" Type="geography" Nullable="false" SRID="4326" />
-    <Property Name="End" Type="geography" Nullable="false" SRID="4326" />
   </EntityType>
   <EntityType Name="People_Doctor">
     <Key>
@@ -450,18 +437,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="RunRoute">
-    <End Role="Run" Type="ApolloDatabaseModel.Store.Runs" Multiplicity="1" />
-    <End Role="Route" Type="ApolloDatabaseModel.Store.Routes" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Run">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Route">
-        <PropertyRef Name="RunId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Doctor_inherits_Person">
     <End Role="Person" Type="ApolloDatabaseModel.Store.People" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -581,11 +556,6 @@
           <AssociationSet Name="MedicalCenterDoctor" Association="ApolloDatabaseModel.MedicalCenterDoctor">
             <End EntitySet="MedicalCenters" Role="MedicalCenter" />
             <End EntitySet="People" Role="Doctor" />
-          </AssociationSet>
-          <EntitySet Name="Routes" EntityType="ApolloDatabaseModel.Route" />
-          <AssociationSet Name="RunRoute" Association="ApolloDatabaseModel.RunRoute">
-            <End Role="Run" EntitySet="Runs" />
-            <End Role="Route" EntitySet="Routes" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Person">
@@ -825,10 +795,10 @@
           </Key>
           <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="None" Type="Guid" />
           <Property Name="RanBy" Nullable="false" Type="Guid" />
-          <Property Name="RunningTime" Nullable="false" Type="Time" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" />
+          <Property Name="EndTime" Type="DateTime" Nullable="false" />
           <Property Name="Distance" Nullable="false" Type="Double" />
           <Property Name="Point" Nullable="false" Type="Int32" />
-          <NavigationProperty Name="Routes" Relationship="ApolloDatabaseModel.RunRoute" FromRole="Run" ToRole="Route" />
         </EntityType>
         <Association Name="AvatarRun">
           <End Type="ApolloDatabaseModel.Avatar" Multiplicity="1" Role="Avatar" />
@@ -926,27 +896,6 @@
             </Principal>
             <Dependent Role="Doctor">
               <PropertyRef Name="MedicalCenterId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Route">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Name="RunId" Type="Guid" Nullable="false" />
-          <Property Name="Start" Type="Geography" Nullable="false" />
-          <Property Name="End" Type="Geography" Nullable="false" />
-        </EntityType>
-        <Association Name="RunRoute">
-          <End Type="ApolloDatabaseModel.Run" Role="Run" Multiplicity="1" />
-          <End Type="ApolloDatabaseModel.Route" Role="Route" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Run">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Route">
-              <PropertyRef Name="RunId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1078,7 +1027,8 @@
         <MappingFragment StoreEntitySet="Runs">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="RanBy" ColumnName="RanBy" />
-          <ScalarProperty Name="RunningTime" ColumnName="RunningTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
           <ScalarProperty Name="Distance" ColumnName="Distance" />
           <ScalarProperty Name="Point" ColumnName="Point" />
         </MappingFragment>
@@ -1124,16 +1074,6 @@
           <ScalarProperty Name="AddressId" ColumnName="AddressId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Routes">
-      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Route)">
-        <MappingFragment StoreEntitySet="Routes">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="RunId" ColumnName="RunId" />
-          <ScalarProperty Name="Start" ColumnName="Start" />
-          <ScalarProperty Name="End" ColumnName="End" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

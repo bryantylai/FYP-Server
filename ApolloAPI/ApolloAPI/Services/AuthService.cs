@@ -57,7 +57,22 @@ namespace ApolloAPI.Services
                 PersonId = user.Id
             };
 
-            return authRepository.CreateNewUser(user, credential);
+            if (authRepository.CreateNewUser(user, credential))
+            {
+                Avatar avatar = new Avatar()
+                {
+                    Id = Guid.NewGuid(),
+                    Owner = user.Id,
+                    Level = 1,
+                    Name = registrationForm.Username,
+                    Points = 0
+                };
+
+                AvatarRepository avatarRepository = new AvatarRepository();
+                return avatarRepository.CreateNewAvatar(avatar);
+            }
+
+            return false;
         }
 
         internal bool LoginUser(ApolloAPI.Data.Client.Form.LoginForm loginForm)

@@ -153,8 +153,12 @@ namespace ApolloAPI.Services
         internal bool UpdateBMI(BMIForm bmiForm, Guid userId)
         {
             User user = userRepository.GetUserByUserId(userId);
-            user.Weight = Double.Parse(bmiForm.Weight);
-            user.Height = Double.Parse(bmiForm.Height);
+            double weight, height;
+            if (Double.TryParse(bmiForm.Weight, out weight) && Double.TryParse(bmiForm.Height, out height))
+            {
+                user.Weight = weight;
+                user.Height = height;
+            }
 
             return userRepository.SaveUpdate();
         }

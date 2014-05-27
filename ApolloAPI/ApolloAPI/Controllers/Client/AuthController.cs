@@ -15,34 +15,34 @@ namespace ApolloAPI.Controllers.Client
     [RoutePrefix("api/auth")]
     public class AuthController : AbstractController
     {
-        //[Route("register/{u}")]
-        //[HttpGet]
-        //public ServerMessage Register(string u)
-        //{
-        //    RegistrationForm registrationForm = new RegistrationForm()
-        //    {
-        //        Email = u + "@yahoo.com",
-        //        Password = u,
-        //        Username = u
-        //    };
+        [Route("register/{u}")]
+        [HttpGet]
+        public ServerMessage Register(string u)
+        {
+            RegistrationForm registrationForm = new RegistrationForm()
+            {
+                Email = u + "@yahoo.com",
+                Password = u,
+                Username = u
+            };
 
-        //    if (authService.ValidateForm(registrationForm))
-        //    {
-        //        if (!authService.CheckForDuplicate(registrationForm))
-        //        {
-        //            if (authService.RegisterUser(registrationForm))
-        //            {
-        //                return new ServerMessage() { IsError = false };
-        //            }
+            if (authService.ValidateForm(registrationForm))
+            {
+                if (!authService.CheckForDuplicate(registrationForm))
+                {
+                    if (authService.RegisterUser(registrationForm))
+                    {
+                        return new ServerMessage() { IsError = false };
+                    }
 
-        //            return new ServerMessage() { IsError = true, Message = "An unknown error has occured." };
-        //        }
+                    return new ServerMessage() { IsError = true, Message = "An unknown error has occured." };
+                }
 
-        //        return new ServerMessage() { IsError = true, Message = "The existing username or email already exists." };
-        //    }
+                return new ServerMessage() { IsError = true, Message = "The existing username or email already exists." };
+            }
 
-        //    return new ServerMessage() { IsError = true, Message = "There is empty fields in the Registration form." };
-        //}
+            return new ServerMessage() { IsError = true, Message = "There is empty fields in the Registration form." };
+        }
 
         [Route("register")]
         [HttpPost]

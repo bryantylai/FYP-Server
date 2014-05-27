@@ -8,8 +8,8 @@ namespace ApolloAPI.Data.Client.Form
 {
     public class RunForm
     {
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
-        public IEnumerable<Coordinate> Coordinates { get; set; }
+        public long StartTime { get; set; }
+        public long EndTime { get; set; }
+        public double Distance { get; set; }
     }
 }
