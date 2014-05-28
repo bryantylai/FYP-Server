@@ -246,6 +246,9 @@
     <Compile Include="Models\Run.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Scoresheet.cs">
+      <DependentUpon>ApolloModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Trainer.cs">
       <DependentUpon>ApolloModel.tt</DependentUpon>
     </Compile>

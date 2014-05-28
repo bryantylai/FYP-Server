@@ -50,6 +50,33 @@ namespace ApolloAPI.Controllers.Client
         }
 
         [Route("run")]
+        [HttpGet]
+        public RunMessage SubmitRunningForm()
+        {
+            RunForm runForm = new RunForm()
+            {
+                Distance = 100.00,
+                StartTime = DateTime.Now.Ticks,
+                EndTime = DateTime.Now.Ticks
+            };
+
+            username = this.RequestContext.Principal.Identity.Name;
+            isUser = this.RequestContext.Principal.IsInRole("User");
+
+            if (isUser)
+            {
+                if (avatarService.ValidateForm(runForm))
+                {
+                    return avatarService.UpdateRun(runForm, authService.GetPersonIdByUsername(username));
+                }
+
+                return new RunMessage() { IsError = true, Message = "There is empty fields in the form." };
+            }
+
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        }
+
+        [Route("run")]
         [HttpPost]
         public RunMessage SubmitRunningForm([FromBody] RunForm runForm)
         {

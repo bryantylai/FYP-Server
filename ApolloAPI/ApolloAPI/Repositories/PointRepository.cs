@@ -13,10 +13,10 @@ namespace ApolloAPI.Repositories
             return dbEntities.GameSystems.Count() != 0;
         }
 
-        //public bool IsScoresheetInitialized()
-        //{
-        //    return dbEntities.Scoresheets.Count() != 0;
-        //}
+        public bool IsScoresheetInitialized()
+        {
+            return dbEntities.Scoresheets.Count() != 0;
+        }
 
         public bool InitializeGameSystem(IEnumerable<GameSystem> gameSystems)
         {
@@ -24,10 +24,10 @@ namespace ApolloAPI.Repositories
             return dbEntities.SaveChanges() != 0;
         }
 
-        //public bool InitializeScoresheet(IEnumerable<Scoresheet> scoresheets)
-        //{
-        //    scoresheets.All((s) => dbEntities.Scoresheets.Add(s) != null);
-        //    return dbEntities.SaveChanges() != 0;
-        //}
+        public bool InitializeScoresheet(IEnumerable<Scoresheet> scoresheets)
+        {
+            scoresheets.All((s) => dbEntities.Scoresheets.Add(s) != null);
+            return dbEntities.SaveChanges() != 0;
+        }
     }
 }

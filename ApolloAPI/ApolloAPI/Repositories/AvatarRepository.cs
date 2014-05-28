@@ -29,5 +29,22 @@ namespace ApolloAPI.Repositories
         {
             return dbEntities.Runs.Where((r) => r.RanBy == avatarId);
         }
+
+        internal Scoresheet GetScoresheet(double distance)
+        {
+            return dbEntities.Scoresheets.Where((s) => s.Distance <= distance).OrderByDescending((s) => s.Distance).First();
+        }
+
+        internal GameSystem GetGameSystem(int points)
+        {
+            return dbEntities.GameSystems.Where((g) => g.Points >= points).OrderBy((g) => g.Points).First();
+        }
+
+        //internal GameSystem GetNextGameSystem(int points)
+        //{
+        //    IEnumerable<GameSystem> gameSystems = dbEntities.GameSystems;
+        //    gameSystems = dbEntities.GameSystems.Where((g) => g.Points > points);
+        //    return gameSystems.OrderBy((g) => g.Points).First();
+        //}
     }
 }

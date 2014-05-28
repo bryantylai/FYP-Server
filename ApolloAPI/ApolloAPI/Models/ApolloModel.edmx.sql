@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/28/2014 01:11:40
+-- Date Created: 05/28/2014 21:13:35
 -- Generated from EDMX file: C:\Users\Lai\Documents\GitHub\FYP-Server\ApolloAPI\ApolloAPI\Models\ApolloModel.edmx
 -- --------------------------------------------------
 
@@ -115,6 +115,9 @@ GO
 IF OBJECT_ID(N'[dbo].[MedicalCenters]', 'U') IS NOT NULL
     DROP TABLE [dbo].[MedicalCenters];
 GO
+IF OBJECT_ID(N'[dbo].[Scoresheets]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Scoresheets];
+GO
 IF OBJECT_ID(N'[dbo].[People_Doctor]', 'U') IS NOT NULL
     DROP TABLE [dbo].[People_Doctor];
 GO
@@ -211,7 +214,8 @@ CREATE TABLE [dbo].[Avatars] (
     [Owner] uniqueidentifier  NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
     [Level] int  NOT NULL,
-    [Points] int  NOT NULL
+    [Points] int  NOT NULL,
+    [ProfileImage] nvarchar(max)  NULL
 );
 GO
 
@@ -262,6 +266,14 @@ CREATE TABLE [dbo].[MedicalCenters] (
     [AddressId] uniqueidentifier  NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
     [Phone] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'Scoresheets'
+CREATE TABLE [dbo].[Scoresheets] (
+    [Id] uniqueidentifier  NOT NULL,
+    [Points] int  NOT NULL,
+    [Distance] float  NOT NULL
 );
 GO
 
@@ -370,6 +382,12 @@ GO
 -- Creating primary key on [Id] in table 'MedicalCenters'
 ALTER TABLE [dbo].[MedicalCenters]
 ADD CONSTRAINT [PK_MedicalCenters]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Scoresheets'
+ALTER TABLE [dbo].[Scoresheets]
+ADD CONSTRAINT [PK_Scoresheets]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

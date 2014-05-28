@@ -23,12 +23,13 @@ namespace ApolloAPI.Controllers.Admin
             username = this.RequestContext.Principal.Identity.Name;
             isAdmin = this.RequestContext.Principal.IsInRole("Admin");
 
-            if (isAdmin) 
-            {
-                
-            }
+            //if (isAdmin) 
+            //{
+                SystemService systemService = new SystemService();
+                systemService.InitializeSystem();
+            //}
 
-            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+            //throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }
     }
 }

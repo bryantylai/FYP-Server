@@ -58,13 +58,15 @@ namespace ApolloAPI.Services
 
             }
 
+            GameSystem gameSystem = avatarRepository.GetGameSystem(avatar.Points);
+
             return new AvatarProfileItem()
             {
                 Id = avatar.Id,
                 Name = avatar.Name,
-                ProfileImage = "",
+                ProfileImage = avatar.ProfileImage,
                 Level = avatar.Level,
-                Experience = avatar.Points / 100,
+                Experience = (gameSystem.Points - avatar.Points) * 0.01,
                 All = allRunItems,
                 Month = monthRunItems,
                 Week = weekRunItems,
@@ -100,6 +102,13 @@ namespace ApolloAPI.Services
 
             if (avatarRepository.SaveRun(run))
             {
+                Scoresheet score = avatarRepository.GetScoresheet(run.Distance);
+                avatar.Points += score.Points;
+                GameSystem gameSystem = avatarRepository.GetGameSystem(avatar.Points);
+                avatar.Level = gameSystem.Level;
+
+                avatarRepository.SaveUpdate();
+
                 return new RunMessage()
                 {
                     IsError = false,

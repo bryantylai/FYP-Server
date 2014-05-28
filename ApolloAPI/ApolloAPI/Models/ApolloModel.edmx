@@ -19,6 +19,7 @@
     <EntitySet Name="Addresses" EntityType="ApolloDatabaseModel.Store.Addresses" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Gyms" EntityType="ApolloDatabaseModel.Store.Gyms" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="MedicalCenters" EntityType="ApolloDatabaseModel.Store.MedicalCenters" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Scoresheets" EntityType="ApolloDatabaseModel.Store.Scoresheets" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="People_Doctor" EntityType="ApolloDatabaseModel.Store.People_Doctor" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="People_User" EntityType="ApolloDatabaseModel.Store.People_User" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="People_Trainer" EntityType="ApolloDatabaseModel.Store.People_Trainer" store:Type="Tables" Schema="dbo" />
@@ -180,6 +181,7 @@
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Level" Type="int" Nullable="false" />
     <Property Name="Points" Type="int" Nullable="false" />
+    <Property Name="ProfileImage" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="Runs">
     <Key>
@@ -230,6 +232,14 @@
     <Property Name="AddressId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Scoresheets">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Points" Type="int" Nullable="false" />
+    <Property Name="Distance" Type="float" Nullable="false" />
   </EntityType>
   <EntityType Name="People_Doctor">
     <Key>
@@ -557,6 +567,7 @@
             <End EntitySet="MedicalCenters" Role="MedicalCenter" />
             <End EntitySet="People" Role="Doctor" />
           </AssociationSet>
+          <EntitySet Name="Scoresheets" EntityType="ApolloDatabaseModel.Scoresheet" />
         </EntityContainer>
         <EntityType Name="Person">
           <Key>
@@ -776,6 +787,7 @@
           <Property Name="Name" Nullable="false" Type="String" />
           <Property Name="Level" Nullable="false" Type="Int32" />
           <Property Name="Points" Nullable="false" Type="Int32" />
+          <Property Name="ProfileImage" Type="String" Nullable="true" />
         </EntityType>
         <Association Name="UserAvatar">
           <End Type="ApolloDatabaseModel.User" Multiplicity="1" Role="User" />
@@ -899,6 +911,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Scoresheet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Points" Type="Int32" Nullable="false" />
+          <Property Name="Distance" Type="Double" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1019,6 +1039,7 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Level" ColumnName="Level" />
           <ScalarProperty Name="Points" ColumnName="Points" />
+          <ScalarProperty Name="ProfileImage" ColumnName="ProfileImage" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1074,6 +1095,15 @@
           <ScalarProperty Name="AddressId" ColumnName="AddressId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Scoresheets">
+      <EntityTypeMapping TypeName="IsTypeOf(ApolloDatabaseModel.Scoresheet)">
+        <MappingFragment StoreEntitySet="Scoresheets">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Points" ColumnName="Points" />
+          <ScalarProperty Name="Distance" ColumnName="Distance" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

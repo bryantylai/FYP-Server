@@ -12,13 +12,10 @@ namespace ApolloAPI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Avatar
+    public partial class Scoresheet
     {
         public System.Guid Id { get; set; }
-        public System.Guid Owner { get; set; }
-        public string Name { get; set; }
-        public int Level { get; set; }
         public int Points { get; set; }
-        public string ProfileImage { get; set; }
+        public double Distance { get; set; }
     }
 }

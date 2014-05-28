@@ -39,6 +39,7 @@
         <EntityTypeShape EntityType="ApolloDatabaseModel.MedicalCenter" PointX="0.5" PointY="6" Width="1.5" />
         <AssociationConnector Association="ApolloDatabaseModel.AddressMedicalCenter" />
         <AssociationConnector Association="ApolloDatabaseModel.MedicalCenterDoctor" />
+        <EntityTypeShape EntityType="ApolloDatabaseModel.Scoresheet" Width="1.5" PointX="14.625" PointY="10" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
