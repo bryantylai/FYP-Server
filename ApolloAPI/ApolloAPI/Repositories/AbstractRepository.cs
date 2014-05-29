@@ -26,6 +26,10 @@ namespace ApolloAPI.Repositories
             credential.LastLogin = now;
             return dbEntities.SaveChanges() != 0;
         }
+        internal IEnumerable<Person> GetEveryone()
+        {
+            return dbEntities.People;
+        }
 
         internal Address GetAddressByAddressId(Guid addressId)
         {

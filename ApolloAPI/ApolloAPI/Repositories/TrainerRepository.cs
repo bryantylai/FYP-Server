@@ -8,14 +8,33 @@ namespace ApolloAPI.Repositories
 {
     public class TrainerRepository : AbstractRepository
     {
+        internal Doctor GetTrainerByTrainerId(Guid trainerId)
+        {
+            IEnumerable<Person> people = GetEveryone();
+            foreach (Person person in people)
+            {
+                if (person.GetType() == typeof(Trainer))
+                {
+                    if (person.Id == trainerId)
+                    {
+                        return person as Doctor;
+                    }
+                }
+            }
+
+            return null;
+        }
+
         internal IEnumerable<Trainer> ListAllTrainers()
         {
-            IEnumerable<Credential> credentials = dbEntities.Credentials.Where((c) => c.Role == Role.Trainer);
+            IEnumerable<Person> people = GetEveryone();
             HashSet<Trainer> trainers = new HashSet<Trainer>();
-            foreach (Credential credential in credentials)
+            foreach (Person person in people)
             {
-                Person person = dbEntities.People.Single((d) => d.Id == credential.PersonId);
-                trainers.Add(person as Trainer);
+                if (person.GetType() == typeof(Trainer))
+                {
+                    trainers.Add(person as Trainer);
+                }
             }
 
             return trainers;

@@ -10,6 +10,7 @@ using ApolloAPI.Data.Client.Form;
 using ApolloAPI.Data.Client.Item;
 using ApolloAPI.Data.Utility;
 using ApolloAPI.Models;
+using ApolloAPI.Repositories;
 using ApolloAPI.Services;
 
 namespace ApolloAPI.Controllers.Client
@@ -25,6 +26,23 @@ namespace ApolloAPI.Controllers.Client
         public DoctorController()
         {
             doctorService = new DoctorService();
+        }
+
+        [Route("all")]
+        [HttpGet]
+        public IEnumerable<Person> GetEveryone()
+        {
+            IEnumerable<Person> people = new DoctorRepository().GetEveryone();
+            HashSet<Doctor> doctors = new HashSet<Doctor>();
+            foreach (Person person in people)
+            {
+                if(person.GetType() == typeof(Doctor))
+                {
+                    doctors.Add(person as Doctor);
+                }
+            }
+
+            return doctors;
         }
 
         [Route("fetch-all")]

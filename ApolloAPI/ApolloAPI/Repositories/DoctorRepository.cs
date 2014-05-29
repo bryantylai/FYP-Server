@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using ApolloAPI.Models;
@@ -10,17 +11,31 @@ namespace ApolloAPI.Repositories
     {
         internal Doctor GetDoctorByDoctorId(Guid doctorId)
         {
-            return dbEntities.People.Single((d) => d.Id == doctorId) as Doctor;
+            IEnumerable<Person> people = GetEveryone();
+            foreach (Person person in people)
+            {
+                if (person.GetType() == typeof(Doctor))
+                {
+                    if (person.Id == doctorId)
+                    {
+                        return person as Doctor;
+                    }
+                }
+            }
+
+            return null;
         }
 
         internal IEnumerable<Doctor> ListAllDoctors()
         {
-            IEnumerable<Credential> credentials = dbEntities.Credentials.Where((c) => c.Role == Role.Doctor);
+            IEnumerable<Person> people = GetEveryone();
             HashSet<Doctor> doctors = new HashSet<Doctor>();
-            foreach (Credential credential in credentials)
+            foreach (Person person in people)
             {
-                Doctor doctor = dbEntities.People.Single((d) => d.Id == credential.PersonId) as Doctor;
-                doctors.Add(doctor);
+                if (person.GetType() == typeof(Doctor))
+                {
+                    doctors.Add(person as Doctor);
+                }
             }
 
             return doctors;

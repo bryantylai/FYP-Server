@@ -29,11 +29,4 @@ namespace ApolloAPI.Data
         public string Content { get; set; }
         public long RepliedAt { get; set; }
     }
-
-    public class Person
-    {
-        public Guid Id { get; set; }
-        public string FullName { get; set; }
-        public string ProfileImage { get; set; }
-    }
 }
