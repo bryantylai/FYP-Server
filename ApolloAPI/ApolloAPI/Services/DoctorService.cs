@@ -21,11 +21,6 @@ namespace ApolloAPI.Services
             doctorRepository = new DoctorRepository();
         }
 
-        internal Doctor GetDoctorByDoctorIdByDoctorId(Guid doctorId)
-        {
-            return doctorRepository.GetDoctorByDoctorId(doctorId);
-        }
-
         internal bool ValidateForm(AppointmentForm appointmentForm)
         {
             object[] keys = { appointmentForm.DoctorId, appointmentForm.AppointmentTime };
@@ -51,15 +46,18 @@ namespace ApolloAPI.Services
 
             foreach (Doctor doctor in doctors)
             {
-                MedicalCenter medCenter = new MedicalCenter();
-                doctorList.Add(new DoctorItem()
+                if (doctor != null)
                 {
-                    DoctorId = doctor.Id,
-                    Name = doctor.FirstName + ", " + doctor.LastName,
-                    Expertise = doctor.FieldOfExpertise,
-                    CenterName = medCenter.Name,
-                    Phone = medCenter.Phone,
-                });
+                    MedicalCenter medCenter = doctorRepository.GetMedicalCenterFromMedicalCenterId(doctor.MedicalCenterId);
+                    doctorList.Add(new DoctorItem()
+                    {
+                        DoctorId = doctor.Id,
+                        Name = doctor.FirstName + ", " + doctor.LastName,
+                        Expertise = doctor.FieldOfExpertise,
+                        CenterName = medCenter.Name,
+                        Phone = medCenter.Phone,
+                    });
+                }
             }
 
             return doctorList;
@@ -155,13 +153,8 @@ namespace ApolloAPI.Services
                     DiscussionId = discussion.Id,
                     Title = discussion.Title,
                     ReplyCount = replies.Count(),
-                    Creator = new ApolloAPI.Data.Person()
-                    {
-                        Id = userId,
-                        FullName = user.FirstName + ", " + user.LastName,
-                        ProfileImage = user.ProfileImage
-                    },
-                    LastActive = replies.OrderBy((r) => r.RepliedAt).Last().RepliedAt
+                    CreatorName = user.FirstName + ", " + user.LastName,
+                    LastActive = replies.OrderBy((r) => r.RepliedAt).Last().RepliedAt.Ticks
                 };
 
                 discussionList.Add(discussionGeneralItem);  
@@ -216,13 +209,8 @@ namespace ApolloAPI.Services
                     DiscussionId = discussion.Id,
                     Title = discussion.Title,
                     ReplyCount = replies.Count(),
-                    Creator = new ApolloAPI.Data.Person()
-                    {
-                        Id = user.Id,
-                        FullName = user.FirstName + ", " + user.LastName,
-                        ProfileImage = user.ProfileImage
-                    },
-                    LastActive = replies.OrderBy((r) => r.RepliedAt).Last().RepliedAt
+                    CreatorName = user.FirstName + ", " + user.LastName,
+                    LastActive = replies.OrderBy((r) => r.RepliedAt).Last().RepliedAt.Ticks
                 };
 
                 discussionList.Add(discussionGeneralItem);
@@ -233,10 +221,29 @@ namespace ApolloAPI.Services
 
         internal DiscussionDetailedItem GetDiscussionByDiscussionId(Guid discussionId)
         {
+            UserRepository userRepository = new UserRepository();
             Discussion discussion = doctorRepository.GetDiscussionByDiscussionId(discussionId);
+            IEnumerable<Reply> replies = doctorRepository.GetDicussionReplies(discussionId);
+            HashSet<ReplyItem> replyItems = new HashSet<ReplyItem>();
+            foreach(Reply reply in replies)
+            {
+                User responder = userRepository.GetUserByUserId(discussion.CreatedBy);
+
+                replyItems.Add(new ReplyItem()
+                    {
+                        Content = reply.Content,
+                        RepliedAt = reply.RepliedAt.Ticks,
+                        ResponderName = responder.FirstName + ", " + responder.LastName
+                    });
+            }
+
+            User creator = userRepository.GetUserByUserId(discussion.CreatedBy);
             return new DiscussionDetailedItem()
             {
-                DiscussionId = discussionId
+                DiscussionId = discussionId,
+                Title = discussion.Title,
+                CreatorName = creator.FirstName + ", " + creator.LastName,     
+                Replies = replyItems
             };
         }
 
@@ -259,6 +266,18 @@ namespace ApolloAPI.Services
             Appointment appointment = doctorRepository.GetAppointmentByAppointmentId(appointmentId);
             appointment.IsApproved = !appointment.IsApproved;
             return doctorRepository.SaveUpdate();
+        }
+
+        internal IEnumerable<string> ListOfExpertise()
+        {
+            IEnumerable<Doctor> doctors = doctorRepository.ListAllDoctors();
+            HashSet<string> expertise = new HashSet<string>();
+            foreach (Doctor doctor in doctors)
+            {
+                if (!expertise.Contains(doctor.FieldOfExpertise)) expertise.Add(doctor.FieldOfExpertise);
+            }
+
+            return expertise;
         }
     }
 }

@@ -26,7 +26,10 @@ namespace ApolloAPI.Controllers.Admin
             //if (isAdmin) 
             //{
                 SystemService systemService = new SystemService();
-                systemService.InitializeSystem();
+                systemService.InitializeGameSystem();
+                systemService.InitializeScoresheet();
+                systemService.PopulateDoctors();
+                systemService.PopulateTrainers();
             //}
 
             //throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));

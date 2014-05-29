@@ -150,6 +150,7 @@
     <Compile Include="Controllers\Client\AuthController.cs" />
     <Compile Include="Controllers\Client\AvatarController.cs" />
     <Compile Include="Controllers\Client\DoctorController.cs" />
+    <Compile Include="Controllers\Client\TrainerController.cs" />
     <Compile Include="Controllers\Client\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Data\Client\Form\RegistrationForm.cs" />
     <Compile Include="Data\Client\Form\ReplyForm.cs" />
     <Compile Include="Data\Client\Form\RunForm.cs" />
+    <Compile Include="Data\Client\Form\TrainerForm.cs" />
     <Compile Include="Data\Client\Item\DoctorItem.cs" />
     <Compile Include="Data\Client\Item\iOS\HomeItem.cs" />
     <Compile Include="Data\Client\Item\AppointmentItem.cs" />
@@ -261,6 +263,7 @@
     <Compile Include="Repositories\AvatarRepository.cs" />
     <Compile Include="Repositories\DoctorRepository.cs" />
     <Compile Include="Repositories\PointRepository.cs" />
+    <Compile Include="Repositories\TrainerRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\AvatarService.cs" />
@@ -315,6 +318,7 @@
     <Content Include="ClassDiagrams\Services.cd" />
     <Content Include="ClassDiagrams\Forms.cd" />
     <Content Include="ClassDiagrams\Items.cd" />
+    <Compile Include="Data\Client\Item\TrainerItem.cs" />
     <None Include="Properties\PublishProfiles\apollo-api - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\apollo-api - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\apollo-ws - FTP.pubxml" />

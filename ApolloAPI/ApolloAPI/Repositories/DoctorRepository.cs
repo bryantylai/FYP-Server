@@ -19,8 +19,8 @@ namespace ApolloAPI.Repositories
             HashSet<Doctor> doctors = new HashSet<Doctor>();
             foreach (Credential credential in credentials)
             {
-                Person person = dbEntities.People.Single((d) => d.Id == credential.PersonId);
-                doctors.Add(person as Doctor);
+                Doctor doctor = dbEntities.People.Single((d) => d.Id == credential.PersonId) as Doctor;
+                doctors.Add(doctor);
             }
 
             return doctors;
@@ -77,6 +77,12 @@ namespace ApolloAPI.Repositories
         internal MedicalCenter GetMedicalCenterFromMedicalCenterId(Guid centerId)
         {
             return dbEntities.MedicalCenters.Single((m) => m.Id == centerId);
+        }
+
+        internal bool CreateNewMedicalCenter(MedicalCenter medicalCenter)
+        {
+            dbEntities.MedicalCenters.Add(medicalCenter);
+            return dbEntities.SaveChanges() != 0;
         }
     }
 }

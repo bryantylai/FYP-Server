@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30324.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApolloAPI", "ApolloAPI\ApolloAPI.csproj", "{F664CEE9-7366-43D2-845C-DE294A74469D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{EEC3CFD4-04F8-4F5B-B99A-4C5C7290823E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		{F664CEE9-7366-43D2-845C-DE294A74469D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F664CEE9-7366-43D2-845C-DE294A74469D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F664CEE9-7366-43D2-845C-DE294A74469D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EEC3CFD4-04F8-4F5B-B99A-4C5C7290823E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EEC3CFD4-04F8-4F5B-B99A-4C5C7290823E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EEC3CFD4-04F8-4F5B-B99A-4C5C7290823E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EEC3CFD4-04F8-4F5B-B99A-4C5C7290823E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

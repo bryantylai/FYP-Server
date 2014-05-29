@@ -27,7 +27,7 @@ namespace ApolloAPI.Repositories
 
         internal IEnumerable<Run> GetRunsFromAvatarId(Guid avatarId)
         {
-            return dbEntities.Runs.Where((r) => r.RanBy == avatarId);
+            return dbEntities.Runs.Where((r) => r.RanBy == avatarId).OrderBy((r) => r.StartTime);
         }
 
         internal Scoresheet GetScoresheet(double distance)

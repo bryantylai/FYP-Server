@@ -9,13 +9,13 @@ namespace ApolloAPI.Data
     {
         public Guid DiscussionId { get; set; }
         public string Title { get; set; }
-        public Person Creator { get; set; }
+        public string CreatorName { get; set; }
     }
 
     public class DiscussionGeneralItem : DiscussionItem
     {
         public int ReplyCount { get; set; }
-        public DateTime LastActive { get; set; }
+        public long LastActive { get; set; }
     }
 
     public class DiscussionDetailedItem : DiscussionItem
@@ -25,9 +25,9 @@ namespace ApolloAPI.Data
 
     public class ReplyItem
     {
-        public Person Responder { get; set; }
+        public string ResponderName { get; set; }
         public string Content { get; set; }
-        public DateTime RepliedAt { get; set; }
+        public long RepliedAt { get; set; }
     }
 
     public class Person

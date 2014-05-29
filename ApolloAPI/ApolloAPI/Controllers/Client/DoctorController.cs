@@ -51,67 +51,79 @@ namespace ApolloAPI.Controllers.Client
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }
 
-        [Route("appointment")]
+        [Route("expertise")]
         [HttpGet]
-        public IEnumerable<AppointmentGeneralItem> GetListOfAppointment()
+        public IEnumerable<string> GetListOfExpertise()
         {
             username = this.RequestContext.Principal.Identity.Name;
             isUser = this.RequestContext.Principal.IsInRole("User");
 
-            if (isUser) { return doctorService.ListOfAppointments(authService.GetPersonIdByUsername(username), new HashSet<AppointmentGeneralItem>()); }
+            if (isUser) { return doctorService.ListOfExpertise(); }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }
 
-        [Route("appointment")]
-        [HttpPost]
-        public ServerMessage MakeAppointmentWithDoctor([FromBody] AppointmentForm appointmentForm)
-        {
-            username = this.RequestContext.Principal.Identity.Name;
-            isUser = this.RequestContext.Principal.IsInRole("User");
+        //[Route("appointment")]
+        //[HttpGet]
+        //public IEnumerable<AppointmentGeneralItem> GetListOfAppointment()
+        //{
+        //    username = this.RequestContext.Principal.Identity.Name;
+        //    isUser = this.RequestContext.Principal.IsInRole("User");
 
-            if (isUser)
-            {
-                if (doctorService.ValidateForm(appointmentForm))
-                {
-                    if (doctorService.CreateAppointment(appointmentForm, authService.GetPersonIdByUsername(username)))
-                    {
-                        return new ServerMessage() { IsError = false };
-                    }
+        //    if (isUser) { return doctorService.ListOfAppointments(authService.GetPersonIdByUsername(username), new HashSet<AppointmentGeneralItem>()); }
 
-                    return new ServerMessage() { IsError = true, Message = "Unable to make appointment" };
-                }
+        //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        //}
 
-                return new ServerMessage() { IsError = true, Message = "There is empty fields in the Appointment form." };
-            }
+        //[Route("appointment")]
+        //[HttpPost]
+        //public ServerMessage MakeAppointmentWithDoctor([FromBody] AppointmentForm appointmentForm)
+        //{
+        //    username = this.RequestContext.Principal.Identity.Name;
+        //    isUser = this.RequestContext.Principal.IsInRole("User");
 
-            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
-        }
+        //    if (isUser)
+        //    {
+        //        if (doctorService.ValidateForm(appointmentForm))
+        //        {
+        //            if (doctorService.CreateAppointment(appointmentForm, authService.GetPersonIdByUsername(username)))
+        //            {
+        //                return new ServerMessage() { IsError = false };
+        //            }
 
-        [Route("appointment")]
-        [HttpPut]
-        public ServerMessage RescheduleAppointmentWithDoctor([FromBody] RescheduleAppointmentForm rescheduleAppointmentForm)
-        {
-            username = this.RequestContext.Principal.Identity.Name;
-            isUser = this.RequestContext.Principal.IsInRole("User");
+        //            return new ServerMessage() { IsError = true, Message = "Unable to make appointment" };
+        //        }
 
-            if (isUser)
-            {
-                if (doctorService.ValidateForm(rescheduleAppointmentForm))
-                {
-                    if (doctorService.RescheduleAppointment(rescheduleAppointmentForm, authService.GetPersonIdByUsername(username)))
-                    {
-                        return new ServerMessage() { IsError = false };
-                    }
+        //        return new ServerMessage() { IsError = true, Message = "There is empty fields in the Appointment form." };
+        //    }
 
-                    return new ServerMessage() { IsError = true, Message = "Unable to reschedule appointment" };
-                }
+        //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        //}
 
-                return new ServerMessage() { IsError = true, Message = "There is empty fields in the Appointment form." };
-            }
+        //[Route("appointment")]
+        //[HttpPut]
+        //public ServerMessage RescheduleAppointmentWithDoctor([FromBody] RescheduleAppointmentForm rescheduleAppointmentForm)
+        //{
+        //    username = this.RequestContext.Principal.Identity.Name;
+        //    isUser = this.RequestContext.Principal.IsInRole("User");
 
-            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
-        }
+        //    if (isUser)
+        //    {
+        //        if (doctorService.ValidateForm(rescheduleAppointmentForm))
+        //        {
+        //            if (doctorService.RescheduleAppointment(rescheduleAppointmentForm, authService.GetPersonIdByUsername(username)))
+        //            {
+        //                return new ServerMessage() { IsError = false };
+        //            }
+
+        //            return new ServerMessage() { IsError = true, Message = "Unable to reschedule appointment" };
+        //        }
+
+        //        return new ServerMessage() { IsError = true, Message = "There is empty fields in the Appointment form." };
+        //    }
+
+        //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        //}
 
 
         [Route("discussion")]
@@ -122,6 +134,27 @@ namespace ApolloAPI.Controllers.Client
             isUser = this.RequestContext.Principal.IsInRole("User");
 
             if (isUser) { return doctorService.ListOfDiscussions(authService.GetPersonIdByUsername(username), new HashSet<DiscussionGeneralItem>()); }
+
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        }
+
+        [Route("discussion/{id}")]
+        [HttpGet]
+        public DiscussionDetailedItem GetListOfDiscussion(string id)
+        {
+            username = this.RequestContext.Principal.Identity.Name;
+            isUser = this.RequestContext.Principal.IsInRole("User");
+
+            if (isUser)
+            {
+                Guid discussionId;
+                if (Guid.TryParse(id, out discussionId))
+                {
+                    return doctorService.GetDiscussionByDiscussionId(discussionId);
+                }
+
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }

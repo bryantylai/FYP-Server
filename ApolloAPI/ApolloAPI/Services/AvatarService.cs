@@ -66,7 +66,7 @@ namespace ApolloAPI.Services
                 Name = avatar.Name,
                 ProfileImage = avatar.ProfileImage,
                 Level = avatar.Level,
-                Experience = (gameSystem.Points - avatar.Points) * 0.01,
+                Experience = (gameSystem.Points - avatar.Points) * 0.1,
                 All = allRunItems,
                 Month = monthRunItems,
                 Week = weekRunItems,

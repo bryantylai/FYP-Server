@@ -24,12 +24,18 @@ namespace ApolloAPI.Repositories
         {
             Credential credential = dbEntities.Credentials.Single((c) => c.PersonId == userId);
             credential.LastLogin = now;
-            return SaveUpdate();
+            return dbEntities.SaveChanges() != 0;
         }
 
         internal Address GetAddressByAddressId(Guid addressId)
         {
             return dbEntities.Addresses.Single((a) => a.Id == addressId);
+        }
+
+        internal bool CreateNewAddress(Address address)
+        {
+            dbEntities.Addresses.Add(address);
+            return dbEntities.SaveChanges() != 0;
         }
     }
 }
