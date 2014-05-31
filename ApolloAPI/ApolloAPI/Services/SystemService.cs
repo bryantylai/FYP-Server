@@ -49,7 +49,7 @@ namespace ApolloAPI.Services
             {
                 HashSet<Scoresheet> scoresheets = new HashSet<Scoresheet>();
 
-                for (int index = 1; index <= 100; index++)
+                for (int index = 0; index <= 100; index++)
                 {
                     scoresheets.Add(new Scoresheet()
                     {
@@ -112,8 +112,8 @@ namespace ApolloAPI.Services
                 {
                     Id = Guid.NewGuid(),
                     PersonId = doctor.Id,
-                    CreatedAt = DateTime.Now,
-                    LastLogin = DateTime.Now,
+                    CreatedAt = DateTime.UtcNow,
+                    LastLogin = DateTime.UtcNow,
                     Role = Role.Doctor,
                     Email = (fname[index] + lname[index]).ToLower() + "@gmail.com",
                     Username = (fname[index] + lname[index]).ToLower(),
@@ -173,8 +173,8 @@ namespace ApolloAPI.Services
                 {
                     Id = Guid.NewGuid(),
                     PersonId = trainer.Id,
-                    CreatedAt = DateTime.Now,
-                    LastLogin = DateTime.Now,
+                    CreatedAt = DateTime.UtcNow,
+                    LastLogin = DateTime.UtcNow,
                     Role = Role.Trainer,
                     Email = (fname[index] + lname[index]).ToLower() + "@gmail.com",
                     Username = (fname[index] + lname[index]).ToLower(),

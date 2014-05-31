@@ -37,6 +37,30 @@ namespace ApolloAPI.Controllers.Client
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }
 
+        [Route("windows/profile")]
+        [HttpGet]
+        public AvatarProfileItemWindows GetAvatarProfileWindows()
+        {
+            username = this.RequestContext.Principal.Identity.Name;
+            isUser = this.RequestContext.Principal.IsInRole("User");
+
+            if (isUser) { return avatarService.GetProfileWindows(authService.GetPersonIdByUsername(username)); }
+
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        }
+
+        [Route("windows/history")]
+        [HttpGet]
+        public AvatarHistoryItemWindows GetAvatarHistoryWindows()
+        {
+            username = this.RequestContext.Principal.Identity.Name;
+            isUser = this.RequestContext.Principal.IsInRole("User");
+
+            if (isUser) { return avatarService.GetHistoryWindows(authService.GetPersonIdByUsername(username)); }
+
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        }
+
         [Route("leaderboard")]
         [HttpGet]
         public IEnumerable<LeaderboardItem> GetAvatarLeaderboard()
@@ -55,9 +79,9 @@ namespace ApolloAPI.Controllers.Client
         {
             RunForm runForm = new RunForm()
             {
-                Distance = 100.00,
-                StartTime = DateTime.Now.Ticks,
-                EndTime = DateTime.Now.Ticks
+                Distance = 200.00,
+                StartTime = DateTime.UtcNow.Ticks,
+                EndTime = DateTime.UtcNow.Ticks
             };
 
             username = this.RequestContext.Principal.Identity.Name;

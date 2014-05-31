@@ -41,21 +41,20 @@ namespace ApolloAPI.Services
 
                 allRunItems.Add(runItem);
 
-                if (run.StartTime.Month == DateTime.Now.Month)
+                if (run.StartTime.Month == DateTime.UtcNow.Month)
                 {
                     monthRunItems.Add(runItem);
                 }
 
-                if (run.StartTime.DayOfYear + 7 > DateTime.Now.DayOfYear)
+                if (run.StartTime.DayOfYear + 7 > DateTime.UtcNow.DayOfYear)
                 {
                     weekRunItems.Add(runItem);
                 }
 
-                if (run.StartTime.DayOfYear == DateTime.Today.DayOfYear)
+                if (run.StartTime.DayOfYear == DateTime.UtcNow.DayOfYear)
                 {
                     todayRunItems.Add(runItem);
                 }
-
             }
 
             GameSystem gameSystem = avatarRepository.GetGameSystem(avatar.Points);
@@ -76,8 +75,23 @@ namespace ApolloAPI.Services
 
         internal IEnumerable<LeaderboardItem> GetLeaderboard(Guid userId)
         {
-            Avatar avatar = avatarRepository.GetAvatarFromUserId(userId);
-            return new LinkedList<LeaderboardItem>();
+            Avatar selfAvatar = avatarRepository.GetAvatarFromUserId(userId);
+            IEnumerable<Avatar> avatars = avatarRepository.GetAvatarsWithinPointRange(selfAvatar.Points);
+            HashSet<LeaderboardItem> leaderboard = new HashSet<LeaderboardItem>();
+            
+            foreach (Avatar avatar in avatars)
+            {
+                leaderboard.Add(new LeaderboardItem()
+                    {
+                        IsSelf = avatar.Id == selfAvatar.Id,
+                        PlayerId = avatar.Owner,
+                        Point = avatar.Points,
+                        PlayerProfileImage = avatar.ProfileImage,
+                        PlayerName = avatar.Name                        
+                    });
+            }
+
+            return leaderboard;
         }
 
         internal bool ValidateForm(RunForm runForm)
@@ -124,6 +138,78 @@ namespace ApolloAPI.Services
                     Message = "Unable to update run"
                 };
             }
+        }
+
+        internal AvatarProfileItemWindows GetProfileWindows(Guid userId)
+        {
+            Avatar avatar = avatarRepository.GetAvatarFromUserId(userId);
+            GameSystem gameSystem = avatarRepository.GetGameSystem(avatar.Points);
+            IEnumerable<Run> allRuns = avatarRepository.GetRunsFromAvatarId(avatar.Id);
+            double totalDistance = 0.0;
+            long totalTime = 0;
+            
+            foreach (Run run in allRuns)
+            {
+                totalDistance += run.Distance;
+                totalTime += (run.EndTime - run.StartTime).Ticks;
+            }
+
+            return new AvatarProfileItemWindows()
+            {
+                Name = avatar.Name,
+                Level = avatar.Level,
+                Experience = (gameSystem.Points - avatar.Points) * 0.1,
+                Duration = totalTime,
+                Distance = totalDistance
+            };
+        }
+
+        internal AvatarHistoryItemWindows GetHistoryWindows(Guid userId)
+        {
+            Avatar avatar = avatarRepository.GetAvatarFromUserId(userId);
+            IEnumerable<Run> allRuns = avatarRepository.GetRunsFromAvatarId(avatar.Id);
+            HashSet<RunItem> yearRunItems = new HashSet<RunItem>();
+            HashSet<RunItem> monthRunItems = new HashSet<RunItem>();
+            HashSet<RunItem> weekRunItems = new HashSet<RunItem>();
+            HashSet<RunItem> todayRunItems = new HashSet<RunItem>();
+
+            foreach (Run run in allRuns)
+            {
+                RunItem runItem = new RunItem()
+                {
+                    RunDate = run.StartTime.Ticks,
+                    Duration = (run.EndTime - run.StartTime).Ticks,
+                    Distance = run.Distance
+                };
+
+                if (run.StartTime.Year == DateTime.UtcNow.Year)
+                {
+                    yearRunItems.Add(runItem);
+                }
+
+                if (run.StartTime.Month == DateTime.UtcNow.Month)
+                {
+                    monthRunItems.Add(runItem);
+                }
+
+                if (run.StartTime.DayOfYear + 7 > DateTime.UtcNow.DayOfYear)
+                {
+                    weekRunItems.Add(runItem);
+                }
+
+                if (run.StartTime.DayOfYear == DateTime.UtcNow.DayOfYear)
+                {
+                    todayRunItems.Add(runItem);
+                }
+            }
+
+            return new AvatarHistoryItemWindows()
+            {
+                Day = todayRunItems,
+                Week = weekRunItems,
+                Month = monthRunItems,
+                Year = yearRunItems
+            };
         }
     }
 }

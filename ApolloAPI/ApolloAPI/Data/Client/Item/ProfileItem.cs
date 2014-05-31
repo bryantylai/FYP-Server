@@ -35,6 +35,23 @@ namespace ApolloAPI.Data.Client.Item
         public IEnumerable<RunItem> Day { get; set; }
     }
 
+    public class AvatarProfileItemWindows
+    {
+        public string Name { get; set; }
+        public int Level { get; set; }
+        public double Experience { get; set; }
+        public long Duration { get; set; }
+        public double Distance { get; set; }
+    }
+
+    public class AvatarHistoryItemWindows
+    {
+        public IEnumerable<RunItem> Year { get; set; }
+        public IEnumerable<RunItem> Month { get; set; }
+        public IEnumerable<RunItem> Week { get; set; }
+        public IEnumerable<RunItem> Day { get; set; }
+    }
+
     public class RunItem
     {
         public long RunDate { get; set; }

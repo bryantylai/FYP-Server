@@ -46,5 +46,10 @@ namespace ApolloAPI.Repositories
         //    gameSystems = dbEntities.GameSystems.Where((g) => g.Points > points);
         //    return gameSystems.OrderBy((g) => g.Points).First();
         //}
+
+        internal IEnumerable<Avatar> GetAvatarsWithinPointRange(int points)
+        {
+            return dbEntities.Avatars.Where((a) => (a.Points + 1000) > points).Union(dbEntities.Avatars.Where((a) => (a.Points - 1000) < points));
+        }
     }
 }
