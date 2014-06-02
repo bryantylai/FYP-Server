@@ -28,23 +28,6 @@ namespace ApolloAPI.Controllers.Client
             doctorService = new DoctorService();
         }
 
-        [Route("all")]
-        [HttpGet]
-        public IEnumerable<Person> GetEveryone()
-        {
-            IEnumerable<Person> people = new DoctorRepository().GetEveryone();
-            HashSet<Doctor> doctors = new HashSet<Doctor>();
-            foreach (Person person in people)
-            {
-                if(person.GetType() == typeof(Doctor))
-                {
-                    doctors.Add(person as Doctor);
-                }
-            }
-
-            return doctors;
-        }
-
         [Route("fetch-all")]
         [HttpGet]
         public IEnumerable<DoctorItem> GetListOfDoctors()

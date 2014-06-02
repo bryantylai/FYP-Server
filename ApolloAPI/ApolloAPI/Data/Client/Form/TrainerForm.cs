@@ -8,6 +8,7 @@ namespace ApolloAPI.Data.Client.Form
 {
     public class TrainerForm
     {
+        public string Expertise { get; set; }
         public Coordinate Location { get; set; }
     }
 }

@@ -25,6 +25,18 @@ namespace ApolloAPI.Controllers.Client
         }
 
         [Route("fetch-all")]
+        [HttpGet]
+        public IEnumerable<TrainerItem> GetListOfTrainers()
+        {
+            username = this.RequestContext.Principal.Identity.Name;
+            isUser = this.RequestContext.Principal.IsInRole("User");
+
+            if (isUser) { return trainerService.ListOfTrainers(); }
+
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        }
+
+        [Route("fetch-all")]
         [HttpPost]
         public IEnumerable<TrainerItem> GetListOfTrainers(TrainerForm trainerForm)
         {

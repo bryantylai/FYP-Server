@@ -22,6 +22,7 @@ namespace ApolloAPI.Services
         internal IEnumerable<TrainerItem> ListOfTrainers(TrainerForm trainerForm)
         {
             IEnumerable<Trainer> trainers = trainerRepository.ListAllTrainers();
+            trainers = trainers.Where((d) => String.Equals(d.FieldOfExpertise, trainerForm.Expertise, StringComparison.OrdinalIgnoreCase));
             HashSet<TrainerItem> trainerItems = new HashSet<TrainerItem>();
 
             foreach (Trainer trainer in trainers)
@@ -43,6 +44,28 @@ namespace ApolloAPI.Services
                     GymName = gym.Name,
                     Phone = gym.Phone,
                     DistanceFromUser = totalDistance
+                });
+            }
+
+            return trainerItems.OrderBy((t) => t.DistanceFromUser);
+        }
+
+        internal IEnumerable<TrainerItem> ListOfTrainers()
+        {
+            IEnumerable<Trainer> trainers = trainerRepository.ListAllTrainers();
+            HashSet<TrainerItem> trainerItems = new HashSet<TrainerItem>();
+
+            foreach (Trainer trainer in trainers)
+            {
+                Gym gym = trainerRepository.GetGymByGymId(trainer.GymId);
+
+                trainerItems.Add(new TrainerItem()
+                {
+                    TrainerId = trainer.Id,
+                    Name = trainer.FirstName + ", " + trainer.LastName,
+                    Expertise = trainer.FieldOfExpertise,
+                    GymName = gym.Name,
+                    Phone = gym.Phone
                 });
             }
 
