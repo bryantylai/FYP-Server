@@ -150,12 +150,14 @@
     <Compile Include="Controllers\Client\AuthController.cs" />
     <Compile Include="Controllers\Client\AvatarController.cs" />
     <Compile Include="Controllers\Client\DoctorController.cs" />
+    <Compile Include="Controllers\Client\DoctorTrainerController.cs" />
     <Compile Include="Controllers\Client\TrainerController.cs" />
     <Compile Include="Controllers\Client\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Data\Client\Form\DoctorFilterForm.cs" />
+    <Compile Include="Data\Client\Form\DoctorTrainerForm.cs" />
     <Compile Include="Data\Client\Form\LoginForm.cs" />
     <Compile Include="Data\Client\Form\RegistrationForm.cs" />
     <Compile Include="Data\Client\Form\ReplyForm.cs" />
@@ -164,6 +166,7 @@
     <Compile Include="Data\Client\Item\DoctorItem.cs" />
     <Compile Include="Data\Client\Item\iOS\HomeItem.cs" />
     <Compile Include="Data\Client\Item\AppointmentItem.cs" />
+    <Compile Include="Data\Client\Item\PeopleItem.cs" />
     <Compile Include="Data\DiscussionItem.cs" />
     <Compile Include="Data\Client\Item\LeaderboardItem.cs" />
     <Compile Include="Data\Client\Item\ProfileItem.cs" />

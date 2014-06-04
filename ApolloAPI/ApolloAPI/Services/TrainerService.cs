@@ -41,9 +41,10 @@ namespace ApolloAPI.Services
                     TrainerId = trainer.Id,
                     Name = trainer.FirstName + ", " + trainer.LastName,
                     Expertise = trainer.FieldOfExpertise,
-                    GymName = gym.Name,
+                    LocationName  = gym.Name,
                     Phone = gym.Phone,
-                    DistanceFromUser = totalDistance
+                    DistanceFromUser = totalDistance,
+                    ProfileImage = trainer.ProfileImage
                 });
             }
 
@@ -64,8 +65,9 @@ namespace ApolloAPI.Services
                     TrainerId = trainer.Id,
                     Name = trainer.FirstName + ", " + trainer.LastName,
                     Expertise = trainer.FieldOfExpertise,
-                    GymName = gym.Name,
-                    Phone = gym.Phone
+                    LocationName  = gym.Name,
+                    Phone = gym.Phone,
+                    ProfileImage = trainer.ProfileImage
                 });
             }
 

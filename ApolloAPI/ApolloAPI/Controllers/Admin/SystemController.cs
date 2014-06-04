@@ -34,5 +34,13 @@ namespace ApolloAPI.Controllers.Admin
 
             //throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
         }
+
+        [Route("update-image")]
+        [HttpGet]
+        public void UpdateProfileImage()
+        {
+            SystemService systemService = new SystemService(); 
+            systemService.UpdateImage();
+        }
     }
 }

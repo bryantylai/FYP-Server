@@ -81,17 +81,19 @@ namespace ApolloAPI.Services
             
             foreach (Avatar avatar in avatars)
             {
+                User user = new UserRepository().GetUserByUserId(avatar.Owner);
+
                 leaderboard.Add(new LeaderboardItem()
                     {
                         IsSelf = avatar.Id == selfAvatar.Id,
-                        PlayerId = avatar.Owner,
+                        //PlayerId = avatar.Owner,
                         Point = avatar.Points,
-                        PlayerProfileImage = avatar.ProfileImage,
+                        PlayerProfileImage = user.ProfileImage,
                         PlayerName = avatar.Name                        
                     });
             }
 
-            return leaderboard;
+            return leaderboard.OrderByDescending((l) => l.Point);
         }
 
         internal bool ValidateForm(RunForm runForm)

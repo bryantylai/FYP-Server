@@ -54,8 +54,9 @@ namespace ApolloAPI.Services
                         DoctorId = doctor.Id,
                         Name = doctor.FirstName + ", " + doctor.LastName,
                         Expertise = doctor.FieldOfExpertise,
-                        CenterName = medCenter.Name,
+                        LocationName  = medCenter.Name,
                         Phone = medCenter.Phone,
+                        ProfileImage = doctor.ProfileImage
                     });
                 }
             }
@@ -66,33 +67,56 @@ namespace ApolloAPI.Services
         internal IEnumerable<FilteredDoctorItem> ListOfDoctors(DoctorFilterForm doctorFilterForm)
         {
             IEnumerable<Doctor> doctors = doctorRepository.ListAllDoctors();
-            doctors = doctors.Where((d) => String.Equals(d.FieldOfExpertise, doctorFilterForm.Expertise, StringComparison.OrdinalIgnoreCase));
+            if (!String.IsNullOrWhiteSpace(doctorFilterForm.Expertise))
+            {
+                doctors = doctors.Where((d) => String.Equals(d.FieldOfExpertise, doctorFilterForm.Expertise, StringComparison.OrdinalIgnoreCase));
+            }            
 
             HashSet<FilteredDoctorItem> doctorList = new HashSet<FilteredDoctorItem>();
 
             foreach (Doctor doctor in doctors)
             {
-                MedicalCenter medCenter = doctorRepository.GetMedicalCenterFromMedicalCenterId(doctor.MedicalCenterId);                
+                MedicalCenter medCenter = doctorRepository.GetMedicalCenterFromMedicalCenterId(doctor.MedicalCenterId);
                 Address address = doctorRepository.GetAddressByAddressId(medCenter.AddressId);
 
-                DbGeography medCenterLocation = DbGeography.FromText(string.Format("POINT ({1} {0})", address.Coordinate.Latitude, address.Coordinate.Longitude));
-                DbGeography userLocation = DbGeography.FromText(string.Format("POINT ({1} {0})", doctorFilterForm.Location.Latitude, doctorFilterForm.Location.Longitude));
-
-                double? nullableDistance = medCenterLocation.Distance(userLocation);
-                double totalDistance = nullableDistance.HasValue ? nullableDistance.Value : 0.0D;
-
-                doctorList.Add(new FilteredDoctorItem()
+                if (doctorFilterForm.Location != null)
                 {
-                    DoctorId = doctor.Id,
-                    Name = doctor.FirstName + ", " + doctor.LastName,
-                    Expertise = doctor.FieldOfExpertise,
-                    DistanceFromUser = totalDistance,
-                    CenterName = medCenter.Name,
-                    Phone = medCenter.Phone
-                });
+                    DbGeography medCenterLocation = DbGeography.FromText(string.Format("POINT ({1} {0})", address.Coordinate.Latitude, address.Coordinate.Longitude));
+                    DbGeography userLocation = DbGeography.FromText(string.Format("POINT ({1} {0})", doctorFilterForm.Location.Latitude, doctorFilterForm.Location.Longitude));
+
+                    double? nullableDistance = medCenterLocation.Distance(userLocation);
+                    double totalDistance = nullableDistance.HasValue ? nullableDistance.Value : 0.0D;
+
+                    doctorList.Add(new FilteredDoctorItem()
+                    {
+                        DoctorId = doctor.Id,
+                        Name = doctor.FirstName + ", " + doctor.LastName,
+                        Expertise = doctor.FieldOfExpertise,
+                        DistanceFromUser = totalDistance,
+                        LocationName  = medCenter.Name,
+                        ProfileImage = doctor.ProfileImage,
+                        Phone = medCenter.Phone
+                    });
+                }
+                else
+                {
+
+                    doctorList.Add(new FilteredDoctorItem()
+                    {
+                        DoctorId = doctor.Id,
+                        Name = doctor.FirstName + ", " + doctor.LastName,
+                        Expertise = doctor.FieldOfExpertise,
+                        LocationName = medCenter.Name,
+                        ProfileImage = doctor.ProfileImage,
+                        Phone = medCenter.Phone
+                    });
+                }
             }
 
-            return doctorList.OrderBy((d) => d.DistanceFromUser);
+            if (doctorFilterForm.Location != null)
+                return doctorList.OrderBy((d) => d.DistanceFromUser);
+            else 
+                return doctorList;
         }
 
         internal IEnumerable<ApolloAPI.Data.Client.Item.AppointmentGeneralItem> ListOfAppointments(Guid userId, HashSet<ApolloAPI.Data.Client.Item.AppointmentGeneralItem> appointmentList)
@@ -152,10 +176,20 @@ namespace ApolloAPI.Services
                 {
                     DiscussionId = discussion.Id,
                     Title = discussion.Title,
-                    ReplyCount = replies.Count(),
-                    CreatorName = user.FirstName + ", " + user.LastName,
-                    LastActive = replies.OrderBy((r) => r.RepliedAt).Last().RepliedAt.Ticks
+                    //ReplyCount = replies.Count(),
+                    CreatorName = user.FirstName + ", " + user.LastName
                 };
+
+                discussionGeneralItem.LastActive = discussion.CreatedAt.Ticks;
+                //if (replies.Count() != 0)
+                //{
+                //    discussionGeneralItem.ReplyCount = replies.Count();
+                //    discussionGeneralItem.LastActive = replies.OrderBy((r) => r.RepliedAt).Last().RepliedAt.Ticks;
+                //}
+                //else
+                //{
+                //    discussionGeneralItem.LastActive = discussion.CreatedAt.Ticks;
+                //}
 
                 discussionList.Add(discussionGeneralItem);  
             }
@@ -247,14 +281,14 @@ namespace ApolloAPI.Services
             };
         }
 
-        internal bool ReplyDiscussion(ApolloAPI.Data.Doctors.Form.ReplyForm replyForm, Guid doctorId)
+        internal bool ReplyDiscussion(ApolloAPI.Data.Client.Form.ReplyForm replyForm, Guid userId)
         {
             Reply reply = new Reply()
             {
                 Id = Guid.NewGuid(),
                 DiscussionId = replyForm.DiscussionId,
                 Content = replyForm.Content,
-                RepliedBy = doctorId,
+                RepliedBy = userId,
                 RepliedAt = DateTime.UtcNow
             };
 

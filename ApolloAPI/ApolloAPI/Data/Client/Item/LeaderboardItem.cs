@@ -7,7 +7,6 @@ namespace ApolloAPI.Data.Client.Item
 {
     public class LeaderboardItem
     {
-        public Guid PlayerId { get; set; }
         public string PlayerProfileImage { get; set; }
         public string PlayerName { get; set; }
         public int Point { get; set; }

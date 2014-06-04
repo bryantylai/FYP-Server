@@ -10,7 +10,8 @@ namespace ApolloAPI.Data.Client.Item
         public Guid TrainerId { get; set; }
         public string Name { get; set; }
         public string Expertise { get; set; }
-        public string GymName { get; set; }
+        public string LocationName  { get; set; }
+        public string ProfileImage{ get;set;}
         public string Phone { get; set; }
         public double DistanceFromUser { get; set; }
     }

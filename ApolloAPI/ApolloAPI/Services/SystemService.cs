@@ -103,7 +103,7 @@ namespace ApolloAPI.Services
                     LastName = lname[index],
                     FieldOfExpertise = foe[index],
                     Gender = Gender.Male,
-                    ProfileImage = "",
+                    ProfileImage = "https://s3-ap-southeast-1.amazonaws.com/apollo-fyp/doctor/profilepic.jpg",
                     DateOfBirth = new DateTime(1976, 5, 9),
                     Phone = phone
                 };
@@ -164,7 +164,7 @@ namespace ApolloAPI.Services
                     LastName = lname[index],
                     FieldOfExpertise = foe[index],
                     Gender = Gender.Male,
-                    ProfileImage = "",
+                    ProfileImage = "https://s3-ap-southeast-1.amazonaws.com/apollo-fyp/trainer/profilepic.jpg",
                     DateOfBirth = new DateTime(1976, 5, 9),
                     Phone = phone
                 };
@@ -183,6 +183,18 @@ namespace ApolloAPI.Services
 
                 authRepository.CreateNewTrainer(trainer, credential);
             }
+        }
+
+        internal void UpdateImage()
+        {
+            IEnumerable<Doctor> doctors = doctorRepository.ListAllDoctors();
+            IEnumerable<Trainer> trainers = trainerRepository.ListAllTrainers();
+
+            foreach (Doctor doc in doctors) doc.ProfileImage = "https://s3-ap-southeast-1.amazonaws.com/apollo-fyp/doctor/profilepic.jpg";
+            foreach (Trainer trainer in trainers) trainer.ProfileImage = "https://s3-ap-southeast-1.amazonaws.com/apollo-fyp/trainer/profilepic.jpg";
+
+            doctorRepository.SaveUpdate();
+            trainerRepository.SaveUpdate();
         }
     }
 }

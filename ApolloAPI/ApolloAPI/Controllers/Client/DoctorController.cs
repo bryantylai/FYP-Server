@@ -27,7 +27,7 @@ namespace ApolloAPI.Controllers.Client
         {
             doctorService = new DoctorService();
         }
-
+        
         [Route("fetch-all")]
         [HttpGet]
         public IEnumerable<DoctorItem> GetListOfDoctors()
@@ -141,7 +141,7 @@ namespace ApolloAPI.Controllers.Client
 
         [Route("discussion/{id}")]
         [HttpGet]
-        public DiscussionDetailedItem GetListOfDiscussion(string id)
+        public DiscussionDetailedItem GetDetailedDiscussion(string id)
         {
             username = this.RequestContext.Principal.Identity.Name;
             isUser = this.RequestContext.Principal.IsInRole("User");
@@ -155,6 +155,37 @@ namespace ApolloAPI.Controllers.Client
                 }
 
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
+
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        }
+
+        [Route("discussion/test")]
+        [HttpGet]
+        public ServerMessage CreateNewDiscussion()
+        {
+            DiscussionForm discussionForm = new DiscussionForm()
+            {
+                Title = "Sick",
+                Content = "I'm sick"
+            };
+
+            username = this.RequestContext.Principal.Identity.Name;
+            isUser = this.RequestContext.Principal.IsInRole("User");
+
+            if (isUser)
+            {
+                if (doctorService.ValidateForm(discussionForm))
+                {
+                    if (doctorService.CreateDiscussion(discussionForm, authService.GetPersonIdByUsername(username)))
+                    {
+                        return new ServerMessage() { IsError = false };
+                    }
+
+                    return new ServerMessage() { IsError = true, Message = "Unable to create discussion" };
+                }
+
+                return new ServerMessage() { IsError = true, Message = "There is empty fields in the Discussion form." };
             }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
@@ -180,6 +211,28 @@ namespace ApolloAPI.Controllers.Client
                 }
 
                 return new ServerMessage() { IsError = true, Message = "There is empty fields in the Discussion form." };
+            }
+
+            throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));
+        }
+
+        [Route("discussion/reply")]
+        [HttpPost]
+        public ServerMessage ReplyToDiscussion([FromBody] ReplyForm replyForm)
+        {
+            username = this.RequestContext.Principal.Identity.Name;
+            isUser = this.RequestContext.Principal.IsInRole("User");
+
+            if (isUser)
+            {
+                if (doctorService.ReplyDiscussion(replyForm, authService.GetPersonIdByUsername(username)))
+                {
+                    return new ServerMessage() { IsError = false };
+                }
+                else
+                {
+                    return new ServerMessage() { IsError = true, Message = "Unable to reply to discussion" };
+                }
             }
 
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Forbidden));

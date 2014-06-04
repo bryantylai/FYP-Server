@@ -10,7 +10,19 @@ namespace ApolloAPI.Repositories
     {
         public User GetUserByUserId(Guid userId)
         {
-            return dbEntities.People.Single((u) => u.Id == userId) as User;
+            IEnumerable<Person> people = GetEveryone();
+            foreach (Person person in people)
+            {
+                if (person.GetType() == typeof(User))
+                {
+                    if (person.Id == userId)
+                    {
+                        return person as User;
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }
